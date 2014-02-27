@@ -10,7 +10,7 @@ namespace Copernicus
     /// <summary>
     /// HTTP Application class
     /// </summary>
-    public class MvcApplication : Batman.MVC.BaseClasses.HttpApplicationBase
+    public class MvcApplication : Ironman.Core.BaseClasses.HttpApplicationBase
     {
         /// <summary>
         /// Application start
