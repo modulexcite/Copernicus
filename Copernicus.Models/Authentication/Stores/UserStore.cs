@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -27,6 +26,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Utilities.DataTypes;
 using Utilities.DataTypes.Patterns.BaseClasses;
 
 namespace Copernicus.Models.Authentication.Stores
@@ -34,7 +35,7 @@ namespace Copernicus.Models.Authentication.Stores
     /// <summary>
     /// User store
     /// </summary>
-    public class UserStore : SafeDisposableBaseClass, IUserStore<User, long>, IUserLoginStore<User, long>, IUserPasswordStore<User, long>, IUserSecurityStampStore<User, long>, IUserTwoFactorStore<User, long>, IUserClaimStore<User, long>, IUserEmailStore<User, long>, IUserPhoneNumberStore<User, long>, IUserRoleStore<User, long>, IUserTokenProvider<User, long>
+    public class UserStore : SafeDisposableBaseClass, IUserStore<User, long>, IUserLoginStore<User, long>, IUserPasswordStore<User, long>, IUserSecurityStampStore<User, long>, IUserTwoFactorStore<User, long>, IUserClaimStore<User, long>, IUserEmailStore<User, long>, IUserPhoneNumberStore<User, long>, IUserRoleStore<User, long>
     {
         /// <summary>
         /// Constructor
@@ -49,9 +50,23 @@ namespace Copernicus.Models.Authentication.Stores
         /// <param name="user">User object</param>
         /// <param name="claim">Claim information</param>
         /// <returns></returns>
-        public Task AddClaimAsync(User user, Claim claim)
+        public virtual Task AddClaimAsync(User user, Claim claim)
         {
-            claim.
+            if (user == null) throw new ArgumentNullException("user");
+            if (claim == null) throw new ArgumentNullException("claim");
+            return Task.Factory.StartNew(() =>
+            {
+                UserClaim Claim = new UserClaim()
+                {
+                    Issuer = claim.Issuer,
+                    OriginalIssuer = claim.OriginalIssuer,
+                    Type = claim.Type,
+                    ValueType = claim.ValueType,
+                    Value = claim.Value
+                };
+                Claim.Users.Add(user);
+                Claim.Save();
+            });
         }
 
         /// <summary>
@@ -62,8 +77,8 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task AddLoginAsync(User user, UserLoginInfo login)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
-            Contract.Requires<ArgumentNullException>(login != null, "login");
+            if (user == null) throw new ArgumentNullException("user");
+            if (login == null) throw new ArgumentNullException("login");
             return Task.Factory.StartNew(() =>
             {
                 ExternalLogin Login = new ExternalLogin();
@@ -74,9 +89,27 @@ namespace Copernicus.Models.Authentication.Stores
             });
         }
 
-        public Task AddToRoleAsync(User user, string roleName)
+        /// <summary>
+        /// Adds a user to a role
+        /// </summary>
+        /// <param name="user">User to add</param>
+        /// <param name="roleName">Role name</param>
+        /// <returns>Task</returns>
+        public virtual Task AddToRoleAsync(User user, string roleName)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
+            return Task.Factory.StartNew(() =>
+            {
+                Role TempRole = Role.Load(roleName).Check(() =>
+                {
+                    Role NewRole = new Role() { Name = roleName };
+                    NewRole.Save();
+                    return NewRole;
+                });
+                user.Roles.Add(TempRole);
+                user.Save();
+            });
         }
 
         /// <summary>
@@ -86,7 +119,7 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task CreateAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.Factory.StartNew(() =>
             {
                 user.Save();
@@ -100,7 +133,7 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task DeleteAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.Factory.StartNew(() =>
             {
                 user.Delete();
@@ -114,39 +147,38 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>The user specified</returns>
         public virtual Task<User> FindAsync(UserLoginInfo login)
         {
-            Contract.Requires<ArgumentNullException>(login != null, "login");
+            if (login == null) throw new ArgumentNullException("login");
             return Task.Factory.StartNew(() =>
             {
                 return ExternalLogin.Load(login.LoginProvider, login.ProviderKey).User;
             });
         }
 
-        public Task<User> FindByEmailAsync(string email)
+        /// <summary>
+        /// Finds a user based on their email address
+        /// </summary>
+        /// <param name="email">Email address</param>
+        /// <returns>The user associated with the email address</returns>
+        public virtual Task<User> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
+            return Task.Factory.StartNew(() =>
+            {
+                return User.LoadByEmail(email);
+            });
         }
 
         /// <summary>
-        /// Finds a user by the ID
+        /// Finds a user by their ID
         /// </summary>
         /// <param name="userId">User ID</param>
-        /// <returns>User associated with the ID</returns>
-        public virtual Task<User> FindByIdAsync(string userId)
+        /// <returns>The user specified</returns>
+        public virtual Task<User> FindByIdAsync(long userId)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(userId), "userId");
-            long ID = 0;
-            if (!long.TryParse(userId, out ID))
-                throw new ArgumentException("userId is not the correct type");
-
             return Task.Factory.StartNew(() =>
             {
                 return User.Load(userId);
             });
-        }
-
-        public Task<User> FindByIdAsync(long userId)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -156,31 +188,47 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>User associated with the name</returns>
         public virtual Task<User> FindByNameAsync(string userName)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(userName), "userName");
+            if (string.IsNullOrEmpty(userName)) throw new ArgumentNullException("userName");
             return Task.Factory.StartNew(() =>
             {
                 return User.Load(userName);
             });
         }
 
-        public Task<string> GenerateAsync(string purpose, UserManager<User, long> manager, User user)
+        /// <summary>
+        /// Gets claims for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>The claims associated with the user</returns>
+        public virtual Task<IList<Claim>> GetClaimsAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.Factory.StartNew(() =>
+            {
+                return (IList<Claim>)user.Claims.Select(x => new Claim(x.Type, x.Value, x.ValueType, x.Issuer, x.OriginalIssuer)).ToList();
+            });
         }
 
-        public Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(User user)
+        /// <summary>
+        /// Gets the email address for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>The email address for the user</returns>
+        public virtual Task<string> GetEmailAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult(user.Email);
         }
 
-        public Task<string> GetEmailAsync(User user)
+        /// <summary>
+        /// Gets whether or not the email address has been confirmed
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>True if it is confirmed, false otherwise</returns>
+        public virtual Task<bool> GetEmailConfirmedAsync(User user)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> GetEmailConfirmedAsync(User user)
-        {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult(user.EmailConfirmed);
         }
 
         /// <summary>
@@ -190,7 +238,7 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>List of login providers associated with the user</returns>
         public virtual Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.Factory.StartNew<IList<UserLoginInfo>>(() =>
             {
                 return user.ExternalLogins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList();
@@ -204,23 +252,41 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>The password hash</returns>
         public virtual Task<string> GetPasswordHashAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.FromResult(user.PasswordHash);
         }
 
-        public Task<string> GetPhoneNumberAsync(User user)
+        /// <summary>
+        /// Gets the phone number for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>The phone number for the user</returns>
+        public virtual Task<string> GetPhoneNumberAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult(user.PhoneNumber);
         }
 
-        public Task<bool> GetPhoneNumberConfirmedAsync(User user)
+        /// <summary>
+        /// Gets whether the phone number has been confirmed
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>True if it is confirmed, false otherwise</returns>
+        public virtual Task<bool> GetPhoneNumberConfirmedAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult(user.PhoneConfirmed);
         }
 
-        public Task<IList<string>> GetRolesAsync(User user)
+        /// <summary>
+        /// Gets the roles for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>The roles associated with the user</returns>
+        public virtual Task<IList<string>> GetRolesAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult((IList<string>)user.Roles.Select(x => x.Name));
         }
 
         /// <summary>
@@ -230,13 +296,19 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>The security stamp</returns>
         public virtual Task<string> GetSecurityStampAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.FromResult(user.SecurityStamp);
         }
 
-        public Task<bool> GetTwoFactorEnabledAsync(User user)
+        /// <summary>
+        /// Gets whether two factor authentication is enabled
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>True if it is enabled, false otherwise</returns>
+        public virtual Task<bool> GetTwoFactorEnabledAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            return Task.FromResult(user.TwoFactorEnabled);
         }
 
         /// <summary>
@@ -246,28 +318,60 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>True if it does, false otherwise</returns>
         public virtual Task<bool> HasPasswordAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.FromResult(!string.IsNullOrEmpty(user.PasswordHash));
         }
 
-        public Task<bool> IsInRoleAsync(User user, string roleName)
+        /// <summary>
+        /// Determines if the user is in the role
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="roleName">Role name</param>
+        /// <returns>True if they are, false otherwise</returns>
+        public virtual Task<bool> IsInRoleAsync(User user, string roleName)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
+            return Task.FromResult(user.Roles.Any(x => string.Equals(x.Name, roleName, StringComparison.InvariantCultureIgnoreCase)));
         }
 
-        public Task<bool> IsValidProviderForUserAsync(UserManager<User, long> manager, User user)
+        /// <summary>
+        /// Removes a claim from the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="claim">Claim to remove</param>
+        /// <returns>Task</returns>
+        public virtual Task RemoveClaimAsync(User user, Claim claim)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (claim == null) throw new ArgumentNullException("claim");
+            return Task.Factory.StartNew(() =>
+            {
+                UserClaim TempClaim = user.Claims.FirstOrDefault(x => string.Equals(x.Issuer, claim.Issuer, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.OriginalIssuer, claim.OriginalIssuer, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.Type, claim.Type, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.Value, claim.Value, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.ValueType, claim.ValueType, StringComparison.InvariantCultureIgnoreCase));
+                if (TempClaim != null)
+                    TempClaim.Delete();
+            });
         }
 
-        public Task RemoveClaimAsync(User user, System.Security.Claims.Claim claim)
+        /// <summary>
+        /// Removes a user from a role
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="roleName">Role name</param>
+        /// <returns>Task</returns>
+        public virtual Task RemoveFromRoleAsync(User user, string roleName)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveFromRoleAsync(User user, string roleName)
-        {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
+            return Task.Factory.StartNew(() =>
+            {
+                user.Roles.Remove(Role.Load(roleName));
+                user.Save();
+            });
         }
 
         /// <summary>
@@ -278,22 +382,39 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
-            Contract.Requires<ArgumentNullException>(login != null, "login");
+            if (user == null) throw new ArgumentNullException("user");
+            if (login == null) throw new ArgumentNullException("login");
             return Task.Factory.StartNew(() =>
             {
                 ExternalLogin.Load(login.LoginProvider, login.ProviderKey).Delete();
             });
         }
 
-        public Task SetEmailAsync(User user, string email)
+        /// <summary>
+        /// Sets the email address
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="email">Email address</param>
+        /// <returns>Task</returns>
+        public virtual Task SetEmailAsync(User user, string email)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
+            user.Email = email;
+            return Task.FromResult(0);
         }
 
-        public Task SetEmailConfirmedAsync(User user, bool confirmed)
+        /// <summary>
+        /// Sets email confirmed for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="confirmed">Confirmed</param>
+        /// <returns>Task</returns>
+        public virtual Task SetEmailConfirmedAsync(User user, bool confirmed)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            user.EmailConfirmed = confirmed;
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -304,19 +425,37 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task SetPasswordHashAsync(User user, string passwordHash)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(passwordHash)) throw new ArgumentNullException("passwordHash");
             user.PasswordHash = passwordHash;
             return Task.FromResult(0);
         }
 
-        public Task SetPhoneNumberAsync(User user, string phoneNumber)
+        /// <summary>
+        /// Sets the phone number for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="phoneNumber">Phone number</param>
+        /// <returns>Task</returns>
+        public virtual Task SetPhoneNumberAsync(User user, string phoneNumber)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(phoneNumber)) throw new ArgumentNullException("phoneNumber");
+            user.PhoneNumber = phoneNumber;
+            return Task.FromResult(0);
         }
 
-        public Task SetPhoneNumberConfirmedAsync(User user, bool confirmed)
+        /// <summary>
+        /// Sets the phone number confirmed for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="confirmed">Confirmed</param>
+        /// <returns>Task</returns>
+        public virtual Task SetPhoneNumberConfirmedAsync(User user, bool confirmed)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            user.PhoneConfirmed = confirmed;
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -327,14 +466,23 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task SetSecurityStampAsync(User user, string stamp)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(stamp)) throw new ArgumentNullException("stamp");
             user.SecurityStamp = stamp;
             return Task.FromResult(0);
         }
 
-        public Task SetTwoFactorEnabledAsync(User user, bool enabled)
+        /// <summary>
+        /// Sets two factor enabled for the user
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <param name="enabled">Enabled</param>
+        /// <returns>Task</returns>
+        public virtual Task SetTwoFactorEnabledAsync(User user, bool enabled)
         {
-            throw new NotImplementedException();
+            if (user == null) throw new ArgumentNullException("user");
+            user.TwoFactorEnabled = enabled;
+            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -344,16 +492,11 @@ namespace Copernicus.Models.Authentication.Stores
         /// <returns>Task</returns>
         public virtual Task UpdateAsync(User user)
         {
-            Contract.Requires<ArgumentNullException>(user != null, "user");
+            if (user == null) throw new ArgumentNullException("user");
             return Task.Factory.StartNew(() =>
             {
                 user.Save();
             });
-        }
-
-        public Task<bool> ValidateAsync(string purpose, string token, UserManager<User, long> manager, User user)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

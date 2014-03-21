@@ -21,27 +21,40 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.ViewModels.Authentication
 {
     /// <summary>
-    /// External login mapping
+    /// Register
     /// </summary>
-    public class ExternalLoginMapping : ModelMappingBase<ExternalLogin>
+    public class RegisterViewModel
     {
         /// <summary>
-        /// Constructor
+        /// Confirm password
         /// </summary>
-        public ExternalLoginMapping()
-            : base()
-        {
-            Reference(x => x.LoginProvider).SetMaxLength(128);
-            Reference(x => x.ProviderKey).SetMaxLength(128);
-            ManyToOne(x => x.User);
-        }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        /// <summary>
+        /// Password
+        /// </summary>
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        /// <summary>
+        /// User name
+        /// </summary>
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
     }
 }

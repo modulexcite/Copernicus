@@ -18,6 +18,8 @@ namespace Copernicus
         /// <param name="routes">Route collection</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
+            if (routes == null)
+                return;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

@@ -21,27 +21,48 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
+using Utilities.ORM.Parameters;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.Models.Authentication
 {
     /// <summary>
-    /// External login mapping
+    /// Role class
     /// </summary>
-    public class ExternalLoginMapping : ModelMappingBase<ExternalLogin>
+    public class Role : ModelBase<Role>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ExternalLoginMapping()
+        public Role()
             : base()
         {
-            Reference(x => x.LoginProvider).SetMaxLength(128);
-            Reference(x => x.ProviderKey).SetMaxLength(128);
-            ManyToOne(x => x.User);
+            Users = new List<User>();
+        }
+
+        /// <summary>
+        /// Role name
+        /// </summary>
+        public virtual string Name { get; set; }
+
+        /// <summary>
+        /// Users within the role
+        /// </summary>
+        public virtual List<User> Users { get; set; }
+
+        /// <summary>
+        /// Loads a role based on the name
+        /// </summary>
+        /// <param name="Name">Name of the role</param>
+        /// <returns>Role specified</returns>
+        public static Role Load(string Name)
+        {
+            return Any(new StringEqualParameter(Name, "Name_", 256));
         }
     }
 }

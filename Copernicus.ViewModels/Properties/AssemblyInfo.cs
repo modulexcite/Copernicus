@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("Copernicus.Models")]
-[assembly: AssemblyDescription("Copernicus default models (User, etc)")]
+[assembly: AssemblyTitle("Copernicus.ViewModels")]
+[assembly: AssemblyDescription("Copernicus default view models")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("James Craig")]
 [assembly: AssemblyProduct("Copernicus")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("57914840-2027-4ff4-bef0-149a92af8e07")]
+[assembly: Guid("cb98a2f5-fa64-4e30-b07c-933863a9940d")]
 
 // Version information for an assembly consists of the following four values:
 //

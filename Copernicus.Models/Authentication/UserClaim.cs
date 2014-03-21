@@ -21,27 +21,58 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
+using Utilities.ORM.Parameters;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.Models.Authentication
 {
     /// <summary>
-    /// External login mapping
+    /// User claim
     /// </summary>
-    public class ExternalLoginMapping : ModelMappingBase<ExternalLogin>
+    public class UserClaim : ModelBase<UserClaim>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ExternalLoginMapping()
+        public UserClaim()
             : base()
         {
-            Reference(x => x.LoginProvider).SetMaxLength(128);
-            Reference(x => x.ProviderKey).SetMaxLength(128);
-            ManyToOne(x => x.User);
+            Users = new List<User>();
         }
+
+        /// <summary>
+        /// Issuer
+        /// </summary>
+        public virtual string Issuer { get; set; }
+
+        /// <summary>
+        /// Original issuer
+        /// </summary>
+        public virtual string OriginalIssuer { get; set; }
+
+        /// <summary>
+        /// Claim type
+        /// </summary>
+        public virtual string Type { get; set; }
+
+        /// <summary>
+        /// User associated with the claim
+        /// </summary>
+        public virtual List<User> Users { get; set; }
+
+        /// <summary>
+        /// Claim value
+        /// </summary>
+        public virtual string Value { get; set; }
+
+        /// <summary>
+        /// Value type
+        /// </summary>
+        public virtual string ValueType { get; set; }
     }
 }

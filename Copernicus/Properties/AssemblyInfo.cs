@@ -1,16 +1,16 @@
-﻿using Microsoft.Owin;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
+using Microsoft.Owin;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
 [assembly: AssemblyTitle("Copernicus")]
 [assembly: AssemblyDescription("Copernicus App Builder")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Gut Instinct")]
+[assembly: AssemblyCompany("James Craig")]
 [assembly: AssemblyProduct("Copernicus")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
@@ -31,3 +31,4 @@ using System.Security;
 // as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0.0")]

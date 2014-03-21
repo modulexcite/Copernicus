@@ -29,19 +29,22 @@ using Copernicus.Models.BaseClasses;
 namespace Copernicus.Models.Authentication.Mappings
 {
     /// <summary>
-    /// External login mapping
+    /// User claim mapping
     /// </summary>
-    public class ExternalLoginMapping : ModelMappingBase<ExternalLogin>
+    public class UserClaimMapping : ModelMappingBase<UserClaim>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ExternalLoginMapping()
+        public UserClaimMapping()
             : base()
         {
-            Reference(x => x.LoginProvider).SetMaxLength(128);
-            Reference(x => x.ProviderKey).SetMaxLength(128);
-            ManyToOne(x => x.User);
+            Reference(x => x.Issuer).SetMaxLength(256);
+            Reference(x => x.OriginalIssuer).SetMaxLength(256);
+            Reference(x => x.Type).SetMaxLength(128);
+            ManyToMany(x => x.Users);
+            Reference(x => x.Value).SetMaxLength(5000);
+            Reference(x => x.ValueType).SetMaxLength(256);
         }
     }
 }

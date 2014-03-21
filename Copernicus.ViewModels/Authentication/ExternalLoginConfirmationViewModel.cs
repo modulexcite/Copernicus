@@ -21,27 +21,23 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.ViewModels.Authentication
 {
     /// <summary>
-    /// External login mapping
+    /// External login confirmation
     /// </summary>
-    public class ExternalLoginMapping : ModelMappingBase<ExternalLogin>
+    public class ExternalLoginConfirmationViewModel
     {
         /// <summary>
-        /// Constructor
+        /// User name
         /// </summary>
-        public ExternalLoginMapping()
-            : base()
-        {
-            Reference(x => x.LoginProvider).SetMaxLength(128);
-            Reference(x => x.ProviderKey).SetMaxLength(128);
-            ManyToOne(x => x.User);
-        }
+        [Required]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
     }
 }

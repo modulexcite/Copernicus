@@ -19,8 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,6 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Authentication
@@ -44,7 +44,24 @@ namespace Copernicus.Models.Authentication
             : base()
         {
             ExternalLogins = new List<ExternalLogin>();
+            Claims = new List<UserClaim>();
+            Roles = new List<Role>();
         }
+
+        /// <summary>
+        /// User claims
+        /// </summary>
+        public virtual List<UserClaim> Claims { get; set; }
+
+        /// <summary>
+        /// Email address
+        /// </summary>
+        public virtual string Email { get; set; }
+
+        /// <summary>
+        /// Has the email been confirmed?
+        /// </summary>
+        public virtual bool EmailConfirmed { get; set; }
 
         /// <summary>
         /// External logins associated with the user
@@ -64,9 +81,29 @@ namespace Copernicus.Models.Authentication
         public virtual string PasswordHash { get; set; }
 
         /// <summary>
+        /// Phone number confirmed
+        /// </summary>
+        public virtual bool PhoneConfirmed { get; set; }
+
+        /// <summary>
+        /// Phone number
+        /// </summary>
+        public virtual string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Roles associated with the user
+        /// </summary>
+        public virtual List<Role> Roles { get; set; }
+
+        /// <summary>
         /// Security stamp
         /// </summary>
         public virtual string SecurityStamp { get; set; }
+
+        /// <summary>
+        /// Is two factor authentication enabled?
+        /// </summary>
+        public virtual bool TwoFactorEnabled { get; set; }
 
         /// <summary>
         /// User name
@@ -83,6 +120,16 @@ namespace Copernicus.Models.Authentication
         public static User Load(string UserName)
         {
             return Any(new StringEqualParameter(UserName, "UserName_", 256));
+        }
+
+        /// <summary>
+        /// Loads a specific user based on the email specified
+        /// </summary>
+        /// <param name="Email">Email address</param>
+        /// <returns>User associated with the email address</returns>
+        public static User LoadByEmail(string Email)
+        {
+            return Any(new StringEqualParameter(Email, "Email_", 256));
         }
 
         /// <summary>
