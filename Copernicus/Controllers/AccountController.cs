@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Copernicus.Models;
+using Copernicus.Models.Authentication;
+using Copernicus.Models.Authentication.Stores;
+using Copernicus.ViewModels.Authentication;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -6,12 +12,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Copernicus.Models;
-using Copernicus.Models.Authentication;
-using Copernicus.Models.Authentication.Stores;
-using Copernicus.ViewModels.Authentication;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 
 namespace Copernicus.Controllers
 {

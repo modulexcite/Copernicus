@@ -1,17 +1,19 @@
-﻿using System;
+﻿using Copernicus.Models.Authentication;
+using Copernicus.Models.Authentication.Stores;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Copernicus.Models.Authentication;
-using Copernicus.Models.Authentication.Stores;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Owin;
+using Utilities.DataTypes;
 
 namespace Copernicus
 {
@@ -101,32 +103,60 @@ namespace Copernicus
             var windowsPrincipal = context.Request.User as WindowsPrincipal;
             if (windowsPrincipal != null && windowsPrincipal.Identity.IsAuthenticated)
             {
+                if (User.LoadCurrentUser() == null)
+                {
+                    User TempUser = GetUser(windowsPrincipal);
+                    SetupDefaultClaims(windowsPrincipal, TempUser);
+                    TempUser.Save();
+                    var identity = new ClaimsIdentity(TempUser.Claims.Select(x => new Claim(x.Type, x.Value)), "WindowsAuthType");
+                    context.Authentication.SignIn(identity);
+                    context.Response.Redirect((context.Request.PathBase + context.Request.Path).Value);
+                }
+
                 await _next(env);
 
                 if (context.Response.StatusCode == 401)
                 {
-                    var nameClaim = windowsPrincipal.FindFirst(ClaimTypes.Name);
-
-                    string name = nameClaim.Value;
-                    var parts = name.Split(new[] { '\\' }, 2);
-                    string shortName = parts.Length == 1 ? parts[0] : parts[parts.Length - 1];
-                    var userManager = new UserManager<User, long>(new UserStore());
-                    User user = userManager.FindByNameAsync(shortName).Result;
-
-                    var claims = new List<Claim>(); claims.Add(new Claim(ClaimTypes.NameIdentifier, name));
-                    claims.Add(new Claim(ClaimTypes.Name, shortName));
-                    claims.Add(new Claim(ClaimTypes.AuthenticationMethod, "Windows"));
-                    var identity = new ClaimsIdentity(claims, "WindowsAuthType");
-
+                    User TempUser = GetUser(windowsPrincipal);
+                    var identity = new ClaimsIdentity(TempUser.Claims.Select(x => new Claim(x.Type, x.Value)), "WindowsAuthType");
                     context.Authentication.SignIn(identity);
-
                     context.Response.Redirect((context.Request.PathBase + context.Request.Path).Value);
                 }
-
                 return;
             }
 
             await _next(env);
+        }
+
+        private User GetUser(WindowsPrincipal windowsPrincipal)
+        {
+            var nameClaim = windowsPrincipal.FindFirst(ClaimTypes.Name);
+            string name = nameClaim.Value;
+            string[] parts = name.Split(new[] { '\\' }, 2);
+            string shortName = parts.Length == 1 ? parts[0] : parts[parts.Length - 1];
+            var userManager = new UserManager<User, long>(new UserStore());
+            User user = userManager.FindByNameAsync(shortName).Result;
+            if (user == null)
+            {
+                var Result = userManager.CreateAsync(new User() { UserName = shortName }, Guid.NewGuid().ToString()).Result;
+                user = userManager.FindByNameAsync(shortName).Result;
+            }
+            return user;
+        }
+
+        private void SetupDefaultClaims(WindowsPrincipal windowsPrincipal, User TempUser)
+        {
+            TempUser.Claims.Add(new UserClaim()
+            {
+                Value = windowsPrincipal.FindFirst(ClaimTypes.Name).Value,
+                Type = ClaimTypes.NameIdentifier
+            });
+            TempUser.Claims.Add(new UserClaim()
+            {
+                Value = TempUser.UserName,
+                Type = ClaimTypes.Name
+            });
+            TempUser.Claims.Add(UserClaim.Load(ClaimTypes.AuthenticationMethod, "Windows").Check(new UserClaim() { Value = "Windows", Type = ClaimTypes.AuthenticationMethod }));
         }
     }
 }

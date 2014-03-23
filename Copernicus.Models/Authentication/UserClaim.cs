@@ -19,14 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
-using Microsoft.AspNet.Identity;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Authentication
@@ -46,16 +46,6 @@ namespace Copernicus.Models.Authentication
         }
 
         /// <summary>
-        /// Issuer
-        /// </summary>
-        public virtual string Issuer { get; set; }
-
-        /// <summary>
-        /// Original issuer
-        /// </summary>
-        public virtual string OriginalIssuer { get; set; }
-
-        /// <summary>
         /// Claim type
         /// </summary>
         public virtual string Type { get; set; }
@@ -71,8 +61,17 @@ namespace Copernicus.Models.Authentication
         public virtual string Value { get; set; }
 
         /// <summary>
-        /// Value type
+        /// Loads a specific claim
         /// </summary>
-        public virtual string ValueType { get; set; }
+        /// <param name="Type">Claim type</param>
+        /// <param name="Value">Claim value</param>
+        /// <returns>User claim specified</returns>
+        public static UserClaim Load(string Type, string Value)
+        {
+            return Any(new AndParameter(
+                new StringEqualParameter(Type, "Type_", 128),
+                new StringEqualParameter(Value, "Value_", 5000)
+            ));
+        }
     }
 }

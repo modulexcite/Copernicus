@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.Authentication.Mappings
 {
@@ -39,12 +39,9 @@ namespace Copernicus.Models.Authentication.Mappings
         public UserClaimMapping()
             : base()
         {
-            Reference(x => x.Issuer).SetMaxLength(256);
-            Reference(x => x.OriginalIssuer).SetMaxLength(256);
             Reference(x => x.Type).SetMaxLength(128);
             ManyToMany(x => x.Users);
             Reference(x => x.Value).SetMaxLength(5000);
-            Reference(x => x.ValueType).SetMaxLength(256);
         }
     }
 }

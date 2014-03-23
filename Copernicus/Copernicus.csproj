@@ -374,17 +374,12 @@
     <Content Include="Content\Theme\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Index.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\JQuery\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\JQuery\jquery.2.1.0.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JQuery\moment.min.js" />
     <Content Include="Scripts\KnockoutJS\knockout.validation.js" />
-    <Content Include="Scripts\KnockoutJS\knockout-3.1.0.js" />
+    <Content Include="Scripts\KnockoutJS\knockout.3.1.0.js" />
     <Content Include="Scripts\KnockoutJS\ko.dates.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -394,7 +389,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\JQuery\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\JQuery\jquery.2.1.0.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,8 +28,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Copernicus.Models.BaseClasses;
-using Microsoft.AspNet.Identity;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Authentication
@@ -45,7 +45,6 @@ namespace Copernicus.Models.Authentication
         {
             ExternalLogins = new List<ExternalLogin>();
             Claims = new List<UserClaim>();
-            Roles = new List<Role>();
         }
 
         /// <summary>
@@ -89,11 +88,6 @@ namespace Copernicus.Models.Authentication
         /// Phone number
         /// </summary>
         public virtual string PhoneNumber { get; set; }
-
-        /// <summary>
-        /// Roles associated with the user
-        /// </summary>
-        public virtual List<Role> Roles { get; set; }
 
         /// <summary>
         /// Security stamp

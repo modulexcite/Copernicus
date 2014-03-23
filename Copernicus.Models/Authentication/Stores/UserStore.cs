@@ -19,6 +19,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -26,7 +27,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using Utilities.DataTypes;
 using Utilities.DataTypes.Patterns.BaseClasses;
 
@@ -35,7 +35,7 @@ namespace Copernicus.Models.Authentication.Stores
     /// <summary>
     /// User store
     /// </summary>
-    public class UserStore : SafeDisposableBaseClass, IUserStore<User, long>, IUserLoginStore<User, long>, IUserPasswordStore<User, long>, IUserSecurityStampStore<User, long>, IUserTwoFactorStore<User, long>, IUserClaimStore<User, long>, IUserEmailStore<User, long>, IUserPhoneNumberStore<User, long>, IUserRoleStore<User, long>
+    public class UserStore : SafeDisposableBaseClass, IUserStore<User, long>, IUserLoginStore<User, long>, IUserPasswordStore<User, long>, IUserSecurityStampStore<User, long>, IUserTwoFactorStore<User, long>, IUserClaimStore<User, long>, IUserEmailStore<User, long>, IUserPhoneNumberStore<User, long>
     {
         /// <summary>
         /// Constructor
@@ -56,16 +56,15 @@ namespace Copernicus.Models.Authentication.Stores
             if (claim == null) throw new ArgumentNullException("claim");
             return Task.Factory.StartNew(() =>
             {
-                UserClaim Claim = new UserClaim()
+                UserClaim Claim = UserClaim.Load(claim.Type, claim.Value)
+                                           .Check(new UserClaim()
                 {
-                    Issuer = claim.Issuer,
-                    OriginalIssuer = claim.OriginalIssuer,
                     Type = claim.Type,
-                    ValueType = claim.ValueType,
                     Value = claim.Value
-                };
+                });
                 Claim.Users.Add(user);
                 Claim.Save();
+                user.Claims.Add(Claim);
             });
         }
 
@@ -86,29 +85,7 @@ namespace Copernicus.Models.Authentication.Stores
                 Login.ProviderKey = login.ProviderKey;
                 Login.LoginProvider = login.LoginProvider;
                 Login.Save();
-            });
-        }
-
-        /// <summary>
-        /// Adds a user to a role
-        /// </summary>
-        /// <param name="user">User to add</param>
-        /// <param name="roleName">Role name</param>
-        /// <returns>Task</returns>
-        public virtual Task AddToRoleAsync(User user, string roleName)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
-            return Task.Factory.StartNew(() =>
-            {
-                Role TempRole = Role.Load(roleName).Check(() =>
-                {
-                    Role NewRole = new Role() { Name = roleName };
-                    NewRole.Save();
-                    return NewRole;
-                });
-                user.Roles.Add(TempRole);
-                user.Save();
+                user.ExternalLogins.Add(Login);
             });
         }
 
@@ -205,7 +182,7 @@ namespace Copernicus.Models.Authentication.Stores
             if (user == null) throw new ArgumentNullException("user");
             return Task.Factory.StartNew(() =>
             {
-                return (IList<Claim>)user.Claims.Select(x => new Claim(x.Type, x.Value, x.ValueType, x.Issuer, x.OriginalIssuer)).ToList();
+                return (IList<Claim>)user.Claims.Select(x => new Claim(x.Type, x.Value)).ToList();
             });
         }
 
@@ -279,17 +256,6 @@ namespace Copernicus.Models.Authentication.Stores
         }
 
         /// <summary>
-        /// Gets the roles for the user
-        /// </summary>
-        /// <param name="user">User object</param>
-        /// <returns>The roles associated with the user</returns>
-        public virtual Task<IList<string>> GetRolesAsync(User user)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-            return Task.FromResult((IList<string>)user.Roles.Select(x => x.Name));
-        }
-
-        /// <summary>
         /// Gets the security stamp for the user
         /// </summary>
         /// <param name="user">User object</param>
@@ -323,19 +289,6 @@ namespace Copernicus.Models.Authentication.Stores
         }
 
         /// <summary>
-        /// Determines if the user is in the role
-        /// </summary>
-        /// <param name="user">User object</param>
-        /// <param name="roleName">Role name</param>
-        /// <returns>True if they are, false otherwise</returns>
-        public virtual Task<bool> IsInRoleAsync(User user, string roleName)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
-            return Task.FromResult(user.Roles.Any(x => string.Equals(x.Name, roleName, StringComparison.InvariantCultureIgnoreCase)));
-        }
-
-        /// <summary>
         /// Removes a claim from the user
         /// </summary>
         /// <param name="user">User object</param>
@@ -347,30 +300,10 @@ namespace Copernicus.Models.Authentication.Stores
             if (claim == null) throw new ArgumentNullException("claim");
             return Task.Factory.StartNew(() =>
             {
-                UserClaim TempClaim = user.Claims.FirstOrDefault(x => string.Equals(x.Issuer, claim.Issuer, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(x.OriginalIssuer, claim.OriginalIssuer, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(x.Type, claim.Type, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(x.Value, claim.Value, StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(x.ValueType, claim.ValueType, StringComparison.InvariantCultureIgnoreCase));
+                UserClaim TempClaim = user.Claims.FirstOrDefault(x => string.Equals(x.Type, claim.Type, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.Value, claim.Value, StringComparison.InvariantCultureIgnoreCase));
                 if (TempClaim != null)
                     TempClaim.Delete();
-            });
-        }
-
-        /// <summary>
-        /// Removes a user from a role
-        /// </summary>
-        /// <param name="user">User object</param>
-        /// <param name="roleName">Role name</param>
-        /// <returns>Task</returns>
-        public virtual Task RemoveFromRoleAsync(User user, string roleName)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-            if (string.IsNullOrEmpty(roleName)) throw new ArgumentNullException("roleName");
-            return Task.Factory.StartNew(() =>
-            {
-                user.Roles.Remove(Role.Load(roleName));
-                user.Save();
             });
         }
 
