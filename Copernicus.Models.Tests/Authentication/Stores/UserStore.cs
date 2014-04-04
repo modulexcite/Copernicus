@@ -73,6 +73,16 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             Assert.DoesNotThrow(() => Store.CreateAsync(TempUser).Wait());
+            Assert.Equal(1, User.All().Count());
+        }
+
+        [Fact]
+        public void DeleteAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
+            TempUser.Save();
+            Assert.DoesNotThrow(() => Store.DeleteAsync(TempUser).Wait());
+            Assert.Equal(0, User.All().Count());
         }
 
         public void Dispose()
@@ -91,6 +101,100 @@ namespace Copernicus.Models.Tests.Authentication.Stores
                             .Execute();
             }
             catch { }
+        }
+
+        [Fact]
+        public void FindAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
+            TempUser.ExternalLogins.Add(new ExternalLogin() { LoginProvider = "TestProvider", ProviderKey = "TestKey", User = TempUser });
+            TempUser.Save();
+            User TempUser2 = Store.FindAsync(new Microsoft.AspNet.Identity.UserLoginInfo("TestProvider", "TestKey")).Result;
+            Assert.Equal("TestUser", TempUser2.UserName);
+            Assert.Equal(TempUser.PasswordHash, TempUser2.PasswordHash);
+            Assert.Equal(TempUser.ExternalLogins[0].ID, TempUser2.ExternalLogins[0].ID);
+        }
+
+        [Fact]
+        public void FindByEmailAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            User TempUser2 = Store.FindByEmailAsync("something@somewhere.com").Result;
+            Assert.Equal(TempUser.ID, TempUser2.ID);
+            Assert.Equal(TempUser.UserName, TempUser2.UserName);
+        }
+
+        [Fact]
+        public void FindByIdAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            User TempUser2 = Store.FindByIdAsync(TempUser.ID).Result;
+            Assert.Equal(TempUser.ID, TempUser2.ID);
+            Assert.Equal(TempUser.UserName, TempUser2.UserName);
+        }
+
+        [Fact]
+        public void FindByNameAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            User TempUser2 = Store.FindByNameAsync(TempUser.UserName).Result;
+            Assert.Equal(TempUser.ID, TempUser2.ID);
+            Assert.Equal(TempUser.UserName, TempUser2.UserName);
+        }
+
+        [Fact]
+        public void GetClaimsAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Claims.Add(new UserClaim() { Type = "Something", Value = "SomethingAlso" });
+            TempUser.Save();
+            TempUser = User.Load(TempUser.ID);
+            IList<Claim> Claims = Store.GetClaimsAsync(TempUser).Result;
+            Assert.Equal(1, Claims.Count);
+            Assert.Equal("Something", Claims[0].Type);
+            Assert.Equal("SomethingAlso", Claims[0].Value);
+        }
+
+        [Fact]
+        public void GetEmailAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            string Email = Store.GetEmailAsync(TempUser).Result;
+            Assert.Equal("something@somewhere.com", Email);
+        }
+
+        [Fact]
+        public void GetEmailConfirmedAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            bool EmailConfirmed = Store.GetEmailConfirmedAsync(TempUser).Result;
+            Assert.False(EmailConfirmed);
+        }
+
+        [Fact]
+        public void GetLoginsAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.ExternalLogins.Add(new ExternalLogin() { LoginProvider = "APlace", ProviderKey = "ProviderKey" });
+            TempUser.Save();
+            IList<Microsoft.AspNet.Identity.UserLoginInfo> Logins = Store.GetLoginsAsync(TempUser).Result;
+            Assert.Equal(1, Logins.Count);
+            Assert.Equal("APlace", Logins[0].LoginProvider);
+            Assert.Equal("ProviderKey", Logins[0].ProviderKey);
+        }
+
+        [Fact]
+        public void GetPasswordHashAsync()
+        {
+            User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
+            TempUser.Save();
+            string Password = Store.GetPasswordHashAsync(TempUser).Result;
+            Assert.Equal(TempUser.PasswordHash, Password);
         }
     }
 }
