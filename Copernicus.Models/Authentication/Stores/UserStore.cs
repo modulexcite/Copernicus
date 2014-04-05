@@ -303,7 +303,7 @@ namespace Copernicus.Models.Authentication.Stores
                 UserClaim TempClaim = user.Claims.FirstOrDefault(x => string.Equals(x.Type, claim.Type, StringComparison.InvariantCultureIgnoreCase)
                     && string.Equals(x.Value, claim.Value, StringComparison.InvariantCultureIgnoreCase));
                 if (TempClaim != null)
-                    TempClaim.Delete();
+                    user.Claims.Remove(TempClaim);
             });
         }
 
@@ -319,7 +319,13 @@ namespace Copernicus.Models.Authentication.Stores
             if (login == null) throw new ArgumentNullException("login");
             return Task.Factory.StartNew(() =>
             {
-                ExternalLogin.Load(login.LoginProvider, login.ProviderKey).Delete();
+                ExternalLogin Temp = user.ExternalLogins.FirstOrDefault(x => string.Equals(x.LoginProvider, login.LoginProvider, StringComparison.InvariantCultureIgnoreCase)
+                    && string.Equals(x.ProviderKey, login.ProviderKey, StringComparison.InvariantCultureIgnoreCase));
+                if (Temp != null)
+                {
+                    user.ExternalLogins.Remove(Temp);
+                    ExternalLogin.Load(login.LoginProvider, login.ProviderKey).Delete();
+                }
             });
         }
 
