@@ -20,6 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 using Copernicus.Models.Authentication;
+using Copernicus.Models.Authentication.Stores;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes;
 
 namespace Copernicus.Core.Providers
 {
@@ -93,8 +96,9 @@ namespace Copernicus.Core.Providers
             await Next(env);
         }
 
-        private User GetUser(WindowsPrincipal windowsPrincipal)
+        private static User GetUser(WindowsPrincipal windowsPrincipal)
         {
+            Contract.Requires<ArgumentNullException>(windowsPrincipal != null, "windowsPrincipal");
             var nameClaim = windowsPrincipal.FindFirst(ClaimTypes.Name);
             string name = nameClaim.Value;
             string[] parts = name.Split(new[] { '\\' }, 2);
@@ -109,8 +113,10 @@ namespace Copernicus.Core.Providers
             return user;
         }
 
-        private void SetupDefaultClaims(WindowsPrincipal windowsPrincipal, User TempUser)
+        private static void SetupDefaultClaims(WindowsPrincipal windowsPrincipal, User TempUser)
         {
+            Contract.Requires<ArgumentNullException>(windowsPrincipal != null, "windowsPrincipal");
+            Contract.Requires<ArgumentNullException>(TempUser != null, "TempUser");
             TempUser.Claims.Add(new UserClaim()
             {
                 Value = windowsPrincipal.FindFirst(ClaimTypes.Name).Value,

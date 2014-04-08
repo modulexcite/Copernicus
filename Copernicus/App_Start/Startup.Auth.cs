@@ -1,4 +1,5 @@
-﻿using Copernicus.Models.Authentication;
+﻿using Copernicus.Core.Providers;
+using Copernicus.Models.Authentication;
 using Copernicus.Models.Authentication.Stores;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -22,10 +23,10 @@ namespace Copernicus
     /// </summary>
     public partial class Startup
     {
-        // <summary>
-        // Configures auth
-        // </summary>
-        // <param name="app">App builder</param>
+        /// <summary>
+        /// Configures the authentication.
+        /// </summary>
+        /// <param name="app">The application builder</param>
         public void ConfigureAuth(IAppBuilder app)
         {
             if (app == null)
