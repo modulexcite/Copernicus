@@ -27,6 +27,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO;
 using Xunit;
 
@@ -35,7 +36,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
     /// <summary>
     /// User store
     /// </summary>
-    public class UserStore : IDisposable
+    public class UserStore : SafeDisposableBaseClass
     {
         public UserStore()
         {
@@ -89,24 +90,6 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             Assert.DoesNotThrow(() => Store.DeleteAsync(TempUser).Wait());
             Assert.Equal(0, User.All().Count());
             Assert.Throws<ArgumentNullException>(() => Store.DeleteAsync(null).Wait());
-        }
-
-        public void Dispose()
-        {
-            if (Store != null)
-            {
-                Store.Dispose();
-                Store = null;
-            }
-            try
-            {
-                Utilities.ORM.QueryProvider.Batch("Default")
-                            .AddCommand(null, null, CommandType.Text, "ALTER DATABASE CopernicusTest SET OFFLINE WITH ROLLBACK IMMEDIATE")
-                            .AddCommand(null, null, CommandType.Text, "ALTER DATABASE CopernicusTest SET ONLINE")
-                            .AddCommand(null, null, CommandType.Text, "DROP DATABASE CopernicusTest")
-                            .Execute();
-            }
-            catch { }
         }
 
         [Fact]
@@ -390,6 +373,24 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             Assert.Equal("MyNewEmail@somewhere.com", TempUser.Email);
             Assert.Equal("TestUser", TempUser.UserName);
             Assert.Throws<ArgumentNullException>(() => Store.UpdateAsync(null).Wait());
+        }
+
+        protected override void Dispose(bool Managed)
+        {
+            if (Store != null)
+            {
+                Store.Dispose();
+                Store = null;
+            }
+            try
+            {
+                Utilities.ORM.QueryProvider.Batch("Default")
+                            .AddCommand(null, null, CommandType.Text, "ALTER DATABASE CopernicusTest SET OFFLINE WITH ROLLBACK IMMEDIATE")
+                            .AddCommand(null, null, CommandType.Text, "ALTER DATABASE CopernicusTest SET ONLINE")
+                            .AddCommand(null, null, CommandType.Text, "DROP DATABASE CopernicusTest")
+                            .Execute();
+            }
+            catch { }
         }
     }
 }
