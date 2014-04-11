@@ -199,8 +199,14 @@
     <Compile Include="BaseClasses\ModelBase.cs" />
     <Compile Include="BaseClasses\ModelMappingBase.cs" />
     <Compile Include="Configuration\DatabaseConfig.cs" />
+    <Compile Include="General\LookUp.cs" />
+    <Compile Include="General\LookUpType.cs" />
+    <Compile Include="General\Mappings\LookUpMapping.cs" />
+    <Compile Include="General\Mappings\LookUpTypeMapping.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Plugins\Mappings\PluginMapping.cs" />
+    <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
