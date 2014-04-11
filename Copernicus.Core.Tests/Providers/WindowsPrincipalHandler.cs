@@ -22,6 +22,7 @@ namespace Copernicus.Core.Tests.Providers
         {
             var Context = new Dictionary<string, object>();
             Copernicus.Core.Providers.WindowsPrincipalHandler Handlers = new Core.Providers.WindowsPrincipalHandler(x => Task.Run(() => { }));
+            Assert.DoesNotThrow(() => Handlers.Invoke(Context));
         }
     }
 }
