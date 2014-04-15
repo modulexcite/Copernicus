@@ -35,7 +35,7 @@ namespace Copernicus.Models.General.Mappings
         public LookUpMapping()
             : base()
         {
-            Reference(x => x.DisplayName).SetMaxLength(256).SetDefaultValue(() => "");
+            Reference(x => x.DisplayName).SetMaxLength(50).SetDefaultValue(() => "");
             ManyToOne(x => x.Type);
         }
     }

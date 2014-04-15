@@ -19,13 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
-using Copernicus.Models.General;
+using Utilities.DataTypes;
 
 namespace Copernicus.Models.Plugins
 {
@@ -89,6 +90,12 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         /// <value>The type.</value>
         public virtual LookUp Type { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether an update is available.
+        /// </summary>
+        /// <value><c>true</c> if [update available]; otherwise, <c>false</c>.</value>
+        public bool UpdateAvailable { get { return int.Parse(Version.Keep(StringFilter.Numeric)) < int.Parse(OnlineVersion.Keep(StringFilter.Numeric)); } }
 
         /// <summary>
         /// Gets or sets the version.

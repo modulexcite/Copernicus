@@ -191,11 +191,14 @@
   <ItemGroup>
     <Compile Include="Authentication\ExternalLogin.cs" />
     <Compile Include="Authentication\Mappings\ExternalLoginMapping.cs" />
+    <Compile Include="Authentication\Mappings\PermissionMapping.cs" />
     <Compile Include="Authentication\Mappings\UserClaimMapping.cs" />
     <Compile Include="Authentication\Mappings\UserMapping.cs" />
+    <Compile Include="Authentication\PermissionType.cs" />
     <Compile Include="Authentication\Stores\UserStore.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Authentication\UserClaim.cs" />
+    <Compile Include="Authentication\Permission.cs" />
     <Compile Include="BaseClasses\ModelBase.cs" />
     <Compile Include="BaseClasses\ModelMappingBase.cs" />
     <Compile Include="Configuration\DatabaseConfig.cs" />

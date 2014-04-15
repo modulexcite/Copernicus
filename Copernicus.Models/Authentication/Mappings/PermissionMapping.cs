@@ -20,23 +20,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 using Copernicus.Models.BaseClasses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Copernicus.Models.General.Mappings
+namespace Copernicus.Models.Authentication.Mappings
 {
     /// <summary>
-    /// Lookup type mapping
+    /// Permission mapping
     /// </summary>
-    public class LookUpTypeMapping : ModelMappingBase<LookUpType>
+    public class PermissionMapping : ModelMappingBase<Permission>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public LookUpTypeMapping()
+        public PermissionMapping()
             : base()
         {
-            Reference(x => x.Description).SetMaxLength(500).SetDefaultValue(() => "");
-            Reference(x => x.DisplayName).SetMaxLength(50).SetDefaultValue(() => "");
-            ManyToOne(x => x.LookUps).SetCascade();
+            ManyToMany(x => x.Claims);
+            Reference(x => x.DisplayName).SetMaxLength(100);
+            Reference(x => x.Type);
         }
     }
 }

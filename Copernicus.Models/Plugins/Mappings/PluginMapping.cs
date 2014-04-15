@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.Plugins.Mappings
 {
@@ -39,6 +39,16 @@ namespace Copernicus.Models.Plugins.Mappings
         public PluginMapping()
             : base()
         {
+            Reference(x => x.Author).SetMaxLength(80);
+            Reference(x => x.Description).SetMaxLength(1000);
+            Reference(x => x.LastUpdated);
+            Reference(x => x.Name).SetMaxLength(100);
+            Reference(x => x.OnlineVersion).SetMaxLength(10);
+            Reference(x => x.Priority);
+            Reference(x => x.Tags).SetMaxLength(100);
+            Map(x => x.Type);
+            Reference(x => x.Version).SetMaxLength(10);
+            Reference(x => x.Website).SetMaxLength(100);
         }
     }
 }
