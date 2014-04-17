@@ -49,6 +49,7 @@ namespace Copernicus.Models.Plugins.Mappings
             Map(x => x.Type);
             Reference(x => x.Version).SetMaxLength(10);
             Reference(x => x.Website).SetMaxLength(100);
+            Reference(x => x.PluginID).SetMaxLength(100);
         }
     }
 }

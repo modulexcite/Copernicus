@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities.DataTypes;
+using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Plugins
 {
@@ -74,6 +75,12 @@ namespace Copernicus.Models.Plugins
         public string OnlineVersion { get; set; }
 
         /// <summary>
+        /// Gets or sets the plugin identifier.
+        /// </summary>
+        /// <value>The plugin identifier.</value>
+        public string PluginID { get; set; }
+
+        /// <summary>
         /// Gets or sets the priority.
         /// </summary>
         /// <value>The priority.</value>
@@ -108,5 +115,15 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         /// <value>The website.</value>
         public string Website { get; set; }
+
+        /// <summary>
+        /// Loads the specified plugin based on the identifier.
+        /// </summary>
+        /// <param name="PluginID">The plugin identifier.</param>
+        /// <returns>The plugin specified</returns>
+        public static Plugin Load(string PluginID)
+        {
+            return Any(new StringEqualParameter(PluginID, "PluginID_", 100));
+        }
     }
 }
