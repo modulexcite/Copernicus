@@ -60,9 +60,45 @@ namespace Copernicus.Core.Plugins
         /// <returns>Returns true if it is installed successfully, false otherwise</returns>
         public bool InstallPlugin(string ID)
         {
-            Plugin TempPlugin = Plugin.Load(ID);
-            if (TempPlugin != null)
-                UninstallPlugin(ID);
+            try
+            {
+                Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
+                Plugin TempPlugin = Plugin.Load(ID);
+                if (TempPlugin != null)
+                    UninstallPlugin(ID);
+                foreach (IPackageRepository Repo in PackageRepositories)
+                {
+                    IPackage Package = Repo.FindPackage(ID);
+                    if (Package != null)
+                    {
+                        PackageManager Manager = new PackageManager(Repo,
+                            new DefaultPackagePathResolver(Repo.Source),
+                            new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
+                        Manager.InstallPackage(Package, false, true);
+                        TempPlugin = new Plugin()
+                        {
+                            PluginID = ID,
+                            Version = Package.Version.ToString(),
+                            Author = Package.Authors.ToString(x => x),
+                            Description = Package.Description,
+                            LastUpdated = Package.Published.Value.DateTime,
+                            Name = Package.Title,
+                            OnlineVersion = Package.Version.ToString(),
+                            Tags = Package.Tags,
+                            Website = Package.ProjectUrl.ToString()
+                        };
+                        TempPlugin.Save();
+                        //Still need To insert files
+                    }
+                }
+                Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Get().LogMessage("Plugin {0} was not installed successfully: {1}", MessageType.Error, ID, e.ToString());
+            }
+            return false;
         }
 
         /// <summary>
@@ -74,6 +110,7 @@ namespace Copernicus.Core.Plugins
         {
             try
             {
+                Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
                 foreach (IPackageRepository Repo in PackageRepositories)
                 {
                     IPackage Package = Repo.FindPackage(ID);
@@ -83,11 +120,12 @@ namespace Copernicus.Core.Plugins
                             new DefaultPackagePathResolver(Repo.Source),
                             new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
                         Manager.UninstallPackage(Package, true, true);
+                        Plugin TempPlugin = Plugin.Load(ID);
+                        if (TempPlugin != null)
+                            TempPlugin.Delete();
+                        break;
                     }
                 }
-                Plugin TempPlugin = Plugin.Load(ID);
-                if (TempPlugin != null)
-                    TempPlugin.Delete();
                 Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
                 return true;
             }

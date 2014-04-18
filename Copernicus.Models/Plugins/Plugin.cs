@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities.DataTypes;
+using Utilities.IO;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Plugins
@@ -42,6 +43,7 @@ namespace Copernicus.Models.Plugins
         public Plugin()
             : base()
         {
+            Files = new List<PluginFile>();
         }
 
         /// <summary>
@@ -55,6 +57,12 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the files.
+        /// </summary>
+        /// <value>The files.</value>
+        public virtual List<PluginFile> Files { get; set; }
 
         /// <summary>
         /// Gets or sets the last updated.
@@ -124,6 +132,17 @@ namespace Copernicus.Models.Plugins
         public static Plugin Load(string PluginID)
         {
             return Any(new StringEqualParameter(PluginID, "PluginID_", 100));
+        }
+
+        /// <summary>
+        /// Deletes this instance and removes the files associated with it.
+        /// </summary>
+        public override void Delete()
+        {
+            base.Delete();
+            Files.OrderByDescending(x => x.Order).ForEach(x => x.Remove());
+            if (!string.IsNullOrEmpty(Version))
+                new DirectoryInfo(string.Format("~/App_Data/packages/{0}/{1}", PluginID, Version)).Delete();
         }
     }
 }

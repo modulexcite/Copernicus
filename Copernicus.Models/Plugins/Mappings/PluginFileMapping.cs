@@ -29,28 +29,20 @@ using System.Threading.Tasks;
 namespace Copernicus.Models.Plugins.Mappings
 {
     /// <summary>
-    /// Plugin mapping
+    /// PluginFile mapping
     /// </summary>
-    public class PluginMapping : ModelMappingBase<Plugin>
+    public class PluginFileMapping : ModelMappingBase<PluginFile>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public PluginMapping()
+        public PluginFileMapping()
             : base()
         {
-            Reference(x => x.Author).SetMaxLength(80);
-            Reference(x => x.Description).SetMaxLength(1000);
-            Reference(x => x.LastUpdated);
-            Reference(x => x.Name).SetMaxLength(100);
-            Reference(x => x.OnlineVersion).SetMaxLength(10);
-            Reference(x => x.Priority);
-            Reference(x => x.Tags).SetMaxLength(100);
-            Map(x => x.Type);
-            Reference(x => x.Version).SetMaxLength(10);
-            Reference(x => x.Website).SetMaxLength(100);
-            Reference(x => x.PluginID).SetMaxLength(100);
-            ManyToOne(x => x.Files).SetCascade();
+            Reference(x => x.IsDirectory);
+            Reference(x => x.Order);
+            Reference(x => x.Path).SetMaxLength(512);
+            ManyToOne(x => x.Plugin);
         }
     }
 }

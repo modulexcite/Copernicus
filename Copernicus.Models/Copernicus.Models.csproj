@@ -208,8 +208,10 @@
     <Compile Include="General\Mappings\LookUpTypeMapping.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Plugins\Mappings\PluginFileMapping.cs" />
     <Compile Include="Plugins\Mappings\PluginMapping.cs" />
     <Compile Include="Plugins\Plugin.cs" />
+    <Compile Include="Plugins\PluginFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
