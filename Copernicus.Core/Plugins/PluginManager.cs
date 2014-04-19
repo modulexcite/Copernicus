@@ -23,6 +23,7 @@ using Copernicus.Models.Plugins;
 using NuGet;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace Copernicus.Core.Plugins
         /// <param name="Repositories">The repositories.</param>
         public PluginManager(IEnumerable<string> Repositories)
         {
+            Contract.Requires<ArgumentNullException>(Repositories != null, "Repositories");
             PackageRepositories = Repositories.ForEach(x => PackageRepositoryFactory.Default.CreateRepository(x));
         }
 
@@ -54,51 +56,63 @@ namespace Copernicus.Core.Plugins
         protected IEnumerable<IPackageRepository> PackageRepositories { get; private set; }
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public void Initialize()
+        {
+            foreach (Plugin TempPlugin in Plugin.All())
+            {
+                foreach (IPackageRepository Repo in PackageRepositories)
+                {
+                    IPackage Package = Repo.FindPackage(TempPlugin.PluginID);
+                    if (Package != null)
+                    {
+                        TempPlugin.OnlineVersion = Package.Version.ToString();
+                        TempPlugin.Save();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Installs the plugin associated with the ID
         /// </summary>
         /// <param name="ID">The identifier.</param>
         /// <returns>Returns true if it is installed successfully, false otherwise</returns>
         public bool InstallPlugin(string ID)
         {
-            try
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
+            string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
+            Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Info, ID, User);
+            Plugin TempPlugin = Plugin.Load(ID);
+            if (TempPlugin != null)
+                UninstallPlugin(ID);
+            foreach (IPackageRepository Repo in PackageRepositories)
             {
-                Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
-                Plugin TempPlugin = Plugin.Load(ID);
-                if (TempPlugin != null)
-                    UninstallPlugin(ID);
-                foreach (IPackageRepository Repo in PackageRepositories)
+                IPackage Package = Repo.FindPackage(ID);
+                if (Package != null)
                 {
-                    IPackage Package = Repo.FindPackage(ID);
-                    if (Package != null)
+                    PackageManager Manager = new PackageManager(Repo,
+                        new DefaultPackagePathResolver(Repo.Source),
+                        new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
+                    Manager.InstallPackage(Package, false, true);
+                    TempPlugin = new Plugin()
                     {
-                        PackageManager Manager = new PackageManager(Repo,
-                            new DefaultPackagePathResolver(Repo.Source),
-                            new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
-                        Manager.InstallPackage(Package, false, true);
-                        TempPlugin = new Plugin()
-                        {
-                            PluginID = ID,
-                            Version = Package.Version.ToString(),
-                            Author = Package.Authors.ToString(x => x),
-                            Description = Package.Description,
-                            LastUpdated = Package.Published.Value.DateTime,
-                            Name = Package.Title,
-                            OnlineVersion = Package.Version.ToString(),
-                            Tags = Package.Tags,
-                            Website = Package.ProjectUrl.ToString()
-                        };
-                        TempPlugin.Save();
-                        //Still need To insert files
-                    }
+                        PluginID = ID,
+                        Version = Package.Version.ToString(),
+                        Author = Package.Authors.ToString(x => x),
+                        Description = Package.Description,
+                        LastUpdated = Package.Published.Value.DateTime,
+                        Name = Package.Title,
+                        OnlineVersion = Package.Version.ToString(),
+                        Tags = Package.Tags,
+                        Website = Package.ProjectUrl.ToString()
+                    };
+                    TempPlugin.Save();
                 }
-                Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
-                return true;
             }
-            catch (Exception e)
-            {
-                Log.Get().LogMessage("Plugin {0} was not installed successfully: {1}", MessageType.Error, ID, e.ToString());
-            }
-            return false;
+            Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Info, ID, User);
+            return true;
         }
 
         /// <summary>
@@ -108,32 +122,58 @@ namespace Copernicus.Core.Plugins
         /// <returns>Returns true if it is uninstalled successfully, false otherwise</returns>
         public bool UninstallPlugin(string ID)
         {
-            try
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
+            string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
+            Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Info, ID, User);
+            foreach (IPackageRepository Repo in PackageRepositories)
             {
-                Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
-                foreach (IPackageRepository Repo in PackageRepositories)
+                IPackage Package = Repo.FindPackage(ID);
+                if (Package != null)
                 {
-                    IPackage Package = Repo.FindPackage(ID);
-                    if (Package != null)
-                    {
-                        PackageManager Manager = new PackageManager(Repo,
-                            new DefaultPackagePathResolver(Repo.Source),
-                            new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
-                        Manager.UninstallPackage(Package, true, true);
-                        Plugin TempPlugin = Plugin.Load(ID);
-                        if (TempPlugin != null)
-                            TempPlugin.Delete();
-                        break;
-                    }
+                    PackageManager Manager = new PackageManager(Repo,
+                        new DefaultPackagePathResolver(Repo.Source),
+                        new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
+                    Manager.UninstallPackage(Package, true, true);
+                    Plugin TempPlugin = Plugin.Load(ID);
+                    if (TempPlugin != null)
+                        TempPlugin.Delete();
+                    break;
                 }
-                Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Info, HttpContext.Current.User.Identity.Name);
-                return true;
             }
-            catch (Exception e)
+            Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Info, ID, User);
+            return true;
+        }
+
+        /// <summary>
+        /// Updates the plugin associated with the ID
+        /// </summary>
+        /// <param name="ID">The identifier.</param>
+        /// <returns>Returns true if it is updated successfully, false otherwise</returns>
+        public bool UpdatePlugin(string ID)
+        {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
+            string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
+            bool Result = true;
+            Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Info, ID, User);
+            foreach (IPackageRepository Repo in PackageRepositories)
             {
-                Log.Get().LogMessage("Plugin {0} was not uninstalled successfully: {1}", MessageType.Error, ID, e.ToString());
+                IPackage Package = Repo.FindPackage(ID);
+                if (Package != null)
+                {
+                    Plugin TempPlugin = Plugin.Load(ID);
+                    if (TempPlugin != null)
+                    {
+                        TempPlugin.OnlineVersion = Package.Version.ToString();
+                        TempPlugin.Save();
+                        if (TempPlugin.UpdateAvailable)
+                            Result = UninstallPlugin(ID);
+                        if (Result)
+                            Result = InstallPlugin(ID);
+                    }
+                    break;
+                }
             }
-            return false;
+            return Result;
         }
     }
 }

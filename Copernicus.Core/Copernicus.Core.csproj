@@ -234,10 +234,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Plugins\BaseClasses\PluginBaseClass.cs" />
-    <Compile Include="Plugins\Enums\PluginType.cs" />
-    <Compile Include="Plugins\Interfaces\IPlugin.cs" />
+    <Compile Include="Plugins\Module\PluginModule.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\PluginTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\WindowsPrincipalHandler.cs" />
     <Compile Include="Startup.cs" />

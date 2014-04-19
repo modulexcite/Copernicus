@@ -19,37 +19,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Ironman.Core.Tasks.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Core.Plugins.Enums
+namespace Copernicus.Core.Plugins.Tasks
 {
     /// <summary>
-    /// Plugin type
+    /// Plugin task
     /// </summary>
-    public enum PluginType
+    public class PluginTask : ITask
     {
         /// <summary>
-        /// Extensions
+        /// Name of the task
         /// </summary>
-        Extensions,
+        public string Name { get { return "Plugin Update"; } }
 
         /// <summary>
-        /// Renderer
+        /// Time that the task should be run
         /// </summary>
-        Renderer,
+        public Ironman.Core.Tasks.Enums.RunTime TimeToRun { get { return Ironman.Core.Tasks.Enums.RunTime.PostStart; } }
 
         /// <summary>
-        /// Builder
+        /// Runs the task
         /// </summary>
-        Builder,
-
-        /// <summary>
-        /// Tasks
-        /// </summary>
-        Tasks
+        public void Run()
+        {
+            Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().Initialize();
+        }
     }
 }

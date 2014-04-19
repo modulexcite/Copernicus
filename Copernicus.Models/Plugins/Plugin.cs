@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utilities.DataTypes;
 using Utilities.IO;
+using Utilities.IO.FileSystem.Interfaces;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Plugins
@@ -139,10 +140,42 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         public override void Delete()
         {
-            base.Delete();
             Files.OrderByDescending(x => x.Order).ForEach(x => x.Remove());
             if (!string.IsNullOrEmpty(Version))
                 new DirectoryInfo(string.Format("~/App_Data/packages/{0}/{1}", PluginID, Version)).Delete();
+            base.Delete();
+        }
+
+        /// <summary>
+        /// Saves this instance and copies the files associated with it.
+        /// </summary>
+        public override void Save()
+        {
+            if (Files.Count == 0)
+            {
+                DirectoryInfo LibDirectory = new DirectoryInfo(string.Format("~/App_Data/packages/{0}/{1}/lib", PluginID, Version));
+                DirectoryInfo ContentDirectory = new DirectoryInfo(string.Format("~/App_Data/packages/{0}/{1}/content", PluginID, Version));
+                int y = 0;
+                List<PluginFile> TempFiles = new List<PluginFile>();
+                TempFiles.Add(LibDirectory.EnumerateFiles("*", System.IO.SearchOption.AllDirectories).ForEach(x => new PluginFile()
+                {
+                    IsDirectory = false,
+                    Order = y++,
+                    Path = "~/bin/" + x.FullName.Replace(LibDirectory.FullName, ""),
+                    Plugin = this
+                }));
+                TempFiles.Add(ContentDirectory.EnumerateFiles("*", System.IO.SearchOption.AllDirectories).ForEach(x => new PluginFile()
+                {
+                    IsDirectory = false,
+                    Order = y++,
+                    Path = "~/" + x.FullName.Replace(ContentDirectory.FullName, ""),
+                    Plugin = this
+                }));
+                Files = TempFiles;
+                LibDirectory.MoveTo(new DirectoryInfo("~/bin/"));
+                ContentDirectory.MoveTo(new DirectoryInfo("~/"));
+            }
+            base.Save();
         }
     }
 }

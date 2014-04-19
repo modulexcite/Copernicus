@@ -24,23 +24,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Core.Plugins.Enums;
+using Utilities.IO;
+using Xunit;
 
-namespace Copernicus.Core.Plugins.Interfaces
+namespace Copernicus.Core.Tests.Plugins
 {
-    /// <summary>
-    /// Plugin interface
-    /// </summary>
-    public interface IPlugin
+    public class PluginManager
     {
-        /// <summary>
-        /// Plugin name
-        /// </summary>
-        string Name { get; }
+        [Fact]
+        public void Creation()
+        {
+            Copernicus.Core.Plugins.PluginManager Manager = null;
+            Assert.DoesNotThrow(() => Manager = new Core.Plugins.PluginManager(new string[] { new DirectoryInfo(".\\Plugins\\").FullName }));
+        }
 
-        /// <summary>
-        /// Plugin type
-        /// </summary>
-        PluginType Type { get; }
+        [Fact]
+        public void InstallPlugin()
+        {
+            Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { new DirectoryInfo(".\\Plugins\\").FullName });
+            Manager.InstallPlugin("Test");
+        }
     }
 }
