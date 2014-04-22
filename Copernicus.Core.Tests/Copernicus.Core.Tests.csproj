@@ -121,6 +121,10 @@
       <Project>{029bd85d-0e08-4a54-b0b1-8ce51e9c9e28}</Project>
       <Name>Copernicus.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Copernicus.Models\Copernicus.Models.csproj">
+      <Project>{451a3def-9f69-422a-aeab-1a703d10894f}</Project>
+      <Name>Copernicus.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

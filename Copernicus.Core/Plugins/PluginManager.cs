@@ -19,8 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Plugins;
-using NuGet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -28,6 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Copernicus.Models.Plugins;
+using NuGet;
 using Utilities.DataTypes;
 using Utilities.IO;
 using Utilities.IO.Logging.Enums;
@@ -92,9 +92,12 @@ namespace Copernicus.Core.Plugins
                 IPackage Package = Repo.FindPackage(ID);
                 if (Package != null)
                 {
+                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib").Create();
+                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content").Create();
+                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools").Create();
                     PackageManager Manager = new PackageManager(Repo,
                         new DefaultPackagePathResolver(Repo.Source),
-                        new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
+                        new PhysicalFileSystem(new DirectoryInfo("~/App_Data/packages").FullName));
                     Manager.InstallPackage(Package, false, true);
                     TempPlugin = new Plugin()
                     {
@@ -123,23 +126,12 @@ namespace Copernicus.Core.Plugins
         public bool UninstallPlugin(string ID)
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
+            Plugin TempPlugin = Plugin.Load(ID);
+            if (TempPlugin == null)
+                return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
             Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Info, ID, User);
-            foreach (IPackageRepository Repo in PackageRepositories)
-            {
-                IPackage Package = Repo.FindPackage(ID);
-                if (Package != null)
-                {
-                    PackageManager Manager = new PackageManager(Repo,
-                        new DefaultPackagePathResolver(Repo.Source),
-                        new PhysicalFileSystem(new FileInfo("~/App_Data/packages").FullName));
-                    Manager.UninstallPackage(Package, true, true);
-                    Plugin TempPlugin = Plugin.Load(ID);
-                    if (TempPlugin != null)
-                        TempPlugin.Delete();
-                    break;
-                }
-            }
+            TempPlugin.Delete();
             Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Info, ID, User);
             return true;
         }
@@ -152,6 +144,9 @@ namespace Copernicus.Core.Plugins
         public bool UpdatePlugin(string ID)
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
+            Plugin TempPlugin = Plugin.Load(ID);
+            if (TempPlugin == null)
+                return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
             bool Result = true;
             Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Info, ID, User);
@@ -160,7 +155,7 @@ namespace Copernicus.Core.Plugins
                 IPackage Package = Repo.FindPackage(ID);
                 if (Package != null)
                 {
-                    Plugin TempPlugin = Plugin.Load(ID);
+                    TempPlugin = Plugin.Load(ID);
                     if (TempPlugin != null)
                     {
                         TempPlugin.OnlineVersion = Package.Version.ToString();

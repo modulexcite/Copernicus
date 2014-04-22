@@ -19,13 +19,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Copernicus.Models.BaseClasses;
 using Utilities.IO;
 using Utilities.IO.Logging.Enums;
 
@@ -73,11 +73,11 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         public void Remove()
         {
-            Log.Get().LogMessage("Removing file {0}", MessageType.Info, Path);
+            Log.Get().LogMessage("Removing {0} {1}", MessageType.Info, IsDirectory ? "directory" : "file", Path);
             if (IsDirectory)
-                new DirectoryInfo("~/" + Path).Delete();
+                new DirectoryInfo(Path).Delete();
             else
-                new FileInfo("~/" + Path).Delete();
+                new FileInfo(Path).Delete();
         }
     }
 }
