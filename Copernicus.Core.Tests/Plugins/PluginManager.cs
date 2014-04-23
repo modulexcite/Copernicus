@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.Plugins;
 using Utilities.IO;
 using Xunit;
 
@@ -58,7 +58,7 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.True(new FileInfo("~/bin/xunit.dll.tdnet").Exists);
             Assert.True(new FileInfo("~/bin/xunit.dll").Exists);
             Assert.NotNull(TempPlugin);
-            Assert.Equal("James Newkirk,   Brad Wilson", TempPlugin.Author);
+            Assert.Equal("JamesNewkirk,BradWilson", TempPlugin.Author.Replace(" ", ""));
             Assert.Equal("xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.", TempPlugin.Description);
             Assert.Equal(6, TempPlugin.Files.Count);
             Assert.Equal("xUnit.net", TempPlugin.Name);
@@ -69,7 +69,7 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(null, TempPlugin.Type);
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
-            Assert.Equal("https://github.com/xunit/xunit", TempPlugin.Website);
+            Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
             new DirectoryInfo("~/bin").Delete();
             new DirectoryInfo("~/App_Data").Delete();
             Plugin.Load("xunit").Delete();
@@ -104,7 +104,7 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.True(new FileInfo("~/bin/xunit.dll.tdnet").Exists);
             Assert.True(new FileInfo("~/bin/xunit.dll").Exists);
             Assert.NotNull(TempPlugin);
-            Assert.Equal("James Newkirk,   Brad Wilson", TempPlugin.Author);
+            Assert.Equal("JamesNewkirk,BradWilson", TempPlugin.Author.Replace(" ", ""));
             Assert.Equal("xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.", TempPlugin.Description);
             Assert.Equal(6, TempPlugin.Files.Count);
             Assert.Equal("xUnit.net", TempPlugin.Name);
@@ -115,7 +115,7 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(null, TempPlugin.Type);
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
-            Assert.Equal("https://github.com/xunit/xunit", TempPlugin.Website);
+            Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
             new DirectoryInfo("~/bin").Delete();
             new DirectoryInfo("~/App_Data").Delete();
             Plugin.Load("xunit").Delete();
