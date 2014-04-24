@@ -19,6 +19,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
+using NuGet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -26,9 +29,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Copernicus.Models.Plugins;
-using NuGet;
 using Utilities.DataTypes;
+using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO;
 using Utilities.IO.Logging.Enums;
 
@@ -37,7 +39,7 @@ namespace Copernicus.Core.Plugins
     /// <summary>
     /// Plugin manager
     /// </summary>
-    public class PluginManager
+    public class PluginManager : SafeDisposableBaseClass
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginManager" /> class.
@@ -56,10 +58,17 @@ namespace Copernicus.Core.Plugins
         protected IEnumerable<IPackageRepository> PackageRepositories { get; private set; }
 
         /// <summary>
+        /// Gets or sets the plugins.
+        /// </summary>
+        /// <value>The plugins.</value>
+        protected IEnumerable<IPlugin> Plugins { get; set; }
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public void Initialize()
         {
+            new DirectoryInfo("~/bin/Loaded/").Delete();
             foreach (Plugin TempPlugin in Plugin.All())
             {
                 foreach (IPackageRepository Repo in PackageRepositories)
@@ -71,7 +80,9 @@ namespace Copernicus.Core.Plugins
                         TempPlugin.Save();
                     }
                 }
+                TempPlugin.Initialize();
             }
+            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
         }
 
         /// <summary>
@@ -83,7 +94,7 @@ namespace Copernicus.Core.Plugins
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
-            Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Info, ID, User);
+            Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Debug, ID, User);
             Plugin TempPlugin = Plugin.Load(ID);
             if (TempPlugin != null)
                 UninstallPlugin(ID);
@@ -114,7 +125,7 @@ namespace Copernicus.Core.Plugins
                     TempPlugin.Save();
                 }
             }
-            Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Info, ID, User);
+            Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Debug, ID, User);
             return true;
         }
 
@@ -130,9 +141,9 @@ namespace Copernicus.Core.Plugins
             if (TempPlugin == null)
                 return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
-            Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Info, ID, User);
+            Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Debug, ID, User);
             TempPlugin.Delete();
-            Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Info, ID, User);
+            Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Debug, ID, User);
             return true;
         }
 
@@ -149,7 +160,7 @@ namespace Copernicus.Core.Plugins
                 return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
             bool Result = true;
-            Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Info, ID, User);
+            Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Debug, ID, User);
             foreach (IPackageRepository Repo in PackageRepositories)
             {
                 IPackage Package = Repo.FindPackage(ID);
@@ -169,6 +180,21 @@ namespace Copernicus.Core.Plugins
                 }
             }
             return Result;
+        }
+
+        /// <summary>
+        /// Function to override in order to dispose objects
+        /// </summary>
+        /// <param name="Managed">
+        /// If true, managed and unmanaged objects should be disposed. Otherwise unmanaged objects only.
+        /// </param>
+        protected override void Dispose(bool Managed)
+        {
+            if (Plugins != null)
+            {
+                Plugins.ForEach(x => x.Dispose());
+                Plugins = null;
+            }
         }
     }
 }

@@ -19,13 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
-using Copernicus.Models.General;
 using Utilities.DataTypes;
 using Utilities.IO;
 using Utilities.IO.FileSystem.Interfaces;
@@ -145,6 +146,20 @@ namespace Copernicus.Models.Plugins
         }
 
         /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public void Initialize()
+        {
+            if (Active)
+            {
+                DirectoryInfo LoadingDirectory = new DirectoryInfo("~/bin/Loaded/" + PluginID);
+                new DirectoryInfo("~/bin/" + PluginID).CopyTo(new DirectoryInfo("~/bin/Loaded/" + PluginID));
+                LoadingDirectory.EnumerateFiles("*.dll", System.IO.SearchOption.AllDirectories)
+                    .ForEach(x => AssemblyName.GetAssemblyName(x.FullName).Load());
+            }
+        }
+
+        /// <summary>
         /// Saves this instance and copies the files associated with it.
         /// </summary>
         public override void Save()
@@ -159,7 +174,7 @@ namespace Copernicus.Models.Plugins
                 {
                     IsDirectory = false,
                     Order = y++,
-                    Path = "~/bin" + x.FullName.Replace(LibDirectory.FullName, "").Replace("\\", "/"),
+                    Path = "~/bin/" + PluginID + x.FullName.Replace(LibDirectory.FullName, "").Replace("\\", "/"),
                     Plugin = this
                 }));
                 TempFiles.Add(ContentDirectory.EnumerateFiles("*", System.IO.SearchOption.AllDirectories).ForEach(x => new PluginFile()
@@ -170,8 +185,8 @@ namespace Copernicus.Models.Plugins
                     Plugin = this
                 }));
                 Files = TempFiles;
-                new DirectoryInfo("~/bin/").Create();
-                LibDirectory.CopyTo(new DirectoryInfo("~/bin/"));
+                new DirectoryInfo("~/bin/" + PluginID).Create();
+                LibDirectory.CopyTo(new DirectoryInfo("~/bin/" + PluginID));
                 ContentDirectory.CopyTo(new DirectoryInfo("~/"));
                 new DirectoryInfo(string.Format("~/App_Data/packages/{0}/", PluginID)).Delete();
                 new DirectoryInfo(string.Format("~/App_Data/packages/{0}.{1}/", PluginID, Version)).Delete();
