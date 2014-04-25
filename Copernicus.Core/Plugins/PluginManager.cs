@@ -69,20 +69,20 @@ namespace Copernicus.Core.Plugins
         public void Initialize()
         {
             new DirectoryInfo("~/bin/Loaded/").Delete();
-            foreach (Plugin TempPlugin in Plugin.All())
+            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
+            foreach (IPlugin TempPlugin in Plugins)
             {
                 foreach (IPackageRepository Repo in PackageRepositories)
                 {
-                    IPackage Package = Repo.FindPackage(TempPlugin.PluginID);
+                    IPackage Package = Repo.FindPackage(TempPlugin.PluginData.PluginID);
                     if (Package != null)
                     {
-                        TempPlugin.OnlineVersion = Package.Version.ToString();
-                        TempPlugin.Save();
+                        TempPlugin.PluginData.OnlineVersion = Package.Version.ToString();
+                        TempPlugin.PluginData.Save();
                     }
                 }
                 TempPlugin.Initialize();
             }
-            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
         }
 
         /// <summary>

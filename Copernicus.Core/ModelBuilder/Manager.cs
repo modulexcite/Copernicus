@@ -19,35 +19,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Core.Plugins.Interfaces
+namespace Copernicus.Core.ModelBuilder
 {
     /// <summary>
-    /// Plugin interface
+    /// Model builder manager
     /// </summary>
-    public interface IPlugin : IDisposable
+    public class Manager
     {
         /// <summary>
-        /// Gets the name.
+        /// Initializes a new instance of the <see cref="Manager" /> class.
         /// </summary>
-        /// <value>The name.</value>
-        string Name { get; }
-
-        /// <summary>
-        /// Gets the plugin data.
-        /// </summary>
-        /// <value>The plugin data.</value>
-        Plugin PluginData { get; }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        void Initialize();
+        public Manager()
+        {
+        }
     }
 }

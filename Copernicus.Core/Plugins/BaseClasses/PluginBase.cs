@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace Copernicus.Core.Plugins.BaseClasses
             : base()
         {
             Log.Get().LogMessage("Initializing plugin: {0}", MessageType.Debug, Name);
+            PluginData = Plugin.Load(Name);
         }
 
         /// <summary>
@@ -50,6 +52,20 @@ namespace Copernicus.Core.Plugins.BaseClasses
         /// </summary>
         /// <value>The name.</value>
         public abstract string Name { get; }
+
+        /// <summary>
+        /// Gets the plugin data.
+        /// </summary>
+        /// <value>The plugin data.</value>
+        public Models.Plugins.Plugin PluginData { get; private set; }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            PluginData.Initialize();
+        }
 
         /// <summary>
         /// Function to override in order to dispose objects

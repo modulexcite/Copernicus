@@ -19,35 +19,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.IoC.Interfaces;
 
-namespace Copernicus.Core.Plugins.Interfaces
+namespace Copernicus.Core.ModelBuilder.Module
 {
     /// <summary>
-    /// Plugin interface
+    /// Model builder module
     /// </summary>
-    public interface IPlugin : IDisposable
+    public class ModelBuilderModule : IModule
     {
         /// <summary>
-        /// Gets the name.
+        /// Order to run it in
         /// </summary>
-        /// <value>The name.</value>
-        string Name { get; }
+        public int Order
+        {
+            get { return 0; }
+        }
 
         /// <summary>
-        /// Gets the plugin data.
+        /// Loads the module
         /// </summary>
-        /// <value>The plugin data.</value>
-        Plugin PluginData { get; }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        void Initialize();
+        /// <param name="Bootstrapper">Bootstrapper to register with</param>
+        public void Load(IBootstrapper Bootstrapper)
+        {
+            if (Bootstrapper == null)
+                return;
+            Bootstrapper.Register(new Manager());
+        }
     }
 }

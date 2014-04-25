@@ -234,8 +234,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ModelBuilder\Manager.cs" />
+    <Compile Include="ModelBuilder\Module\ModelBuilderModule.cs" />
+    <Compile Include="Plugins\BaseClasses\ExtensionPluginBase.cs" />
     <Compile Include="Plugins\BaseClasses\PluginBase.cs" />
+    <Compile Include="Plugins\BaseClasses\RendererPluginBase.cs" />
     <Compile Include="Plugins\BaseClasses\ThemePluginBase.cs" />
+    <Compile Include="Plugins\BaseClasses\WorkflowPluginBase.cs" />
     <Compile Include="Plugins\Interfaces\IPlugin.cs" />
     <Compile Include="Plugins\Module\PluginModule.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
@@ -259,7 +264,9 @@
       <Name>Copernicus.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModelBuilder\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
