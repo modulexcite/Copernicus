@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.Data
 {
@@ -43,6 +43,12 @@ namespace Copernicus.Models.Data
         }
 
         /// <summary>
+        /// Gets or sets the data source.
+        /// </summary>
+        /// <value>The data source.</value>
+        public virtual Source DataSource { get; set; }
+
+        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
@@ -53,5 +59,10 @@ namespace Copernicus.Models.Data
         /// </summary>
         /// <value>The properties.</value>
         public virtual List<Property> Properties { get; set; }
+
+        internal object Generate(Utilities.DataTypes.CodeGen.Compiler Compiler)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

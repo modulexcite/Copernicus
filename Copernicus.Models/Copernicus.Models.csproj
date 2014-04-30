@@ -204,6 +204,7 @@
     <Compile Include="Configuration\DatabaseConfig.cs" />
     <Compile Include="Data\Model.cs" />
     <Compile Include="Data\Property.cs" />
+    <Compile Include="Data\Source.cs" />
     <Compile Include="Data\ViewModel.cs" />
     <Compile Include="General\LookUp.cs" />
     <Compile Include="General\LookUpType.cs" />

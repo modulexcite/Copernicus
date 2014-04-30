@@ -50,7 +50,7 @@ namespace Copernicus.Core.Plugins.Module
         {
             if (Bootstrapper == null)
                 return;
-            Bootstrapper.Register(new PluginManager(ConfigurationManager.AppSettings["PluginSource"].Split(',')));
+            Bootstrapper.Register(new PluginManager(ConfigurationManager.AppSettings["Copernicus:PluginSource"].Split(',')));
         }
     }
 }

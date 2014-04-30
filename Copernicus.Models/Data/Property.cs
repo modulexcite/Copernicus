@@ -19,14 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
-using Copernicus.Models.Data;
-using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Models.BaseClasses;
+using Copernicus.Models.Data;
+using Copernicus.Models.General;
 
 namespace Copernicus.Models.Data
 {
@@ -72,6 +72,12 @@ namespace Copernicus.Models.Data
         /// </summary>
         /// <value>The name.</value>
         public virtual string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent model.
+        /// </summary>
+        /// <value>The parent model.</value>
+        public virtual Model ParentModel { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Property" /> is required.

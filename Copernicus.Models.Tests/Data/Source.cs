@@ -19,43 +19,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Utilities.ORM.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace Copernicus.Models.Configuration
+namespace Copernicus.Models.Tests.Data
 {
-    /// <summary>
-    /// Database config
-    /// </summary>
-    public class DatabaseConfig : IDatabase
+    public class Source
     {
-        /// <summary>
-        /// Audit the database
-        /// </summary>
-        public bool Audit { get { return true; } }
+        [Fact]
+        public void Decrypt()
+        {
+            Copernicus.Models.Data.Source TempSource = new Models.Data.Source() { ConnectionString = "YTyTpxgKkRQhT4tfiJkrQVazmjiSXr22jk86JdXI9KI=" };
+            Assert.DoesNotThrow(() => TempSource.Decrypt());
+            Assert.Equal("Testing this out", TempSource.ConnectionString);
+        }
 
-        /// <summary>
-        /// Name
-        /// </summary>
-        public string Name { get { return "Default"; } }
-
-        /// <summary>
-        /// Order
-        /// </summary>
-        public int Order { get { return 1; } }
-
-        /// <summary>
-        /// Readable
-        /// </summary>
-        public bool Readable { get { return true; } }
-
-        /// <summary>
-        /// Update
-        /// </summary>
-        public bool Update { get { return true; } }
-
-        /// <summary>
-        /// Writable
-        /// </summary>
-        public bool Writable { get { return true; } }
+        [Fact]
+        public void Encrypt()
+        {
+            Copernicus.Models.Data.Source TempSource = new Models.Data.Source() { ConnectionString = "Testing this out" };
+            Assert.DoesNotThrow(() => TempSource.Encrypt());
+            Assert.Equal("YTyTpxgKkRQhT4tfiJkrQVazmjiSXr22jk86JdXI9KI=", TempSource.ConnectionString);
+        }
     }
 }
