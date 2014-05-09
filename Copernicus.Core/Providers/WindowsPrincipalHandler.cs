@@ -19,10 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Authentication;
-using Copernicus.Models.Authentication.Stores;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -31,6 +27,10 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Models.Authentication;
+using Copernicus.Models.Authentication.Stores;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Utilities.DataTypes;
 
 namespace Copernicus.Core.Providers
@@ -93,7 +93,6 @@ namespace Copernicus.Core.Providers
                 Context.Authentication.SignIn(Identity);
                 Context.Response.Redirect((Context.Request.PathBase + Context.Request.Path).Value);
             }
-            return;
         }
 
         /// <summary>

@@ -21,20 +21,23 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Copernicus.Models.BaseClasses;
-using Utilities.IO;
-using Utilities.IO.Logging.Enums;
+using Utilities.DataTypes;
 
 namespace Copernicus.Models.Plugins
 {
     /// <summary>
     /// Files included with a plugin
     /// </summary>
-    public class PluginFile : ModelBase<PluginFile>
+    [Serializable]
+    public class PluginFile
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginFile" /> class.
@@ -48,36 +51,49 @@ namespace Copernicus.Models.Plugins
         /// Gets or sets a value indicating whether this instance is a directory.
         /// </summary>
         /// <value><c>true</c> if this instance is a directory; otherwise, <c>false</c>.</value>
-        public virtual bool IsDirectory { get; set; }
+        public bool IsDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the order.
         /// </summary>
         /// <value>The order.</value>
-        public virtual int Order { get; set; }
+        public int Order { get; set; }
 
         /// <summary>
         /// Gets or sets the path.
         /// </summary>
         /// <value>The path.</value>
-        public virtual string Path { get; set; }
-
-        /// <summary>
-        /// Gets or sets the plugin.
-        /// </summary>
-        /// <value>The plugin.</value>
-        public virtual Plugin Plugin { get; set; }
+        public string Path { get; set; }
 
         /// <summary>
         /// Removes this instance.
         /// </summary>
         public void Remove()
         {
-            Log.Get().LogMessage("Removing {0} {1}", MessageType.Info, IsDirectory ? "directory" : "file", Path);
             if (IsDirectory)
-                new DirectoryInfo(Path).Delete();
+                Delete(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath(Path) : Path.Replace("~", AppDomain.CurrentDomain.BaseDirectory)));
             else
-                new FileInfo(Path).Delete();
+                new FileInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath(Path) : Path.Replace("~", AppDomain.CurrentDomain.BaseDirectory)).Delete();
+        }
+
+        /// <summary>
+        /// Deletes the specified directory.
+        /// </summary>
+        /// <param name="Directory">The directory.</param>
+        private void Delete(DirectoryInfo Directory)
+        {
+            Contract.Requires<ArgumentNullException>(Directory != null, "Directory");
+            if (!Directory.Exists)
+                return;
+            foreach (FileInfo File in Directory.EnumerateFiles())
+            {
+                File.Delete();
+            }
+            foreach (DirectoryInfo SubDirectory in Directory.EnumerateDirectories())
+            {
+                Delete(SubDirectory);
+            }
+            Directory.Delete();
         }
     }
 }

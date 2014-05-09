@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Models.Plugins;
 using Utilities.IO;
 using Utilities.IO.Logging.Enums;
 

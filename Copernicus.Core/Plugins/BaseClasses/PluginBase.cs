@@ -19,13 +19,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Plugins.Interfaces;
-using Copernicus.Models.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
 using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO;
 using Utilities.IO.Logging.Enums;
@@ -44,7 +44,7 @@ namespace Copernicus.Core.Plugins.BaseClasses
             : base()
         {
             Log.Get().LogMessage("Initializing plugin: {0}", MessageType.Debug, Name);
-            PluginData = Plugin.Load(Name);
+            PluginData = PluginList.Load().Get(Name);
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace Copernicus.Core.Plugins.Module
         /// </summary>
         public int Order
         {
-            get { return 4; }
+            get { return 2; }
         }
 
         /// <summary>

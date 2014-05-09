@@ -19,19 +19,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Plugins.Interfaces;
-using Copernicus.Models.Plugins;
-using NuGet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
+using NuGet;
 using Utilities.DataTypes;
 using Utilities.DataTypes.Patterns.BaseClasses;
-using Utilities.IO;
 using Utilities.IO.Logging.Enums;
 
 namespace Copernicus.Core.Plugins
@@ -49,6 +49,7 @@ namespace Copernicus.Core.Plugins
         {
             Contract.Requires<ArgumentNullException>(Repositories != null, "Repositories");
             PackageRepositories = Repositories.ForEach(x => PackageRepositoryFactory.Default.CreateRepository(x));
+            Initialize();
         }
 
         /// <summary>
@@ -56,6 +57,12 @@ namespace Copernicus.Core.Plugins
         /// </summary>
         /// <value>The package repositories.</value>
         protected IEnumerable<IPackageRepository> PackageRepositories { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the plugin list.
+        /// </summary>
+        /// <value>The plugin list.</value>
+        protected PluginList PluginList { get; private set; }
 
         /// <summary>
         /// Gets or sets the plugins.
@@ -68,8 +75,9 @@ namespace Copernicus.Core.Plugins
         /// </summary>
         public void Initialize()
         {
-            new DirectoryInfo("~/bin/Loaded/").Delete();
+            Delete(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/") : "./bin/Loaded/"));
             Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
+            PluginList = PluginList.Load();
             foreach (IPlugin TempPlugin in Plugins)
             {
                 foreach (IPackageRepository Repo in PackageRepositories)
@@ -77,12 +85,13 @@ namespace Copernicus.Core.Plugins
                     IPackage Package = Repo.FindPackage(TempPlugin.PluginData.PluginID);
                     if (Package != null)
                     {
-                        TempPlugin.PluginData.OnlineVersion = Package.Version.ToString();
-                        TempPlugin.PluginData.Save();
+                        Plugin TempPluginData = PluginList.Get(Package.Id);
+                        TempPluginData.OnlineVersion = Package.Version.ToString();
                     }
                 }
                 TempPlugin.Initialize();
             }
+            PluginList.Save();
         }
 
         /// <summary>
@@ -94,8 +103,8 @@ namespace Copernicus.Core.Plugins
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
-            Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Debug, ID, User);
-            Plugin TempPlugin = Plugin.Load(ID);
+            Utilities.IO.Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Debug, ID, User);
+            IPlugin TempPlugin = Plugins.FirstOrDefault(x => string.Equals(x.Name, ID, StringComparison.InvariantCultureIgnoreCase));
             if (TempPlugin != null)
                 UninstallPlugin(ID);
             foreach (IPackageRepository Repo in PackageRepositories)
@@ -103,14 +112,22 @@ namespace Copernicus.Core.Plugins
                 IPackage Package = Repo.FindPackage(ID);
                 if (Package != null)
                 {
-                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib").Create();
-                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content").Create();
-                    new DirectoryInfo("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools").Create();
+                    new DirectoryInfo(HttpContext.Current != null ?
+                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib") :
+                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib").Create();
+                    new DirectoryInfo(HttpContext.Current != null ?
+                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content") :
+                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content").Create();
+                    new DirectoryInfo(HttpContext.Current != null ?
+                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools") :
+                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools").Create();
                     PackageManager Manager = new PackageManager(Repo,
                         new DefaultPackagePathResolver(Repo.Source),
-                        new PhysicalFileSystem(new DirectoryInfo("~/App_Data/packages").FullName));
+                        new PhysicalFileSystem(new DirectoryInfo(HttpContext.Current != null ?
+                            HttpContext.Current.Server.MapPath("~/App_Data/packages") :
+                            "./App_Data/packages").FullName));
                     Manager.InstallPackage(Package, false, true);
-                    TempPlugin = new Plugin()
+                    Plugin TempPlugin2 = new Plugin()
                     {
                         PluginID = ID,
                         Version = Package.Version.ToString(),
@@ -122,10 +139,12 @@ namespace Copernicus.Core.Plugins
                         Tags = Package.Tags,
                         Website = Package.ProjectUrl.ToString()
                     };
-                    TempPlugin.Save();
+                    PluginList.Add(TempPlugin2);
+                    PluginList.Save();
+                    break;
                 }
             }
-            Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Debug, ID, User);
+            Utilities.IO.Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Debug, ID, User);
             return true;
         }
 
@@ -137,13 +156,15 @@ namespace Copernicus.Core.Plugins
         public bool UninstallPlugin(string ID)
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
-            Plugin TempPlugin = Plugin.Load(ID);
+            Plugin TempPlugin = PluginList.Get(ID);
             if (TempPlugin == null)
                 return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
-            Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Debug, ID, User);
+            Utilities.IO.Log.Get().LogMessage("Plugin {0} is being uninstalled by {1}", MessageType.Debug, ID, User);
             TempPlugin.Delete();
-            Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Debug, ID, User);
+            Utilities.IO.Log.Get().LogMessage("Plugin {0} has been uninstalled by {1}", MessageType.Debug, ID, User);
+            PluginList.Remove(TempPlugin);
+            PluginList.Save();
             return true;
         }
 
@@ -155,18 +176,18 @@ namespace Copernicus.Core.Plugins
         public bool UpdatePlugin(string ID)
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
-            Plugin TempPlugin = Plugin.Load(ID);
+            Plugin TempPlugin = PluginList.Get(ID);
             if (TempPlugin == null)
                 return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
             bool Result = true;
-            Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Debug, ID, User);
+            Utilities.IO.Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Debug, ID, User);
             foreach (IPackageRepository Repo in PackageRepositories)
             {
                 IPackage Package = Repo.FindPackage(ID);
                 if (Package != null)
                 {
-                    TempPlugin = Plugin.Load(ID);
+                    TempPlugin = PluginList.Get(ID);
                     if (TempPlugin != null)
                     {
                         TempPlugin.OnlineVersion = Package.Version.ToString();
@@ -195,6 +216,26 @@ namespace Copernicus.Core.Plugins
                 Plugins.ForEach(x => x.Dispose());
                 Plugins = null;
             }
+        }
+
+        /// <summary>
+        /// Deletes the specified directory.
+        /// </summary>
+        /// <param name="Directory">The directory.</param>
+        private void Delete(DirectoryInfo Directory)
+        {
+            Contract.Requires<ArgumentNullException>(Directory != null, "Directory");
+            if (!Directory.Exists)
+                return;
+            foreach (FileInfo File in Directory.EnumerateFiles())
+            {
+                File.Delete();
+            }
+            foreach (DirectoryInfo SubDirectory in Directory.EnumerateDirectories())
+            {
+                Delete(SubDirectory);
+            }
+            Directory.Delete();
         }
     }
 }
