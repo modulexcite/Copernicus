@@ -185,7 +185,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0f7489d08ad0bf67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CraigsUtilityLibrary.4.0.132-beta\lib\net40\Utilities.dll</HintPath>
+      <HintPath>..\packages\CraigsUtilityLibrary.4.0.136-beta\lib\net40\Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
