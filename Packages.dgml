@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Plugins\Copernicus.Models.Content" Label="Copernicus.Models.Content" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Plugins\Copernicus.Models.CRM" Label="Copernicus.Models.CRM" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Tests\Copernicus.Core.Tests" Label="Copernicus.Core.Tests" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Moq 4.2.1402.2112" Label="Moq 4.2.1402.2112" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="xunit 1.9.2" Label="xunit 1.9.2" Category="Package" />
+    <Node Id="Tests\Copernicus.Models.Tests" Label="Copernicus.Models.Tests" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Core 2.0.0" Label="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="xunit 1.9.2" Label="xunit 1.9.2" Category="Package" />
+    <Node Id="Copernicus.Core" Label="Copernicus.Core" Category="Project" />
+    <Node Id="Antlr 3.5.0.2" Label="Antlr 3.5.0.2" Category="Package" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Ironman.Core 1.0.136-beta" Label="Ironman.Core 1.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Core 2.0.0" Label="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Owin 2.0.0" Label="Microsoft.AspNet.Identity.Owin 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Web.Optimization 1.1.3" Label="Microsoft.AspNet.Web.Optimization 1.1.3" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Owin 2.1.0" Label="Microsoft.Owin 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security 2.1.0" Label="Microsoft.Owin.Security 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.Cookies 2.1.0" Label="Microsoft.Owin.Security.Cookies 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.OAuth 2.1.0" Label="Microsoft.Owin.Security.OAuth 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Microsoft.Web.Xdt 1.0.0" Label="Microsoft.Web.Xdt 1.0.0" Category="Package" />
+    <Node Id="Newtonsoft.Json 6.0.3" Label="Newtonsoft.Json 6.0.3" Category="Package" />
+    <Node Id="NuGet.Core 2.8.1" Label="NuGet.Core 2.8.1" Category="Package" />
+    <Node Id="Owin 1.0" Label="Owin 1.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="WebActivatorEx 2.0.5" Label="WebActivatorEx 2.0.5" Category="Package" />
+    <Node Id="WebGrease 1.6.0" Label="WebGrease 1.6.0" Category="Package" />
+    <Node Id="Copernicus.ViewModels" Label="Copernicus.ViewModels" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Copernicus.Models" Label="Copernicus.Models" Category="Project" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Core 2.0.0" Label="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Copernicus" Label="Copernicus" Category="Project" />
+    <Node Id="Antlr 3.5.0.2" Label="Antlr 3.5.0.2" Category="Package" />
+    <Node Id="CraigsUtilityLibrary 4.0.136-beta" Label="CraigsUtilityLibrary 4.0.136-beta" Category="Package" />
+    <Node Id="CUL.MiniProfiler 4.0.136-beta" Label="CUL.MiniProfiler 4.0.136-beta" Category="Package" />
+    <Node Id="CUL.NLog 4.0.136-beta" Label="CUL.NLog 4.0.136-beta" Category="Package" />
+    <Node Id="CUL.ServiceStack 4.0.136-beta" Label="CUL.ServiceStack 4.0.136-beta" Category="Package" />
+    <Node Id="dotless 1.4.0.0" Label="dotless 1.4.0.0" Category="Package" />
+    <Node Id="EcmaScript.Net 1.0.1.0" Label="EcmaScript.Net 1.0.1.0" Category="Package" />
+    <Node Id="elmah.corelibrary 1.2.2" Label="elmah.corelibrary 1.2.2" Category="Package" />
+    <Node Id="Elmah.MVC 2.1.1" Label="Elmah.MVC 2.1.1" Category="Package" />
+    <Node Id="Glimpse 1.8.5" Label="Glimpse 1.8.5" Category="Package" />
+    <Node Id="Glimpse.Ado 1.7.1" Label="Glimpse.Ado 1.7.1" Category="Package" />
+    <Node Id="Glimpse.AspNet 1.9.0" Label="Glimpse.AspNet 1.9.0" Category="Package" />
+    <Node Id="Glimpse.CUL 4.0.136-beta" Label="Glimpse.CUL 4.0.136-beta" Category="Package" />
+    <Node Id="Glimpse.Elmah 1.1.1" Label="Glimpse.Elmah 1.1.1" Category="Package" />
+    <Node Id="Glimpse.MiniProfiler 1.2.4" Label="Glimpse.MiniProfiler 1.2.4" Category="Package" />
+    <Node Id="Glimpse.Mvc5 1.5.3" Label="Glimpse.Mvc5 1.5.3" Category="Package" />
+    <Node Id="Glimpse.NLog 1.3.0" Label="Glimpse.NLog 1.3.0" Category="Package" />
+    <Node Id="Ironman.Core 1.0.136-beta" Label="Ironman.Core 1.0.136-beta" Category="Package" />
+    <Node Id="Ironman.Core.Assets.Less 1.0.136-beta" Label="Ironman.Core.Assets.Less 1.0.136-beta" Category="Package" />
+    <Node Id="Ironman.Core.Assets.Yui 1.0.136-beta" Label="Ironman.Core.Assets.Yui 1.0.136-beta" Category="Package" />
+    <Node Id="Ironman.Default 1.0.136-beta" Label="Ironman.Default 1.0.136-beta" Category="Package" />
+    <Node Id="jQuery 2.1.0" Label="jQuery 2.1.0" Category="Package" />
+    <Node Id="jQuery.Validation 1.11.1" Label="jQuery.Validation 1.11.1" Category="Package" />
+    <Node Id="Knockout.Validation 1.0.1" Label="Knockout.Validation 1.0.1" Category="Package" />
+    <Node Id="knockoutjs 3.1.0" Label="knockoutjs 3.1.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Core 2.0.0" Label="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Identity.Owin 2.0.0" Label="Microsoft.AspNet.Identity.Owin 2.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 5.1.2" Label="Microsoft.AspNet.Mvc 5.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 3.1.2" Label="Microsoft.AspNet.Razor 3.1.2" Category="Package" />
+    <Node Id="Microsoft.AspNet.Web.Optimization 1.1.3" Label="Microsoft.AspNet.Web.Optimization 1.1.3" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 3.1.2" Label="Microsoft.AspNet.WebPages 3.1.2" Category="Package" />
+    <Node Id="Microsoft.jQuery.Unobtrusive.Validation 3.0.0" Label="Microsoft.jQuery.Unobtrusive.Validation 3.0.0" Category="Package" />
+    <Node Id="Microsoft.Owin 2.1.0" Label="Microsoft.Owin 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Host.SystemWeb 2.1.0" Label="Microsoft.Owin.Host.SystemWeb 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security 2.1.0" Label="Microsoft.Owin.Security 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.Cookies 2.1.0" Label="Microsoft.Owin.Security.Cookies 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.Facebook 2.1.0" Label="Microsoft.Owin.Security.Facebook 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.Google 2.1.0" Label="Microsoft.Owin.Security.Google 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Label="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.OAuth 2.1.0" Label="Microsoft.Owin.Security.OAuth 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Owin.Security.Twitter 2.1.0" Label="Microsoft.Owin.Security.Twitter 2.1.0" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="MiniProfiler 3.0.10" Label="MiniProfiler 3.0.10" Category="Package" />
+    <Node Id="Newtonsoft.Json 6.0.3" Label="Newtonsoft.Json 6.0.3" Category="Package" />
+    <Node Id="NLog 2.1.0" Label="NLog 2.1.0" Category="Package" />
+    <Node Id="NLog.Config 2.1.0" Label="NLog.Config 2.1.0" Category="Package" />
+    <Node Id="NLog.Schema 2.1.0" Label="NLog.Schema 2.1.0" Category="Package" />
+    <Node Id="Owin 1.0" Label="Owin 1.0" Category="Package" />
+    <Node Id="Roslyn 1.2.20906.2" Label="Roslyn 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.Common 1.2.20906.2" Label="Roslyn.Compilers.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.CSharp 1.2.20906.2" Label="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Compilers.VisualBasic 1.2.20906.2" Label="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.Common 1.2.20906.2" Label="Roslyn.Services.Common 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.CSharp 1.2.20906.2" Label="Roslyn.Services.CSharp 1.2.20906.2" Category="Package" />
+    <Node Id="Roslyn.Services.VisualBasic 1.2.20906.2" Label="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package" />
+    <Node Id="ServiceStack.Text.Signed 4.0.19" Label="ServiceStack.Text.Signed 4.0.19" Category="Package" />
+    <Node Id="WebActivatorEx 2.0.5" Label="WebActivatorEx 2.0.5" Category="Package" />
+    <Node Id="WebGrease 1.6.0" Label="WebGrease 1.6.0" Category="Package" />
+    <Node Id="YUICompressor.NET 2.4.0.0" Label="YUICompressor.NET 2.4.0.0" Category="Package" />
+  </Nodes>
+  <Links>
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Plugins\Copernicus.Models.Content" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Plugins\Copernicus.Models.CRM" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Tests\Copernicus.Core.Tests" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="Tests\Copernicus.Core.Tests" Target="Moq 4.2.1402.2112" Category="Installed Package" />
+    <Link Source="Tests\Copernicus.Core.Tests" Target="xunit 1.9.2" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Tests\Copernicus.Models.Tests" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="Tests\Copernicus.Models.Tests" Target="Microsoft.AspNet.Identity.Core 2.0.0" Category="Installed Package" />
+    <Link Source="Tests\Copernicus.Models.Tests" Target="xunit 1.9.2" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="Microsoft.AspNet.Web.Optimization 1.1.3" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="WebActivatorEx 2.0.5" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security.Cookies 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security.OAuth 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.3" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.3" Target="WebGrease 1.6.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="NuGet.Core 2.8.1" Target="Microsoft.Web.Xdt 1.0.0" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="WebActivatorEx 2.0.5" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="WebGrease 1.6.0" Target="Antlr 3.5.0.2" Category="Package Dependency" />
+    <Link Source="WebGrease 1.6.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Copernicus.Core" Target="Ironman.Core 1.0.136-beta" Category="Installed Package" />
+    <Link Source="Copernicus.Core" Target="Microsoft.AspNet.Identity.Owin 2.0.0" Category="Installed Package" />
+    <Link Source="Copernicus.Core" Target="NuGet.Core 2.8.1" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Copernicus.ViewModels" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Copernicus.Models" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Installed Package" />
+    <Link Source="Copernicus.Models" Target="Microsoft.AspNet.Identity.Core 2.0.0" Category="Installed Package" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Roslyn 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="CraigsUtilityLibrary 4.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="CUL.MiniProfiler 4.0.136-beta" Target="MiniProfiler 3.0.10" Category="Package Dependency" />
+    <Link Source="CUL.MiniProfiler 4.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="CUL.NLog 4.0.136-beta" Target="NLog 2.1.0" Category="Package Dependency" />
+    <Link Source="CUL.NLog 4.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="CUL.ServiceStack 4.0.136-beta" Target="ServiceStack.Text.Signed 4.0.19" Category="Package Dependency" />
+    <Link Source="CUL.ServiceStack 4.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Elmah.MVC 2.1.1" Target="elmah.corelibrary 1.2.2" Category="Package Dependency" />
+    <Link Source="Glimpse.Ado 1.7.1" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.AspNet 1.9.0" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.CUL 4.0.136-beta" Target="Glimpse.AspNet 1.9.0" Category="Package Dependency" />
+    <Link Source="Glimpse.CUL 4.0.136-beta" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.CUL 4.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Glimpse.Elmah 1.1.1" Target="elmah.corelibrary 1.2.2" Category="Package Dependency" />
+    <Link Source="Glimpse.Elmah 1.1.1" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.MiniProfiler 1.2.4" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.MiniProfiler 1.2.4" Target="MiniProfiler 3.0.10" Category="Package Dependency" />
+    <Link Source="Glimpse.Mvc5 1.5.3" Target="Glimpse.AspNet 1.9.0" Category="Package Dependency" />
+    <Link Source="Glimpse.NLog 1.3.0" Target="Glimpse 1.8.5" Category="Package Dependency" />
+    <Link Source="Glimpse.NLog 1.3.0" Target="NLog 2.1.0" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="Microsoft.AspNet.Web.Optimization 1.1.3" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="Microsoft.AspNet.Mvc 5.1.2" Category="Package Dependency" />
+    <Link Source="Ironman.Core 1.0.136-beta" Target="WebActivatorEx 2.0.5" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Less 1.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Less 1.0.136-beta" Target="Ironman.Core 1.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Less 1.0.136-beta" Target="dotless 1.4.0.0" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Yui 1.0.136-beta" Target="CraigsUtilityLibrary 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Yui 1.0.136-beta" Target="Ironman.Core 1.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Core.Assets.Yui 1.0.136-beta" Target="YUICompressor.NET 2.4.0.0" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Ironman.Core.Assets.Yui 1.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Ironman.Core.Assets.Less 1.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="CUL.MiniProfiler 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="CUL.NLog 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="CUL.ServiceStack 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Glimpse.CUL 4.0.136-beta" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Elmah.MVC 2.1.1" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Glimpse.Mvc5 1.5.3" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Glimpse.Elmah 1.1.1" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Glimpse.NLog 1.3.0" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="Glimpse.MiniProfiler 1.2.4" Category="Package Dependency" />
+    <Link Source="Ironman.Default 1.0.136-beta" Target="NLog.Config 2.1.0" Category="Package Dependency" />
+    <Link Source="jQuery.Validation 1.11.1" Target="jQuery 2.1.0" Category="Package Dependency" />
+    <Link Source="Knockout.Validation 1.0.1" Target="knockoutjs 3.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.AspNet.Identity.Core 2.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security.Cookies 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Identity.Owin 2.0.0" Target="Microsoft.Owin.Security.OAuth 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.WebPages 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 5.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.3" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Web.Optimization 1.1.3" Target="WebGrease 1.6.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 3.1.2" Target="Microsoft.AspNet.Razor 3.1.2" Category="Package Dependency" />
+    <Link Source="Microsoft.jQuery.Unobtrusive.Validation 3.0.0" Target="jQuery.Validation 1.11.1" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.1.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Host.SystemWeb 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Cookies 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Facebook 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Google 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Google 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Google 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Google 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.1.0" Target="Owin 1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.1.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="Microsoft.Owin.Security.Twitter 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="NLog.Config 2.1.0" Target="NLog 2.1.0" Category="Package Dependency" />
+    <Link Source="NLog.Config 2.1.0" Target="NLog.Schema 2.1.0" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn 1.2.20906.2" Target="Roslyn.Services.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.CSharp 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Compilers.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.Common 1.2.20906.2" Target="Roslyn.Compilers.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.CSharp 1.2.20906.2" Target="Roslyn.Compilers.CSharp 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Services.Common 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="Roslyn.Services.VisualBasic 1.2.20906.2" Target="Roslyn.Compilers.VisualBasic 1.2.20906.2" Category="Package Dependency" />
+    <Link Source="WebActivatorEx 2.0.5" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="WebGrease 1.6.0" Target="Antlr 3.5.0.2" Category="Package Dependency" />
+    <Link Source="WebGrease 1.6.0" Target="Newtonsoft.Json 6.0.3" Category="Package Dependency" />
+    <Link Source="YUICompressor.NET 2.4.0.0" Target="EcmaScript.Net 1.0.1.0" Category="Package Dependency" />
+    <Link Source="Copernicus" Target="Glimpse.Ado 1.7.1" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Ironman.Default 1.0.136-beta" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Knockout.Validation 1.0.1" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.AspNet.Identity.Owin 2.0.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.jQuery.Unobtrusive.Validation 3.0.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.Owin.Host.SystemWeb 2.1.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.Owin.Security.Facebook 2.1.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.Owin.Security.Google 2.1.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.Owin.Security.MicrosoftAccount 2.1.0" Category="Installed Package" />
+    <Link Source="Copernicus" Target="Microsoft.Owin.Security.Twitter 2.1.0" Category="Installed Package" />
+  </Links>
+  <Categories>
+    <Category Id="Project" />
+    <Category Id="Package" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

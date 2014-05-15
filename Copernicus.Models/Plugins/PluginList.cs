@@ -63,7 +63,7 @@ namespace Copernicus.Models.Plugins
         /// </summary>
         public static void Delete()
         {
-            string FileLocation = HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/PluginList.txt") : "./App_Data/PluginList.txt";
+            string FileLocation = HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/PluginList.txt") : AppDomain.CurrentDomain.BaseDirectory + "/App_Data/PluginList.txt";
             new System.IO.FileInfo(FileLocation).Delete();
         }
 
@@ -73,7 +73,7 @@ namespace Copernicus.Models.Plugins
         /// <returns>The current plugin list</returns>
         public static PluginList Load()
         {
-            string FileLocation = HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/PluginList.txt") : "./App_Data/PluginList.txt";
+            string FileLocation = HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/PluginList.txt") : AppDomain.CurrentDomain.BaseDirectory + "/App_Data/PluginList.txt";
             if (!new System.IO.FileInfo(FileLocation).Exists)
                 return new PluginList();
             using (StreamReader Reader = new System.IO.FileInfo(FileLocation).OpenText())

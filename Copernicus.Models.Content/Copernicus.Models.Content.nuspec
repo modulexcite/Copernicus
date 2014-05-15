@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>Copernicus.Models.Content</id>
+		<version>1.0.0</version>
+		<title>Copernicus Models for Content</title>
+		<authors>James Craig</authors>
+		<owners>James Craig</owners>
+		<licenseUrl>https://github.com/JaCraig/Craig-s-Utility-Library/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/JaCraig/Craig-s-Utility-Library</projectUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>Contains the models used by various plugins that need content.</description>
+		<summary>Contains the models used by various plugins that need content.</summary>
+		<releaseNotes>Initial release</releaseNotes>
+		<copyright>Copyright 2014</copyright>
+		<tags>models,content</tags>
+		<references>
+			<reference file="Copernicus.Models.Content.dll" />
+		</references>
+	</metadata>
+	<files>
+		<file src="bin\Release\Copernicus.Models.Content.dll" target="lib\net40" />
+	</files>
+</package>

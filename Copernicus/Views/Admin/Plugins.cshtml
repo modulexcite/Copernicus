@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Copernicus.Models.Plugins.Plugin>
+
+@{
+    ViewBag.Title = "Available Plugins";
+}
+<form action="" method="post">
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    
+    @foreach (Copernicus.Models.Plugins.Plugin item in Model)
+    {
+        <tr>
+            <td>
+                <input type="checkbox" name="@item.PluginID" id="@item.PluginID" />
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+        </tr>
+    }
+    
+    </table>
+    <input type="submit" value="Install Plugins" />
+</form>

@@ -45,6 +45,15 @@ namespace Copernicus.Core.Tests.Plugins
         }
 
         [Fact]
+        public void GetPluginsAvailable()
+        {
+            Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
+            IEnumerable<Copernicus.Models.Plugins.Plugin> Plugins = Manager.GetPluginsAvailable();
+            Assert.True(Plugins.Any(x => x.Name == "xUnit.net"));
+            Assert.True(Plugins.Count() > 0);
+        }
+
+        [Fact]
         public void InstallPlugin()
         {
             Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });

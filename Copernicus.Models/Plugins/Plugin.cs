@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Copernicus.Models.BaseClasses;
 using Copernicus.Models.General;
+using NuGet;
 using Utilities.DataTypes;
 using Utilities.ORM.Parameters;
 
@@ -50,6 +51,24 @@ namespace Copernicus.Models.Plugins
             : base()
         {
             Files = new List<PluginFile>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Plugin" /> class.
+        /// </summary>
+        /// <param name="Package">The package.</param>
+        public Plugin(IPackage Package)
+            : this()
+        {
+            this.PluginID = Package.Id;
+            this.Version = Package.Version.ToString();
+            this.Author = Package.Authors.ToString(x => x);
+            this.Description = Package.Description;
+            this.LastUpdated = Package.Published.Value.DateTime;
+            this.Name = Package.Title;
+            this.OnlineVersion = Package.Version.ToString();
+            this.Tags = Package.Tags;
+            this.Website = Package.ProjectUrl.ToString();
         }
 
         /// <summary>

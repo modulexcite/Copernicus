@@ -71,11 +71,29 @@ namespace Copernicus.Core.Plugins
         protected IEnumerable<IPlugin> Plugins { get; set; }
 
         /// <summary>
+        /// Gets the plugins available.
+        /// </summary>
+        /// <returns>The list of plugins available</returns>
+        public IEnumerable<Plugin> GetPluginsAvailable()
+        {
+            List<Plugin> Results = new List<Plugin>();
+            foreach (IPackageRepository Repo in PackageRepositories)
+            {
+                Results.Add(Repo.GetPackages()
+                    .Where(x => x.IsLatestVersion)
+                    .ForEach(x => new Plugin(x))
+                    .Where(x => !PluginList.Plugins.Any(y => string.Equals(y.PluginID, y.PluginID))));
+            }
+            return Results;
+        }
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public void Initialize()
         {
-            Delete(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/") : "./bin/Loaded/"));
+            Delete(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/") : AppDomain.CurrentDomain.BaseDirectory + "/bin/Loaded/"));
+            new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/bin/Loaded").Create();
             Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
             PluginList = PluginList.Load();
             foreach (IPlugin TempPlugin in Plugins)
@@ -127,19 +145,7 @@ namespace Copernicus.Core.Plugins
                             HttpContext.Current.Server.MapPath("~/App_Data/packages") :
                             "./App_Data/packages").FullName));
                     Manager.InstallPackage(Package, false, true);
-                    Plugin TempPlugin2 = new Plugin()
-                    {
-                        PluginID = ID,
-                        Version = Package.Version.ToString(),
-                        Author = Package.Authors.ToString(x => x),
-                        Description = Package.Description,
-                        LastUpdated = Package.Published.Value.DateTime,
-                        Name = Package.Title,
-                        OnlineVersion = Package.Version.ToString(),
-                        Tags = Package.Tags,
-                        Website = Package.ProjectUrl.ToString()
-                    };
-                    PluginList.Add(TempPlugin2);
+                    PluginList.Add(new Plugin(Package));
                     PluginList.Save();
                     break;
                 }
