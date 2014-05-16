@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace Copernicus.Controllers
         [HttpGet]
         public ActionResult Plugins()
         {
-            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().GetPluginsAvailable());
+            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
         }
 
         /// <summary>
@@ -41,12 +42,13 @@ namespace Copernicus.Controllers
         [HttpPost]
         public ActionResult Plugins(FormCollection Form)
         {
+            Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
             foreach (string Key in Form)
             {
                 Manager.InstallPlugin(Key);
             }
-            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().GetPluginsAvailable());
+            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
         }
     }
 }

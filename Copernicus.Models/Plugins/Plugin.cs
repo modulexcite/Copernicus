@@ -60,6 +60,7 @@ namespace Copernicus.Models.Plugins
         public Plugin(IPackage Package)
             : this()
         {
+            Contract.Requires<ArgumentNullException>(Package != null, "Package");
             this.PluginID = Package.Id;
             this.Version = Package.Version.ToString();
             this.Author = Package.Authors.ToString(x => x);
@@ -69,6 +70,7 @@ namespace Copernicus.Models.Plugins
             this.OnlineVersion = Package.Version.ToString();
             this.Tags = Package.Tags;
             this.Website = Package.ProjectUrl.ToString();
+            this.Active = true;
         }
 
         /// <summary>
@@ -170,9 +172,9 @@ namespace Copernicus.Models.Plugins
         {
             if (Active)
             {
-                DirectoryInfo LoadingDirectory = new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/" + PluginID) : "./bin/Loaded/" + PluginID);
-                CopyTo(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/" + PluginID) : "./bin/" + PluginID),
-                    new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/" + PluginID) : "./bin/Loaded/" + PluginID));
+                DirectoryInfo LoadingDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Loaded/" + PluginID);
+                DirectoryInfo PluginDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/" + PluginID);
+                CopyTo(PluginDirectory, LoadingDirectory);
                 LoadingDirectory.EnumerateFiles("*.dll", System.IO.SearchOption.AllDirectories)
                     .ForEach(x => AssemblyName.GetAssemblyName(x.FullName).Load());
             }
@@ -193,7 +195,7 @@ namespace Copernicus.Models.Plugins
                 {
                     IsDirectory = false,
                     Order = y++,
-                    Path = "~/bin/" + PluginID + x.FullName.Replace(LibDirectory.FullName, "").Replace("\\", "/")
+                    Path = "~/App_Data/" + PluginID + x.FullName.Replace(LibDirectory.FullName, "").Replace("\\", "/")
                 }));
                 TempFiles.Add(ContentDirectory.EnumerateFiles("*", System.IO.SearchOption.AllDirectories).ForEach(x => new PluginFile()
                 {
@@ -202,8 +204,8 @@ namespace Copernicus.Models.Plugins
                     Path = "~" + x.FullName.Replace(ContentDirectory.FullName, "").Replace("\\", "/")
                 }));
                 Files = TempFiles;
-                new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/" + PluginID) : "./bin/" + PluginID).Create();
-                CopyTo(LibDirectory, new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/" + PluginID) : "./bin/" + PluginID));
+                new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/" + PluginID) : "./App_Data/" + PluginID).Create();
+                CopyTo(LibDirectory, new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/" + PluginID) : "./App_Data/" + PluginID));
                 CopyTo(ContentDirectory, new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/") : "./"));
                 Delete(new DirectoryInfo(string.Format(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/packages/{0}/") : "./App_Data/packages/{0}/", PluginID)));
                 Delete(new DirectoryInfo(string.Format(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/App_Data/packages/{0}.{1}/") : "./App_Data/packages/{0}.{1}/", PluginID, Version)));

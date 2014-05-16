@@ -48,7 +48,7 @@ namespace Copernicus.Core.Tests.Plugins
         public void GetPluginsAvailable()
         {
             Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
-            IEnumerable<Copernicus.Models.Plugins.Plugin> Plugins = Manager.GetPluginsAvailable();
+            IEnumerable<Copernicus.Models.Plugins.Plugin> Plugins = Manager.PluginsAvailable;
             Assert.True(Plugins.Any(x => x.Name == "xUnit.net"));
             Assert.True(Plugins.Count() > 0);
         }
@@ -59,13 +59,13 @@ namespace Copernicus.Core.Tests.Plugins
             Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
             Assert.DoesNotThrow(() => Manager.InstallPlugin("xunit"));
             Plugin TempPlugin = PluginList.Load().Get("xunit");
-            Assert.Equal(6, new DirectoryInfo("~/bin/xunit/").EnumerateFiles().Count());
-            Assert.True(new FileInfo("~/bin/xunit/xunit.xml").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.utility.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.tdnet.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.msbuild.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.dll.tdnet").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.dll").Exists);
+            Assert.Equal(6, new DirectoryInfo("~/App_Data/xunit/").EnumerateFiles().Count());
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.xml").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.utility.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.tdnet.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.msbuild.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.dll.tdnet").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.dll").Exists);
             Assert.NotNull(TempPlugin);
             Assert.Equal("JamesNewkirk,BradWilson", TempPlugin.Author.Replace(" ", ""));
             Assert.Equal("xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.", TempPlugin.Description);
@@ -79,7 +79,6 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
             //Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
-            new DirectoryInfo("~/bin").Delete();
             new DirectoryInfo("~/App_Data").Delete();
         }
 
@@ -89,10 +88,9 @@ namespace Copernicus.Core.Tests.Plugins
             Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
             Assert.DoesNotThrow(() => Manager.InstallPlugin("xunit"));
             Assert.DoesNotThrow(() => Manager.UninstallPlugin("xunit"));
-            Assert.Equal(0, new DirectoryInfo("~/bin/").EnumerateFiles().Count());
+            Assert.Equal(0, new DirectoryInfo("~/App_Data/xunit/").EnumerateFiles().Count());
             Assert.Null(PluginList.Load().Get("xunit"));
             new DirectoryInfo("~/App_Data").Delete();
-            new DirectoryInfo("~/bin").Delete();
         }
 
         [Fact]
@@ -104,13 +102,13 @@ namespace Copernicus.Core.Tests.Plugins
             TempPlugin.OnlineVersion = "2.0.0";
             Assert.DoesNotThrow(() => Manager.UpdatePlugin("xunit"));
             TempPlugin = PluginList.Load().Get("xunit");
-            Assert.Equal(6, new DirectoryInfo("~/bin/xunit/").EnumerateFiles().Count());
-            Assert.True(new FileInfo("~/bin/xunit/xunit.xml").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.utility.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.tdnet.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.runner.msbuild.dll").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.dll.tdnet").Exists);
-            Assert.True(new FileInfo("~/bin/xunit/xunit.dll").Exists);
+            Assert.Equal(6, new DirectoryInfo("~/App_Data/xunit/").EnumerateFiles().Count());
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.xml").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.utility.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.tdnet.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.msbuild.dll").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.dll.tdnet").Exists);
+            Assert.True(new FileInfo("~/App_Data/xunit/xunit.dll").Exists);
             Assert.NotNull(TempPlugin);
             Assert.Equal("JamesNewkirk,BradWilson", TempPlugin.Author.Replace(" ", ""));
             Assert.Equal("xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.", TempPlugin.Description);
@@ -124,7 +122,6 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
             //Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
-            new DirectoryInfo("~/bin").Delete();
             new DirectoryInfo("~/App_Data").Delete();
         }
     }

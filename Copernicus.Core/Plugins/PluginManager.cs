@@ -53,6 +53,26 @@ namespace Copernicus.Core.Plugins
         }
 
         /// <summary>
+        /// Gets the plugins available.
+        /// </summary>
+        /// <value>The plugins available.</value>
+        public IEnumerable<Plugin> PluginsAvailable
+        {
+            get
+            {
+                List<Plugin> Results = new List<Plugin>();
+                foreach (IPackageRepository Repo in PackageRepositories)
+                {
+                    Results.Add(Repo.GetPackages()
+                        .Where(x => x.IsLatestVersion)
+                        .ForEach(x => new Plugin(x))
+                        .Where(x => !PluginList.Plugins.Any(y => string.Equals(y.PluginID, x.PluginID))));
+                }
+                return Results;
+            }
+        }
+
+        /// <summary>
         /// Gets the package repositories.
         /// </summary>
         /// <value>The package repositories.</value>
@@ -71,31 +91,18 @@ namespace Copernicus.Core.Plugins
         protected IEnumerable<IPlugin> Plugins { get; set; }
 
         /// <summary>
-        /// Gets the plugins available.
-        /// </summary>
-        /// <returns>The list of plugins available</returns>
-        public IEnumerable<Plugin> GetPluginsAvailable()
-        {
-            List<Plugin> Results = new List<Plugin>();
-            foreach (IPackageRepository Repo in PackageRepositories)
-            {
-                Results.Add(Repo.GetPackages()
-                    .Where(x => x.IsLatestVersion)
-                    .ForEach(x => new Plugin(x))
-                    .Where(x => !PluginList.Plugins.Any(y => string.Equals(y.PluginID, y.PluginID))));
-            }
-            return Results;
-        }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public void Initialize()
         {
-            Delete(new DirectoryInfo(HttpContext.Current != null ? HttpContext.Current.Server.MapPath("~/bin/Loaded/") : AppDomain.CurrentDomain.BaseDirectory + "/bin/Loaded/"));
-            new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/bin/Loaded").Create();
-            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
+            Delete(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Loaded/"));
+            new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Loaded").Create();
             PluginList = PluginList.Load();
+            foreach (Plugin TempPlugin in PluginList.Plugins)
+            {
+                TempPlugin.Initialize();
+            }
+            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
             foreach (IPlugin TempPlugin in Plugins)
             {
                 foreach (IPackageRepository Repo in PackageRepositories)
@@ -107,7 +114,6 @@ namespace Copernicus.Core.Plugins
                         TempPluginData.OnlineVersion = Package.Version.ToString();
                     }
                 }
-                TempPlugin.Initialize();
             }
             PluginList.Save();
         }
@@ -130,15 +136,9 @@ namespace Copernicus.Core.Plugins
                 IPackage Package = Repo.FindPackage(ID);
                 if (Package != null)
                 {
-                    new DirectoryInfo(HttpContext.Current != null ?
-                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib") :
-                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib").Create();
-                    new DirectoryInfo(HttpContext.Current != null ?
-                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content") :
-                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content").Create();
-                    new DirectoryInfo(HttpContext.Current != null ?
-                        HttpContext.Current.Server.MapPath("~/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools") :
-                        "./App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools").Create();
+                    new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/lib").Create();
+                    new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/content").Create();
+                    new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/packages/" + Package.Id + "." + Package.Version.ToString() + "/tools").Create();
                     PackageManager Manager = new PackageManager(Repo,
                         new DefaultPackagePathResolver(Repo.Source),
                         new PhysicalFileSystem(new DirectoryInfo(HttpContext.Current != null ?

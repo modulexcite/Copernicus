@@ -21,36 +21,26 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.IoC.Interfaces;
+using Copernicus.Models.Plugins;
+using Utilities.IO;
+using Utilities.IO.Logging.Enums;
 
-namespace Copernicus.Core.Plugins.Module
+namespace Copernicus.Core.Plugins.BaseClasses
 {
     /// <summary>
-    /// Plugin module
+    /// Model plugin base class
     /// </summary>
-    public class PluginModule : IModule
+    public abstract class ModelPluginBase : PluginBase
     {
         /// <summary>
-        /// Order to run it in
+        /// Initializes a new instance of the <see cref="ModelPluginBase" /> class.
         /// </summary>
-        public int Order
+        protected ModelPluginBase()
+            : base()
         {
-            get { return -1; }
-        }
-
-        /// <summary>
-        /// Loads the module
-        /// </summary>
-        /// <param name="Bootstrapper">Bootstrapper to register with</param>
-        public void Load(IBootstrapper Bootstrapper)
-        {
-            if (Bootstrapper == null)
-                return;
-            Bootstrapper.Register(new PluginManager(ConfigurationManager.AppSettings["Copernicus:PluginSource"].Split(',')));
         }
     }
 }

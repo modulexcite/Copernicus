@@ -236,6 +236,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Plugins\BaseClasses\ExtensionPluginBase.cs" />
+    <Compile Include="Plugins\BaseClasses\ModelPlugin.cs" />
     <Compile Include="Plugins\BaseClasses\PluginBase.cs" />
     <Compile Include="Plugins\BaseClasses\RendererPluginBase.cs" />
     <Compile Include="Plugins\BaseClasses\ThemePluginBase.cs" />

@@ -107,6 +107,7 @@
     <Compile Include="Mappings\PhotoMapping.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Photo.cs" />
+    <Compile Include="Plugin\ContentPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Copernicus.Core\Copernicus.Core.csproj">
+      <Project>{029bd85d-0e08-4a54-b0b1-8ce51e9c9e28}</Project>
+      <Name>Copernicus.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Copernicus.Models\Copernicus.Models.csproj">
       <Project>{451a3def-9f69-422a-aeab-1a703d10894f}</Project>
       <Name>Copernicus.Models</Name>
