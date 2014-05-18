@@ -96,8 +96,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utilities">
-      <HintPath>..\packages\CraigsUtilityLibrary.4.0.136-beta\lib\net40\Utilities.dll</HintPath>
+    <Reference Include="Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0f7489d08ad0bf67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CraigsUtilityLibrary.4.0.139-beta\lib\net40\Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

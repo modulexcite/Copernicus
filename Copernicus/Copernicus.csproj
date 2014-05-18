@@ -124,15 +124,15 @@
     </Reference>
     <Reference Include="CUL.MiniProfiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46ee578cb5d73850, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.MiniProfiler.4.0.136-beta\lib\net40\CUL.MiniProfiler.dll</HintPath>
+      <HintPath>..\packages\CUL.MiniProfiler.4.0.139-beta\lib\net40\CUL.MiniProfiler.dll</HintPath>
     </Reference>
     <Reference Include="CUL.NLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7698a21ffc0a39e9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.NLog.4.0.136-beta\lib\net40\CUL.NLog.dll</HintPath>
+      <HintPath>..\packages\CUL.NLog.4.0.139-beta\lib\net40\CUL.NLog.dll</HintPath>
     </Reference>
     <Reference Include="CUL.ServiceStack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=62a7b5214691774a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.ServiceStack.4.0.136-beta\lib\net40\CUL.ServiceStack.dll</HintPath>
+      <HintPath>..\packages\CUL.ServiceStack.4.0.139-beta\lib\net40\CUL.ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core, Version=1.4.0.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -164,7 +164,7 @@
     </Reference>
     <Reference Include="Glimpse.CUL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.CUL.4.0.136-beta\lib\net40\Glimpse.CUL.dll</HintPath>
+      <HintPath>..\packages\Glimpse.CUL.4.0.139-beta\lib\net40\Glimpse.CUL.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.Elmah, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -184,23 +184,23 @@
     </Reference>
     <Reference Include="Ironman.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a2c78b2a5ccc5f05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.1.0.136-beta\lib\net40\Ironman.Core.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.1.0.139-beta\lib\net40\Ironman.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ironman.Core.Assets.Less, Version=1.0.0.0, Culture=neutral, PublicKeyToken=84b58d3a79b1b8d7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.Assets.Less.1.0.136-beta\lib\net40\Ironman.Core.Assets.Less.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.Assets.Less.1.0.139-beta\lib\net40\Ironman.Core.Assets.Less.dll</HintPath>
     </Reference>
     <Reference Include="Ironman.Core.Assets.Yui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.Assets.Yui.1.0.136-beta\lib\net40\Ironman.Core.Assets.Yui.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.Assets.Yui.1.0.139-beta\lib\net40\Ironman.Core.Assets.Yui.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -282,7 +282,7 @@
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.19\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.20\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -340,7 +340,7 @@
     </Reference>
     <Reference Include="Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0f7489d08ad0bf67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CraigsUtilityLibrary.4.0.136-beta\lib\net40\Utilities.dll</HintPath>
+      <HintPath>..\packages\CraigsUtilityLibrary.4.0.139-beta\lib\net40\Utilities.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -375,6 +375,14 @@
     <Content Include="Content\Theme\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Index.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JQuery\jquery.2.1.0.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.unobtrusive.min.js" />
@@ -392,6 +400,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\JQuery\jquery.2.1.0.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
