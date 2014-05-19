@@ -29,7 +29,7 @@ namespace Copernicus.Controllers
         /// </summary>
         /// <returns>The view</returns>
         [HttpGet]
-        public ActionResult Plugins()
+        public ActionResult PluginsAvailable()
         {
             return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
         }
@@ -40,7 +40,7 @@ namespace Copernicus.Controllers
         /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpPost]
-        public ActionResult Plugins(FormCollection Form)
+        public ActionResult PluginsAvailable(FormCollection Form)
         {
             Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
