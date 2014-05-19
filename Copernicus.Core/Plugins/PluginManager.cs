@@ -19,9 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Plugins.Interfaces;
-using Copernicus.Models.Plugins;
-using NuGet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -31,6 +28,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
+using NuGet;
 using Utilities.DataTypes;
 using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO.Logging.Enums;
@@ -54,6 +54,12 @@ namespace Copernicus.Core.Plugins
         }
 
         /// <summary>
+        /// Gets or sets the plugin list.
+        /// </summary>
+        /// <value>The plugin list.</value>
+        public PluginList PluginList { get; private set; }
+
+        /// <summary>
         /// Gets the plugins available.
         /// </summary>
         /// <value>The plugins available.</value>
@@ -74,22 +80,16 @@ namespace Copernicus.Core.Plugins
         }
 
         /// <summary>
-        /// Gets or sets the plugins.
-        /// </summary>
-        /// <value>The plugins.</value>
-        public IEnumerable<IPlugin> PluginsInstalled { get; set; }
-
-        /// <summary>
         /// Gets the package repositories.
         /// </summary>
         /// <value>The package repositories.</value>
         protected IEnumerable<IPackageRepository> PackageRepositories { get; private set; }
 
         /// <summary>
-        /// Gets or sets the plugin list.
+        /// Gets or sets the plugins.
         /// </summary>
-        /// <value>The plugin list.</value>
-        protected PluginList PluginList { get; private set; }
+        /// <value>The plugins.</value>
+        protected IEnumerable<IPlugin> PluginsInstalled { get; set; }
 
         /// <summary>
         /// Initializes this instance.

@@ -1,11 +1,11 @@
-﻿using Copernicus.Core.Plugins;
-using Copernicus.Models.Plugins;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Copernicus.Core.Plugins;
+using Copernicus.Models.Plugins;
 
 namespace Copernicus.Controllers
 {
@@ -30,7 +30,7 @@ namespace Copernicus.Controllers
         /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpPost]
-        public ActionResult InstallPlugin(FormCollection Form)
+        public ActionResult InstallPlugins(FormCollection Form)
         {
             Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
@@ -49,7 +49,7 @@ namespace Copernicus.Controllers
         [HttpGet]
         public ActionResult Plugins()
         {
-            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsInstalled);
+            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginList.Plugins);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Copernicus.Controllers
         /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpPost]
-        public ActionResult UninstallPlugin(FormCollection Form)
+        public ActionResult UninstallPlugins(FormCollection Form)
         {
             Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
@@ -77,7 +77,7 @@ namespace Copernicus.Controllers
                 Manager.UninstallPlugin(Key);
             }
             Manager.RestartSystem();
-            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
+            return View("Plugins", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginList.Plugins);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Copernicus.Controllers
         /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpPost]
-        public ActionResult UpdatePlugin(FormCollection Form)
+        public ActionResult UpdatePlugins(FormCollection Form)
         {
             Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
@@ -95,7 +95,7 @@ namespace Copernicus.Controllers
                 Manager.UpdatePlugin(Key);
             }
             Manager.RestartSystem();
-            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
+            return View("Plugins", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginList.Plugins);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Copernicus.Models.Plugins.Plugin>
 
 @{
-    ViewBag.Title = "Available Plugins";
+    ViewBag.Title = "Installed Plugins";
 }
-<form action="/Admin/InstallPlugins" method="post">
+<form action="/Admin/Plugins" method="post">
     <h1>Available Plugins</h1>
     <table class="table">
         <tr>
@@ -28,5 +28,6 @@
     }
     
     </table>
-    <input type="submit" value="Install Plugins" />
+    <input type="submit" onclick="form.action='/Admin/UpdatePlugins'" value="Update Plugins" />
+    <input type="submit" onclick="form.action = '/Admin/UninstallPlugins'" value="Uninstall Plugins" />
 </form>
