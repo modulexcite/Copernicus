@@ -25,6 +25,35 @@ namespace Copernicus.Controllers
         }
 
         /// <summary>
+        /// Installs the plugins selected
+        /// </summary>
+        /// <param name="Form">The form.</param>
+        /// <returns>The view</returns>
+        [HttpPost]
+        public ActionResult InstallPlugin(FormCollection Form)
+        {
+            Contract.Requires<ArgumentNullException>(Form != null, "Form");
+            PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
+            foreach (string Key in Form)
+            {
+                Manager.InstallPlugin(Key);
+            }
+            Manager.RestartSystem();
+            return View("PluginsAvailable", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
+        }
+
+        /// <summary>
+        /// Lists the plugins that are installed
+        /// </summary>
+        /// <param name="Form">The form.</param>
+        /// <returns>The view</returns>
+        [HttpGet]
+        public ActionResult Plugins()
+        {
+            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsInstalled);
+        }
+
+        /// <summary>
         /// Displays available plugins.
         /// </summary>
         /// <returns>The view</returns>
@@ -35,18 +64,36 @@ namespace Copernicus.Controllers
         }
 
         /// <summary>
-        /// Displays available plugins.
+        /// Uninstalls the plugins selected
         /// </summary>
         /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpPost]
-        public ActionResult PluginsAvailable(FormCollection Form)
+        public ActionResult UninstallPlugin(FormCollection Form)
         {
             Contract.Requires<ArgumentNullException>(Form != null, "Form");
             PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
             foreach (string Key in Form)
             {
-                Manager.InstallPlugin(Key);
+                Manager.UninstallPlugin(Key);
+            }
+            Manager.RestartSystem();
+            return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
+        }
+
+        /// <summary>
+        /// Updates the plugins selected
+        /// </summary>
+        /// <param name="Form">The form.</param>
+        /// <returns>The view</returns>
+        [HttpPost]
+        public ActionResult UpdatePlugin(FormCollection Form)
+        {
+            Contract.Requires<ArgumentNullException>(Form != null, "Form");
+            PluginManager Manager = Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>();
+            foreach (string Key in Form)
+            {
+                Manager.UpdatePlugin(Key);
             }
             Manager.RestartSystem();
             return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
