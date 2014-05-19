@@ -45,7 +45,6 @@ namespace Copernicus.Controllers
         /// <summary>
         /// Lists the plugins that are installed
         /// </summary>
-        /// <param name="Form">The form.</param>
         /// <returns>The view</returns>
         [HttpGet]
         public ActionResult Plugins()

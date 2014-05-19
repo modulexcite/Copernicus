@@ -74,6 +74,12 @@ namespace Copernicus.Core.Plugins
         }
 
         /// <summary>
+        /// Gets or sets the plugins.
+        /// </summary>
+        /// <value>The plugins.</value>
+        public IEnumerable<IPlugin> PluginsInstalled { get; set; }
+
+        /// <summary>
         /// Gets the package repositories.
         /// </summary>
         /// <value>The package repositories.</value>
@@ -84,12 +90,6 @@ namespace Copernicus.Core.Plugins
         /// </summary>
         /// <value>The plugin list.</value>
         protected PluginList PluginList { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the plugins.
-        /// </summary>
-        /// <value>The plugins.</value>
-        protected IEnumerable<IPlugin> Plugins { get; set; }
 
         /// <summary>
         /// Initializes this instance.
@@ -103,8 +103,8 @@ namespace Copernicus.Core.Plugins
             {
                 TempPlugin.Initialize();
             }
-            Plugins = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
-            foreach (IPlugin TempPlugin in Plugins)
+            PluginsInstalled = AppDomain.CurrentDomain.GetAssemblies().Objects<IPlugin>();
+            foreach (IPlugin TempPlugin in PluginsInstalled)
             {
                 foreach (IPackageRepository Repo in PackageRepositories)
                 {
@@ -129,7 +129,7 @@ namespace Copernicus.Core.Plugins
             Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(ID), "ID");
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
             Utilities.IO.Log.Get().LogMessage("Plugin {0} is being installed by {1}", MessageType.Debug, ID, User);
-            IPlugin TempPlugin = Plugins.FirstOrDefault(x => string.Equals(x.Name, ID, StringComparison.InvariantCultureIgnoreCase));
+            IPlugin TempPlugin = PluginsInstalled.FirstOrDefault(x => string.Equals(x.Name, ID, StringComparison.InvariantCultureIgnoreCase));
             if (TempPlugin != null)
                 UninstallPlugin(ID);
             foreach (IPackageRepository Repo in PackageRepositories)
@@ -235,10 +235,10 @@ namespace Copernicus.Core.Plugins
         /// </param>
         protected override void Dispose(bool Managed)
         {
-            if (Plugins != null)
+            if (PluginsInstalled != null)
             {
-                Plugins.ForEach(x => x.Dispose());
-                Plugins = null;
+                PluginsInstalled.ForEach(x => x.Dispose());
+                PluginsInstalled = null;
             }
         }
 
