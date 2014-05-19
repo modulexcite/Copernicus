@@ -19,17 +19,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Plugins.Interfaces;
+using Copernicus.Models.Plugins;
+using NuGet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.DirectoryServices;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Copernicus.Core.Plugins.Interfaces;
-using Copernicus.Models.Plugins;
-using NuGet;
 using Utilities.DataTypes;
 using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO.Logging.Enums;
@@ -152,6 +153,23 @@ namespace Copernicus.Core.Plugins
             }
             Utilities.IO.Log.Get().LogMessage("Plugin {0} has been installed by {1}", MessageType.Debug, ID, User);
             return true;
+        }
+
+        /// <summary>
+        /// Restarts the system.
+        /// </summary>
+        public void RestartSystem()
+        {
+            try
+            {
+                using (DirectoryEntry ApplicationPool = new DirectoryEntry(@"IIS://" + Environment.MachineName + "/W3SVC/AppPools/" + HttpContext.Current.Request.ServerVariables["APP_POOL_ID"]))
+                {
+                    ApplicationPool.Invoke("Recycle", null);
+                }
+                return;
+            }
+            catch { }
+            File.SetLastWriteTimeUtc(AppDomain.CurrentDomain.BaseDirectory + "\\web.config", DateTime.UtcNow);
         }
 
         /// <summary>

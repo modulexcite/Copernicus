@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Copernicus.Core.Plugins;
+using Copernicus.Models.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Copernicus.Core.Plugins;
-using Copernicus.Models.Plugins;
 
 namespace Copernicus.Controllers
 {
@@ -48,6 +48,7 @@ namespace Copernicus.Controllers
             {
                 Manager.InstallPlugin(Key);
             }
+            Manager.RestartSystem();
             return View(Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
         }
     }
