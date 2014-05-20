@@ -204,7 +204,7 @@ namespace Copernicus.Core.Plugins
             if (TempPlugin == null)
                 return true;
             string User = HttpContext.Current.Chain(x => x.User).Chain(x => x.Identity).Chain(x => x.Name, "");
-            bool Result = true;
+            bool Result = false;
             Utilities.IO.Log.Get().LogMessage("Plugin {0} is being updated by {1}", MessageType.Debug, ID, User);
             foreach (IPackageRepository Repo in PackageRepositories)
             {

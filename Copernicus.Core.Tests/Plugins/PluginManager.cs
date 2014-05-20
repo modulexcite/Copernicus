@@ -30,11 +30,12 @@ using Xunit;
 
 namespace Copernicus.Core.Tests.Plugins
 {
-    public class PluginManager
+    public class PluginManager : IDisposable
     {
         public PluginManager()
         {
             var Bootstrapper = Utilities.IoC.Manager.Bootstrapper;
+            new DirectoryInfo("~/App_Data").Delete();
         }
 
         [Fact]
@@ -42,6 +43,11 @@ namespace Copernicus.Core.Tests.Plugins
         {
             Copernicus.Core.Plugins.PluginManager Manager = null;
             Assert.DoesNotThrow(() => Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" }));
+        }
+
+        public void Dispose()
+        {
+            new DirectoryInfo("~/App_Data").Delete();
         }
 
         [Fact]
@@ -78,8 +84,6 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(null, TempPlugin.Type);
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
-            //Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
-            new DirectoryInfo("~/App_Data").Delete();
         }
 
         [Fact]
@@ -90,7 +94,7 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.DoesNotThrow(() => Manager.UninstallPlugin("xunit"));
             Assert.Equal(0, new DirectoryInfo("~/App_Data/xunit/").EnumerateFiles().Count());
             Assert.Null(PluginList.Load().Get("xunit"));
-            new DirectoryInfo("~/App_Data").Delete();
+            Assert.Equal(0, PluginList.Load().Plugins.Count);
         }
 
         [Fact]
@@ -102,6 +106,7 @@ namespace Copernicus.Core.Tests.Plugins
             TempPlugin.OnlineVersion = "2.0.0";
             Assert.DoesNotThrow(() => Manager.UpdatePlugin("xunit"));
             TempPlugin = PluginList.Load().Get("xunit");
+            Assert.Equal(1, PluginList.Load().Plugins.Count);
             Assert.Equal(6, new DirectoryInfo("~/App_Data/xunit/").EnumerateFiles().Count());
             Assert.True(new FileInfo("~/App_Data/xunit/xunit.xml").Exists);
             Assert.True(new FileInfo("~/App_Data/xunit/xunit.runner.utility.dll").Exists);
@@ -121,8 +126,6 @@ namespace Copernicus.Core.Tests.Plugins
             Assert.Equal(null, TempPlugin.Type);
             Assert.Equal(false, TempPlugin.UpdateAvailable);
             Assert.Equal("1.9.2", TempPlugin.Version);
-            //Assert.Equal("http://xunit.codeplex.com/", TempPlugin.Website);
-            new DirectoryInfo("~/App_Data").Delete();
         }
     }
 }
