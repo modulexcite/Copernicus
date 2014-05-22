@@ -147,6 +147,7 @@ namespace Copernicus.Core.Plugins
                             "./App_Data/packages").FullName));
                     Manager.InstallPackage(Package, false, true);
                     PluginList.Add(new Plugin(Package));
+                    Package.DependencySets.ForEach(x => x.Dependencies.ForEach(y => InstallPlugin(y.Id)));
                     PluginList.Save();
                     break;
                 }

@@ -87,6 +87,43 @@ namespace Copernicus.Core.Tests.Plugins
         }
 
         [Fact]
+        public void InstallPluginWithRequireds()
+        {
+            Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
+            Assert.DoesNotThrow(() => Manager.InstallPlugin("Copernicus.Models.CRM"));
+            Plugin TempPlugin = PluginList.Load().Get("Copernicus.Models.CRM");
+            Assert.Equal(1, new DirectoryInfo("~/App_Data/Copernicus.Models.CRM/").EnumerateFiles().Count());
+            Assert.True(new FileInfo("~/App_Data/Copernicus.Models.CRM/Copernicus.Models.CRM.dll").Exists);
+            Assert.Equal(1, new DirectoryInfo("~/App_Data/Copernicus.Models.Content/").EnumerateFiles().Count());
+            Assert.True(new FileInfo("~/App_Data/Copernicus.Models.Content/Copernicus.Models.Content.dll").Exists);
+            Assert.NotNull(TempPlugin);
+            Assert.Equal("JamesCraig", TempPlugin.Author.Replace(" ", ""));
+            Assert.Equal("Contains the models used by various plugins that need crm.", TempPlugin.Description);
+            Assert.Equal(1, TempPlugin.Files.Count);
+            Assert.Equal("Copernicus Models for CRM", TempPlugin.Name);
+            Assert.Equal("1.0.0", TempPlugin.OnlineVersion);
+            Assert.Equal("Copernicus.Models.CRM", TempPlugin.PluginID);
+            Assert.Equal(0, TempPlugin.Priority);
+            Assert.Equal("models crm", TempPlugin.Tags);
+            Assert.Equal(null, TempPlugin.Type);
+            Assert.Equal(false, TempPlugin.UpdateAvailable);
+            Assert.Equal("1.0.0", TempPlugin.Version);
+            TempPlugin = PluginList.Load().Get("Copernicus.Models.Content");
+            Assert.NotNull(TempPlugin);
+            Assert.Equal("JamesCraig", TempPlugin.Author.Replace(" ", ""));
+            Assert.Equal("Contains the models used by various plugins that need content.", TempPlugin.Description);
+            Assert.Equal(1, TempPlugin.Files.Count);
+            Assert.Equal("Copernicus Models for Content", TempPlugin.Name);
+            Assert.Equal("1.0.0", TempPlugin.OnlineVersion);
+            Assert.Equal("Copernicus.Models.Content", TempPlugin.PluginID);
+            Assert.Equal(0, TempPlugin.Priority);
+            Assert.Equal("models content", TempPlugin.Tags);
+            Assert.Equal(null, TempPlugin.Type);
+            Assert.Equal(false, TempPlugin.UpdateAvailable);
+            Assert.Equal("1.0.0", TempPlugin.Version);
+        }
+
+        [Fact]
         public void UninstallPlugin()
         {
             Copernicus.Core.Plugins.PluginManager Manager = new Core.Plugins.PluginManager(new string[] { "http://localhost:8797/api/v2" });
