@@ -21,6 +21,14 @@ namespace Copernicus
             if (routes == null)
                 return;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("Scripts/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
+
+            routes.MapRoute(
+                "Default2", // Route name
+                "{controller}/{action}.{ending}", // URL with parameters
+                new { controller = "Firm", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
 
             routes.MapRoute(
                 name: "Default",
