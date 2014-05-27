@@ -22,6 +22,7 @@ namespace Copernicus
                 return;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("Scripts/{*pathInfo}");
+            routes.IgnoreRoute("Content/{*pathInfo}");
             routes.IgnoreRoute("favicon.ico");
 
             routes.MapRoute(
