@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +26,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Models.Authentication;
 using Utilities.DataTypes.Patterns.BaseClasses;
 using Utilities.IO;
 using Xunit;
@@ -41,7 +41,11 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         public UserStore()
         {
             var BootLoader = Utilities.IoC.Manager.Bootstrapper;
-            new Utilities.ORM.Manager.ORMManager(BootLoader);
+            new Utilities.ORM.Manager.ORMManager(BootLoader.Resolve<Utilities.ORM.Manager.Mapper.Manager>(),
+                BootLoader.Resolve<Utilities.ORM.Manager.QueryProvider.Manager>(),
+                BootLoader.Resolve<Utilities.ORM.Manager.Schema.Manager>(),
+                BootLoader.Resolve<Utilities.ORM.Manager.SourceProvider.Manager>(),
+                BootLoader.ResolveAll<Utilities.ORM.Interfaces.IDatabase>());
             Store = new Models.Authentication.Stores.UserStore();
         }
 
