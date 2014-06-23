@@ -24,44 +24,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes;
 
 namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// Operation interface
+    /// Operation base class
     /// </summary>
-    public interface IOperation
+    public abstract class OperationBase : IOperation
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OperationBase" /> class.
+        /// </summary>
+        protected OperationBase()
+        {
+            this.SuccessOperations = new List<IOperation>();
+            this.FailureOperations = new List<IOperation>();
+        }
+
         /// <summary>
         /// Gets or sets the operations to call on failure
         /// </summary>
         /// <value>The failure operations</value>
-        List<IOperation> FailureOperations { get; }
+        public List<IOperation> FailureOperations { get; private set; }
 
         /// <summary>
         /// Gets the name of the operation
         /// </summary>
         /// <value>The name.</value>
-        string Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the operations to call on success.
         /// </summary>
         /// <value>The success operations</value>
-        List<IOperation> SuccessOperations { get; }
+        public List<IOperation> SuccessOperations { get; private set; }
 
         /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
         /// <returns>The result of the operation</returns>
-        dynamic Execute(dynamic Value);
+        public abstract dynamic Execute(dynamic Value);
 
         /// <summary>
         /// Starts the operation
         /// </summary>
         /// <param name="Value">The value passed in</param>
         /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
-        Task<bool> Start(dynamic Value);
+        public async Task<bool> Start(dynamic Value)
+        {
+            return await Task.Run<bool>(() =>
+            {
+                try
+                {
+                    Value = Execute(new Dynamo(Value));
+                }
+                catch
+                {
+                    Parallel.ForEach(FailureOperations, x => x.Start(new Dynamo(Value)));
+                    return false;
+                }
+                return SuccessOperations.ForEachParallel(x => x.Start(new Dynamo(Value)).Result).All(x => x);
+            });
+        }
     }
 }

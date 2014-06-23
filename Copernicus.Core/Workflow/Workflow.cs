@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Utilities.DataTypes;
 
 namespace Copernicus.Core.Workflow
 {
@@ -61,5 +62,15 @@ namespace Copernicus.Core.Workflow
         /// </summary>
         /// <value>The operations.</value>
         public List<IOperation> Operations { get; set; }
+
+        /// <summary>
+        /// Starts the specified value.
+        /// </summary>
+        /// <param name="Value">The value.</param>
+        /// <returns></returns>
+        public dynamic Start(dynamic Value)
+        {
+            return Operations.ForEachParallel(x => x.Start(Value).Result).All(x => x);
+        }
     }
 }

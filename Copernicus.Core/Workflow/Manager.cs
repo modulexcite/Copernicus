@@ -21,6 +21,7 @@ THE SOFTWARE.*/
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -101,6 +102,7 @@ namespace Copernicus.Core.Workflow
         /// <returns>The workflow that is created</returns>
         public Workflow CreateWorkflow(string Name)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(Name), "Name");
             return Workflows.AddAndReturn(new KeyValuePair<string, Workflow>(Name, new Workflow(Name))).Value;
         }
 
@@ -111,6 +113,8 @@ namespace Copernicus.Core.Workflow
         /// <returns>True if it is removed, false otherwise</returns>
         public bool RemoveWorkflow(Workflow Workflow)
         {
+            if (Workflow == null)
+                return false;
             return Workflows.Remove(Workflow.Name);
         }
 
@@ -140,7 +144,7 @@ namespace Copernicus.Core.Workflow
         private T Deserialize<T>(byte[] Data)
         {
             Type ObjectType = typeof(T);
-            if (Data == null || ObjectType == null)
+            if (Data == null || ObjectType == null || Data.Length == 0)
                 return default(T);
             using (MemoryStream Stream = new MemoryStream(Data))
             {

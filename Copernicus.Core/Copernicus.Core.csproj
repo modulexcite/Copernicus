@@ -244,6 +244,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Workflow\GenericOperation.cs" />
     <Compile Include="Workflow\IOperation.cs" />
+    <Compile Include="Workflow\OperationBase.cs" />
     <Compile Include="Workflow\Workflow.cs" />
     <Compile Include="Workflow\Manager.cs" />
   </ItemGroup>

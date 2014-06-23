@@ -30,8 +30,16 @@ namespace Copernicus.Core.Workflow
     /// <summary>
     /// Generic operation (used for Funcs)
     /// </summary>
-    public class GenericOperation : IOperation
+    public class GenericOperation : OperationBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenericOperation" /> class.
+        /// </summary>
+        public GenericOperation()
+            : base()
+        {
+        }
+
         /// <summary>
         /// Gets or sets the internal operation.
         /// </summary>
@@ -39,17 +47,11 @@ namespace Copernicus.Core.Workflow
         public Func<dynamic, dynamic> InternalOperation { get; set; }
 
         /// <summary>
-        /// Gets the name of the operation
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
         /// <returns>The result of the operation</returns>
-        public dynamic Execute(dynamic Value)
+        public override dynamic Execute(dynamic Value)
         {
             return InternalOperation(Value);
         }
