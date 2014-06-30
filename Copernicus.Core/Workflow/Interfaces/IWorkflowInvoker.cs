@@ -24,49 +24,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.DataTypes;
 
-namespace Copernicus.Core.Workflow
+namespace Copernicus.Core.Workflow.Interfaces
 {
     /// <summary>
-    /// Or operation
+    /// Workflow invoker interface
     /// </summary>
-    public class OrOperation : OperationBase
+    /// <typeparam name="T">Data type expected</typeparam>
+    public interface IWorkflowInvoker<T> : IInvoker<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrOperation" /> class.
+        /// Gets the constraints.
         /// </summary>
-        public OrOperation()
-            : base()
-        {
-        }
+        /// <value>The constraints.</value>
+        IEnumerable<IConstraint<T>> Constraints { get; }
 
         /// <summary>
-        /// Executes the operation on the specified value.
+        /// Gets the Workflow.
         /// </summary>
-        /// <param name="Value">The value.</param>
-        /// <returns>The result of the operation</returns>
-        public override dynamic Execute(dynamic Value)
-        {
-            return Value;
-        }
-
-        /// <summary>
-        /// Starts the operation
-        /// </summary>
-        /// <param name="Value">The value passed in</param>
-        /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
-        public override async Task<bool> Start(dynamic Value)
-        {
-            return await Task.Run<bool>(() =>
-            {
-                if (SuccessOperations.Count == 0)
-                    return true;
-                if (SuccessOperations.ForEachParallel(x => x.Start(new Dynamo(Value)).Result).Any(x => x))
-                    return true;
-                FailureOperations.ForEachParallel(x => x.Start(new Dynamo(Value)));
-                return false;
-            });
-        }
+        /// <value>The Workflow.</value>
+        IWorkflow<T> Workflow { get; }
     }
 }

@@ -102,11 +102,10 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\WindowsPrincipalHandler.cs" />
-    <Compile Include="Workflow\AndOperation.cs" />
     <Compile Include="Workflow\GenericConstraint.cs" />
     <Compile Include="Workflow\GenericOperation.cs" />
     <Compile Include="Workflow\OperationInvoker.cs" />
-    <Compile Include="Workflow\OrOperation.cs" />
+    <Compile Include="Workflow\WorkflowNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

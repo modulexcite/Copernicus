@@ -23,22 +23,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Utilities.DataTypes.Patterns;
+using Copernicus.Core.Workflow.Interfaces;
+using Utilities.DataTypes;
+using Utilities.IoC.Interfaces;
 
-namespace Copernicus.Core.Workflow.Interfaces
+namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// Workflow interface
+    /// Workflow holder
     /// </summary>
-    /// <typeparam name="T">Data type expected</typeparam>
-    public interface IWorkflow<T> : IFluentInterface
+    /// <typeparam name="T">Data type</typeparam>
+    [Serializable]
+    public class Workflow<T> : IWorkflow<T>
     {
         /// <summary>
-        /// Gets the name of the workflow
+        /// Initializes a new instance of the <see cref="Workflow{T}" /> class.
         /// </summary>
-        /// <value>The name of the workflow</value>
-        string Name { get; }
+        /// <param name="Name">The name.</param>
+        public Workflow(string Name)
+        {
+            this.Name = Name;
+            this.Nodes = new List<IWorkflowNode<T>>();
+            ExceptionActions = new ListMapping<Type, Action<T>>();
+        }
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the nodes.
+        /// </summary>
+        /// <value>The nodes.</value>
+        public ICollection<IWorkflowNode<T>> Nodes { get; private set; }
+
+        /// <summary>
+        /// Gets the bootstrapper.
+        /// </summary>
+        /// <value>The bootstrapper.</value>
+        private IBootstrapper Bootstrapper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the exception actions.
+        /// </summary>
+        /// <value>The exception actions.</value>
+        private ListMapping<Type, Action<T>> ExceptionActions { get; set; }
 
         /// <summary>
         /// Causes multiple commands to be executed concurrently
@@ -48,8 +79,11 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> And<OperationType>(params IConstraint<T>[] Constraints)
-            where OperationType : IOperation<T>, new();
+        public IWorkflow<T> And<OperationType>(params IConstraint<T>[] Constraints)
+            where OperationType : IOperation<T>, new()
+        {
+            return And(new OperationType(), Constraints);
+        }
 
         /// <summary>
         /// Causes multiple commands to be executed concurrently
@@ -59,7 +93,14 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> And(IOperation<T> Operation, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> And(IOperation<T> Operation, params IConstraint<T>[] Constraints)
+        {
+            IWorkflowNode<T> Node = Nodes.LastOrDefault();
+            if (Node == null)
+                Node = Nodes.AddAndReturn(new WorkflowNode<T>());
+            Node.AddOperation(Operation, Constraints);
+            return this;
+        }
 
         /// <summary>
         /// Causes multiple commands to be executed concurrently
@@ -69,7 +110,10 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> And(Func<T, T> Operation, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> And(Func<T, T> Operation, params IConstraint<T>[] Constraints)
+        {
+            return And(new GenericOperation<T>(Operation), Constraints);
+        }
 
         /// <summary>
         /// Causes multiple commands to be executed concurrently
@@ -79,7 +123,14 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The resulting workflow object</returns>
-        IWorkflow<T> And(IWorkflow<T> Workflow, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> And(IWorkflow<T> Workflow, params IConstraint<T>[] Constraints)
+        {
+            IWorkflowNode<T> Node = Nodes.LastOrDefault();
+            if (Node == null)
+                Node = Nodes.AddAndReturn(new WorkflowNode<T>());
+            Node.AddOperation(Workflow, Constraints);
+            return this;
+        }
 
         /// <summary>
         /// Adds an instance of the specified operation type to the workflow
@@ -89,8 +140,11 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> Do<OperationType>(params IConstraint<T>[] Constraints)
-            where OperationType : IOperation<T>, new();
+        public IWorkflow<T> Do<OperationType>(params IConstraint<T>[] Constraints)
+            where OperationType : IOperation<T>, new()
+        {
+            return Do(new OperationType(), Constraints);
+        }
 
         /// <summary>
         /// Adds the specified operation to the workflow
@@ -100,7 +154,12 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> Do(IOperation<T> Operation, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> Do(IOperation<T> Operation, params IConstraint<T>[] Constraints)
+        {
+            IWorkflowNode<T> Node = Nodes.AddAndReturn(new WorkflowNode<T>());
+            Node.AddOperation(Operation, Constraints);
+            return this;
+        }
 
         /// <summary>
         /// Adds the specified operation to the workflow
@@ -110,7 +169,10 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> Do(Func<T, T> Operation, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> Do(Func<T, T> Operation, params IConstraint<T>[] Constraints)
+        {
+            return Do(new GenericOperation<T>(Operation), Constraints);
+        }
 
         /// <summary>
         /// Appends the workflow specified to this workflow as an operation
@@ -120,7 +182,12 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// Determines if the operation should be run or if it should be skipped
         /// </param>
         /// <returns>The resulting workflow object</returns>
-        IWorkflow<T> Do(IWorkflow<T> Workflow, params IConstraint<T>[] Constraints);
+        public IWorkflow<T> Do(IWorkflow<T> Workflow, params IConstraint<T>[] Constraints)
+        {
+            IWorkflowNode<T> Node = Nodes.AddAndReturn(new WorkflowNode<T>());
+            Node.AddOperation(Workflow, Constraints);
+            return this;
+        }
 
         /// <summary>
         /// Called when an exception of the specified type is thrown in the workflow
@@ -128,28 +195,47 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// <typeparam name="ExceptionType">The exception type.</typeparam>
         /// <param name="Operation">The operation to run.</param>
         /// <returns>The resulting workflow object</returns>
-        IWorkflow<T> On<ExceptionType>(Action<T> Operation)
-            where ExceptionType : Exception;
+        public IWorkflow<T> On<ExceptionType>(Action<T> Operation)
+            where ExceptionType : Exception
+        {
+            ExceptionActions.Add(typeof(ExceptionType), Operation);
+            return this;
+        }
 
         /// <summary>
         /// Repeats the last operation the specified number of times.
         /// </summary>
         /// <param name="Times">The number of times to repeat</param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> Repeat(int Times = 1);
+        public IWorkflow<T> Repeat(int Times = 1)
+        {
+            Nodes.LastOrDefault().Chain(x => x.Repeat(Times));
+            return this;
+        }
 
         /// <summary>
         /// Retries the last operation the specified number of times if it fails.
         /// </summary>
         /// <param name="Times">The number of times to retry.</param>
         /// <returns>The workflow object</returns>
-        IWorkflow<T> Retry(int Times = 1);
+        public IWorkflow<T> Retry(int Times = 1)
+        {
+            Nodes.LastOrDefault().Chain(x => x.Retry(Times));
+            return this;
+        }
 
         /// <summary>
         /// Starts the workflow with the specified data
         /// </summary>
         /// <param name="Data">The data to pass in to the workflow</param>
         /// <returns>The result from the workflow</returns>
-        T Start(T Data);
+        public T Start(T Data)
+        {
+            foreach (IWorkflowNode<T> Node in Nodes)
+            {
+                Data = Node.Start(Data);
+            }
+            return Data;
+        }
     }
 }

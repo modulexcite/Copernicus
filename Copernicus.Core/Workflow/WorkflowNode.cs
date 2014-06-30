@@ -19,12 +19,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Copernicus.Core.Workflow.Interfaces;
+using Utilities.DataTypes;
 
 namespace Copernicus.Core.Workflow
 {
@@ -39,23 +40,47 @@ namespace Copernicus.Core.Workflow
         /// </summary>
         public WorkflowNode()
         {
-            Operations = new List<IOperation<T>>();
+            Operations = new List<IInvoker<T>>();
+            RepeatCount = 0;
+            RetryCount = 0;
         }
 
         /// <summary>
         /// Gets or sets the operations.
         /// </summary>
         /// <value>The operations.</value>
-        public ICollection<IOperation<T>> Operations { get; private set; }
+        public ICollection<IInvoker<T>> Operations { get; private set; }
+
+        /// <summary>
+        /// Gets the repeat count
+        /// </summary>
+        /// <value>The repeat count</value>
+        public int RepeatCount { get; private set; }
+
+        /// <summary>
+        /// Gets the retry count.
+        /// </summary>
+        /// <value>The retry count.</value>
+        public int RetryCount { get; private set; }
 
         /// <summary>
         /// Adds an operation to be run with the node
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
         /// <param name="Operation">The operation.</param>
         /// <param name="Constraints">The constraints.</param>
-        public void AddOperation<T>(IOperation<T> Operation, params IConstraint<T> Constraints)
+        public void AddOperation(IOperation<T> Operation, params IConstraint<T>[] Constraints)
         {
+            Operations.Add(new OperationInvoker<T>(Operation, Constraints));
+        }
+
+        /// <summary>
+        /// Adds an operation to be run with the node
+        /// </summary>
+        /// <param name="Operation">The operation.</param>
+        /// <param name="Constraints">The constraints.</param>
+        public void AddOperation(IWorkflow<T> Operation, params IConstraint<T>[] Constraints)
+        {
+            Operations.Add(new WorkflowInvoker<T>(Operation, Constraints));
         }
 
         /// <summary>
@@ -63,20 +88,44 @@ namespace Copernicus.Core.Workflow
         /// </summary>
         /// <param name="Times">The number of times to repeat</param>
         /// <returns>The workflow object</returns>
-        private void Repeat(int Times = 1);
+        public void Repeat(int Times = 1)
+        {
+            RepeatCount = Times;
+        }
 
         /// <summary>
         /// Retries the last operation the specified number of times if it fails.
         /// </summary>
         /// <param name="Times">The number of times to retry.</param>
         /// <returns>The workflow object</returns>
-        private void Retry(int Times = 1);
+        public void Retry(int Times = 1)
+        {
+            RetryCount = Times;
+        }
 
         /// <summary>
         /// Starts the node using the data specified
         /// </summary>
         /// <param name="Data">The data.</param>
         /// <returns>The result from the workflow node</returns>
-        private T Start(T Data);
+        public T Start(T Data)
+        {
+            int CurrentRetryCount = 0;
+            T ReturnValue = Data;
+            for (int x = 0; x <= RepeatCount; ++x)
+            {
+                try
+                {
+                    ReturnValue = Operations.ForEachParallel(y => y.Execute(Data)).First();
+                }
+                catch
+                {
+                    if (CurrentRetryCount >= RetryCount)
+                        throw;
+                    ++CurrentRetryCount;
+                }
+            }
+            return ReturnValue;
+        }
     }
 }

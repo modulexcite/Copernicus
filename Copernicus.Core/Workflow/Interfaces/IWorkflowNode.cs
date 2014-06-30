@@ -36,10 +36,16 @@ namespace Copernicus.Core.Workflow.Interfaces
         /// <summary>
         /// Adds an operation to be run with the node
         /// </summary>
-        /// <typeparam name="T">Data type</typeparam>
         /// <param name="Operation">The operation.</param>
         /// <param name="Constraints">The constraints.</param>
-        void AddOperation<T>(IOperation<T> Operation, params IConstraint<T> Constraints);
+        void AddOperation(IOperation<T> Operation, params IConstraint<T>[] Constraints);
+
+        /// <summary>
+        /// Adds an operation to be run with the node
+        /// </summary>
+        /// <param name="Operation">The operation.</param>
+        /// <param name="Constraints">The constraints.</param>
+        void AddOperation(IWorkflow<T> Operation, params IConstraint<T>[] Constraints);
 
         /// <summary>
         /// Repeats the last operation the specified number of times.

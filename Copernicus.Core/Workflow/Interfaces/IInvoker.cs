@@ -28,21 +28,16 @@ using System.Threading.Tasks;
 namespace Copernicus.Core.Workflow.Interfaces
 {
     /// <summary>
-    /// Operation invoker interface
+    /// Invoker interface
     /// </summary>
     /// <typeparam name="T">Data type expected</typeparam>
-    public interface IOperationInvoker<T> : IInvoker<T>
+    public interface IInvoker<T>
     {
         /// <summary>
-        /// Gets the constraints.
+        /// Executes the operation on the specified value.
         /// </summary>
-        /// <value>The constraints.</value>
-        IEnumerable<IConstraint<T>> Constraints { get; }
-
-        /// <summary>
-        /// Gets the operation.
-        /// </summary>
-        /// <value>The operation.</value>
-        IOperation<T> Operation { get; }
+        /// <param name="Value">The value.</param>
+        /// <returns>The result of the operation</returns>
+        T Execute(T Value);
     }
 }

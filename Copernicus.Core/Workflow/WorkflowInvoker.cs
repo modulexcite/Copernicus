@@ -24,49 +24,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.DataTypes;
+using Copernicus.Core.Workflow.Interfaces;
 
 namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// And operation
+    /// Workflow invoker
     /// </summary>
-    public class AndOperation : OperationBase
+    /// <typeparam name="T">Data type</typeparam>
+    public class WorkflowInvoker<T> : IWorkflowInvoker<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AndOperation" /> class.
+        /// Initializes a new instance of the <see cref="WorkflowInvoker{T}" /> class.
         /// </summary>
-        public AndOperation()
-            : base()
+        /// <param name="Workflow">The Workflow.</param>
+        /// <param name="Constraints">The constraints.</param>
+        public WorkflowInvoker(IWorkflow<T> Workflow, IEnumerable<IConstraint<T>> Constraints)
         {
+            this.Workflow = Workflow;
+            this.Constraints = Constraints;
         }
 
         /// <summary>
-        /// Executes the operation on the specified value.
+        /// Gets the constraints.
+        /// </summary>
+        /// <value>The constraints.</value>
+        public IEnumerable<IConstraint<T>> Constraints { get; private set; }
+
+        /// <summary>
+        /// Gets the Workflow.
+        /// </summary>
+        /// <value>The Workflow.</value>
+        public IWorkflow<T> Workflow { get; private set; }
+
+        /// <summary>
+        /// Executes the Workflow on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
-        /// <returns>The result of the operation</returns>
-        public override dynamic Execute(dynamic Value)
+        /// <returns>The result of the Workflow</returns>
+        public T Execute(T Value)
         {
-            return Value;
-        }
-
-        /// <summary>
-        /// Starts the operation
-        /// </summary>
-        /// <param name="Value">The value passed in</param>
-        /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
-        public override async Task<bool> Start(dynamic Value)
-        {
-            return await Task.Run<bool>(() =>
-            {
-                if (SuccessOperations.Count == 0)
-                    return true;
-                if (SuccessOperations.ForEachParallel(x => x.Start(new Dynamo(Value)).Result).All(x => x))
-                    return true;
-                FailureOperations.ForEachParallel(x => x.Start(new Dynamo(Value)));
-                return false;
-            });
+            if (!Constraints.All(x => x.Eval(Value)))
+                return Value;
+            return Workflow.Start(Value);
         }
     }
 }
