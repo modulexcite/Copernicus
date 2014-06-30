@@ -19,56 +19,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Core.Workflow
+namespace Copernicus.Core.Workflow.Interfaces
 {
     /// <summary>
-    /// Generic operation
+    /// Operation interface
     /// </summary>
-    /// <typeparam name="T">Data type</typeparam>
-    public class GenericOperation<T> : IOperation<T>
+    /// <typeparam name="T">Data type expected</typeparam>
+    public interface IOperation<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
-        /// </summary>
-        public GenericOperation()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
-        /// </summary>
-        /// <param name="Operation">The operation.</param>
-        public GenericOperation(Func<T, T> Operation)
-        {
-        }
-
-        /// <summary>
-        /// Gets the name.
+        /// Gets the name of the operation
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get { return "Generic operation"; } }
-
-        /// <summary>
-        /// Gets or sets the operation.
-        /// </summary>
-        /// <value>The operation.</value>
-        public Func<T, T> Operation { get; private set; }
+        string Name { get; }
 
         /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
         /// <returns>The result of the operation</returns>
-        public T Execute(T Value)
-        {
-            return Operation(Value);
-        }
+        T Execute(T Value);
     }
 }

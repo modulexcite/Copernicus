@@ -19,56 +19,47 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Core.Workflow
+namespace Copernicus.Core.Workflow.Interfaces
 {
     /// <summary>
-    /// Generic operation
+    /// Workflow node interface
     /// </summary>
-    /// <typeparam name="T">Data type</typeparam>
-    public class GenericOperation<T> : IOperation<T>
+    /// <typeparam name="T">Data type expected</typeparam>
+    public interface IWorkflowNode<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
+        /// Adds an operation to be run with the node
         /// </summary>
-        public GenericOperation()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
-        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="Operation">The operation.</param>
-        public GenericOperation(Func<T, T> Operation)
-        {
-        }
+        /// <param name="Constraints">The constraints.</param>
+        void AddOperation<T>(IOperation<T> Operation, params IConstraint<T> Constraints);
 
         /// <summary>
-        /// Gets the name.
+        /// Repeats the last operation the specified number of times.
         /// </summary>
-        /// <value>The name.</value>
-        public string Name { get { return "Generic operation"; } }
+        /// <param name="Times">The number of times to repeat</param>
+        /// <returns>The workflow object</returns>
+        void Repeat(int Times = 1);
 
         /// <summary>
-        /// Gets or sets the operation.
+        /// Retries the last operation the specified number of times if it fails.
         /// </summary>
-        /// <value>The operation.</value>
-        public Func<T, T> Operation { get; private set; }
+        /// <param name="Times">The number of times to retry.</param>
+        /// <returns>The workflow object</returns>
+        void Retry(int Times = 1);
 
         /// <summary>
-        /// Executes the operation on the specified value.
+        /// Starts the node using the data specified
         /// </summary>
-        /// <param name="Value">The value.</param>
-        /// <returns>The result of the operation</returns>
-        public T Execute(T Value)
-        {
-            return Operation(Value);
-        }
+        /// <param name="Data">The data.</param>
+        /// <returns>The result from the workflow node</returns>
+        T Start(T Data);
     }
 }

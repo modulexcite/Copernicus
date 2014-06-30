@@ -242,11 +242,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\WindowsPrincipalHandler.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WorkflowOld\AndOperation.cs" />
+    <Compile Include="WorkflowOld\OperationBase.cs" />
+    <Compile Include="WorkflowOld\OrOperation.cs" />
+    <Compile Include="WorkflowOld\Workflow.cs" />
+    <Compile Include="WorkflowOld\Manager.cs" />
+    <Compile Include="Workflow\GenericConstraint.cs" />
     <Compile Include="Workflow\GenericOperation.cs" />
-    <Compile Include="Workflow\IOperation.cs" />
-    <Compile Include="Workflow\OperationBase.cs" />
-    <Compile Include="Workflow\Workflow.cs" />
-    <Compile Include="Workflow\Manager.cs" />
+    <Compile Include="Workflow\Interfaces\IConstraint.cs" />
+    <Compile Include="Workflow\Interfaces\IOperation.cs" />
+    <Compile Include="Workflow\Interfaces\IOperationInvoker.cs" />
+    <Compile Include="Workflow\Interfaces\IWorkflow.cs" />
+    <Compile Include="Workflow\Interfaces\IWorkflowNode.cs" />
+    <Compile Include="Workflow\OperationInvoker.cs" />
+    <Compile Include="Workflow\WorkflowNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

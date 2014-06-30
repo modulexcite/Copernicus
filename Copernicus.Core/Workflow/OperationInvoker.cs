@@ -19,6 +19,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,40 +29,44 @@ using System.Threading.Tasks;
 namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// Operation interface
+    /// Operation invoker
     /// </summary>
-    public interface IOperation
+    /// <typeparam name="T">Data type</typeparam>
+    public class OperationInvoker<T> : IOperationInvoker<T>
     {
         /// <summary>
-        /// Gets or sets the operations to call on failure
+        /// Initializes a new instance of the <see cref="OperationInvoker{T}" /> class.
         /// </summary>
-        /// <value>The failure operations</value>
-        List<IOperation> FailureOperations { get; }
+        /// <param name="Operation">The operation.</param>
+        /// <param name="Constraints">The constraints.</param>
+        public OperationInvoker(IOperation<T> Operation, IEnumerable<IConstraint<T>> Constraints)
+        {
+            this.Operation = Operation;
+            this.Constraints = Constraints;
+        }
 
         /// <summary>
-        /// Gets the name of the operation
+        /// Gets the constraints.
         /// </summary>
-        /// <value>The name.</value>
-        string Name { get; set; }
+        /// <value>The constraints.</value>
+        public IEnumerable<IConstraint<T>> Constraints { get; private set; }
 
         /// <summary>
-        /// Gets or sets the operations to call on success.
+        /// Gets the operation.
         /// </summary>
-        /// <value>The success operations</value>
-        List<IOperation> SuccessOperations { get; }
+        /// <value>The operation.</value>
+        public IOperation<T> Operation { get; private set; }
 
         /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
         /// <returns>The result of the operation</returns>
-        dynamic Execute(dynamic Value);
-
-        /// <summary>
-        /// Starts the operation
-        /// </summary>
-        /// <param name="Value">The value passed in</param>
-        /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
-        Task<bool> Start(dynamic Value);
+        public T Execute(T Value)
+        {
+            if (!Constraints.All(x => x.Eval(Value)))
+                return Value;
+            return Operation.Execute(Value);
+        }
     }
 }

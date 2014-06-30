@@ -19,6 +19,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Workflow;
+using Copernicus.Core.Workflow.Interfaces;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -29,29 +31,36 @@ using Xunit;
 
 namespace Copernicus.Core.Tests.Workflow
 {
-    public class GenericOperation
+    public class OperationInvoker
     {
         [Fact]
         public void Execute()
         {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => x);
+            Copernicus.Core.Workflow.OperationInvoker<dynamic> TempOperation = new Core.Workflow.OperationInvoker<dynamic>(new GenericOperation<dynamic>(x => x), new List<IConstraint<dynamic>>());
             Assert.Equal(1, TempOperation.Execute(1));
             Assert.Equal("A", TempOperation.Execute("A"));
         }
 
         [Fact]
-        public void Setup()
+        public void ExecuteFailedConstraint()
         {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => x);
-            Assert.Equal("Generic operation", TempOperation.Name);
-            Assert.NotNull(TempOperation.Operation);
+            Copernicus.Core.Workflow.OperationInvoker<dynamic> TempOperation = new Core.Workflow.OperationInvoker<dynamic>(new GenericOperation<dynamic>(x => x + 1), new IConstraint<dynamic>[] { new GenericConstraint<dynamic>(x => x > 1) });
+            Assert.Equal(1, TempOperation.Execute(1));
         }
 
         [Fact]
-        public void StartFailedOperation()
+        public void ExecuteTrueConstraint()
         {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => { throw new ArgumentException("ASDF"); });
-            Assert.Throws<ArgumentException>(() => TempOperation.Execute(1));
+            Copernicus.Core.Workflow.OperationInvoker<dynamic> TempOperation = new Core.Workflow.OperationInvoker<dynamic>(new GenericOperation<dynamic>(x => x + 1), new IConstraint<dynamic>[] { new GenericConstraint<dynamic>(x => x > 1) });
+            Assert.Equal(3, TempOperation.Execute(2));
+        }
+
+        [Fact]
+        public void Setup()
+        {
+            Copernicus.Core.Workflow.OperationInvoker<dynamic> TempOperation = new Core.Workflow.OperationInvoker<dynamic>(new GenericOperation<dynamic>(x => x + 1), new IConstraint<dynamic>[] { new GenericConstraint<dynamic>(x => x > 1) });
+            Assert.Equal(1, TempOperation.Constraints.Count());
+            Assert.NotNull(TempOperation.Operation);
         }
     }
 }

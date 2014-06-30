@@ -23,54 +23,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Utilities.DataTypes;
+using System.Threading.Tasks;
 
-namespace Copernicus.Core.Workflow
+namespace Copernicus.Core.Workflow.Interfaces
 {
     /// <summary>
-    /// Workflow holder
+    /// Constraint interface
     /// </summary>
-    [Serializable]
-    public class Workflow
+    /// <typeparam name="T">Data type expected</typeparam>
+    public interface IConstraint<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Workflow" /> class.
-        /// </summary>
-        /// <param name="Name">The name.</param>
-        public Workflow(string Name)
-            : this()
-        {
-            this.Name = Name;
-            this.Operations = new List<IOperation>();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Workflow" /> class.
-        /// </summary>
-        public Workflow()
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the operations.
-        /// </summary>
-        /// <value>The operations.</value>
-        public List<IOperation> Operations { get; set; }
-
-        /// <summary>
-        /// Starts the specified value.
+        /// Evaluates the contraint against the value passed in and returns the result
         /// </summary>
         /// <param name="Value">The value.</param>
-        /// <returns></returns>
-        public dynamic Start(dynamic Value)
-        {
-            return Operations.ForEachParallel(x => x.Start(Value).Result).All(x => x);
-        }
+        /// <returns>True if the contraint is passed, false otherwise</returns>
+        bool Eval(T Value);
     }
 }

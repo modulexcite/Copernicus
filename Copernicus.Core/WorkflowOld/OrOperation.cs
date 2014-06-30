@@ -19,56 +19,54 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes;
 
 namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// Generic operation
+    /// Or operation
     /// </summary>
-    /// <typeparam name="T">Data type</typeparam>
-    public class GenericOperation<T> : IOperation<T>
+    public class OrOperation : OperationBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
+        /// Initializes a new instance of the <see cref="OrOperation" /> class.
         /// </summary>
-        public GenericOperation()
+        public OrOperation()
+            : base()
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
-        /// </summary>
-        /// <param name="Operation">The operation.</param>
-        public GenericOperation(Func<T, T> Operation)
-        {
-        }
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name { get { return "Generic operation"; } }
-
-        /// <summary>
-        /// Gets or sets the operation.
-        /// </summary>
-        /// <value>The operation.</value>
-        public Func<T, T> Operation { get; private set; }
 
         /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
         /// <returns>The result of the operation</returns>
-        public T Execute(T Value)
+        public override dynamic Execute(dynamic Value)
         {
-            return Operation(Value);
+            return Value;
+        }
+
+        /// <summary>
+        /// Starts the operation
+        /// </summary>
+        /// <param name="Value">The value passed in</param>
+        /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
+        public override async Task<bool> Start(dynamic Value)
+        {
+            return await Task.Run<bool>(() =>
+            {
+                if (SuccessOperations.Count == 0)
+                    return true;
+                if (SuccessOperations.ForEachParallel(x => x.Start(new Dynamo(Value)).Result).Any(x => x))
+                    return true;
+                FailureOperations.ForEachParallel(x => x.Start(new Dynamo(Value)));
+                return false;
+            });
         }
     }
 }

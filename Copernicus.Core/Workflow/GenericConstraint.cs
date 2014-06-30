@@ -29,46 +29,41 @@ using System.Threading.Tasks;
 namespace Copernicus.Core.Workflow
 {
     /// <summary>
-    /// Generic operation
+    /// Generic constraint
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
-    public class GenericOperation<T> : IOperation<T>
+    public class GenericConstraint<T> : IConstraint<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
+        /// Initializes a new instance of the <see cref="GenericConstraint{T}" /> class.
         /// </summary>
-        public GenericOperation()
+        public GenericConstraint()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenericOperation{T}" /> class.
+        /// Initializes a new instance of the <see cref="GenericConstraint{T}" /> class.
         /// </summary>
-        /// <param name="Operation">The operation.</param>
-        public GenericOperation(Func<T, T> Operation)
+        /// <param name="Constraint">The constraint predicate.</param>
+        public GenericConstraint(Predicate<T> Constraint)
         {
+            this.InternalFunction = Constraint;
         }
 
         /// <summary>
-        /// Gets the name.
+        /// Gets or sets the internal function.
         /// </summary>
-        /// <value>The name.</value>
-        public string Name { get { return "Generic operation"; } }
+        /// <value>The internal function.</value>
+        public Predicate<T> InternalFunction { get; private set; }
 
         /// <summary>
-        /// Gets or sets the operation.
-        /// </summary>
-        /// <value>The operation.</value>
-        public Func<T, T> Operation { get; private set; }
-
-        /// <summary>
-        /// Executes the operation on the specified value.
+        /// Evaluates the contraint against the value passed in and returns the result
         /// </summary>
         /// <param name="Value">The value.</param>
-        /// <returns>The result of the operation</returns>
-        public T Execute(T Value)
+        /// <returns>True if the contraint is passed, false otherwise</returns>
+        public bool Eval(T Value)
         {
-            return Operation(Value);
+            return InternalFunction(Value);
         }
     }
 }

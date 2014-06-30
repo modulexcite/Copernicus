@@ -61,6 +61,38 @@ namespace Copernicus.Core.Workflow
         public List<IOperation> SuccessOperations { get; private set; }
 
         /// <summary>
+        /// Adds an operation.
+        /// </summary>
+        /// <typeparam name="T">Operation type</typeparam>
+        /// <returns>The operation that was added</returns>
+        public IOperation AddOperation<T>()
+            where T : IOperation, new()
+        {
+            return Operations.AddAndReturn(new T());
+        }
+
+        /// <summary>
+        /// Adds the operation.
+        /// </summary>
+        /// <param name="Operation">The operation.</param>
+        /// <returns>The operation that was added</returns>
+        public IOperation AddOperation(IOperation Operation)
+        {
+            return Operations.AddAndReturn(Operation);
+        }
+
+        /// <summary>
+        /// Adds the operation.
+        /// </summary>
+        /// <param name="Name">The name.</param>
+        /// <param name="Operation">The operation.</param>
+        /// <returns>The operation that was added</returns>
+        public IOperation AddOperation(string Name, Func<dynamic, dynamic> Operation)
+        {
+            return Operations.AddAndReturn(new GenericOperation() { Name = Name, InternalOperation = Operation });
+        }
+
+        /// <summary>
         /// Executes the operation on the specified value.
         /// </summary>
         /// <param name="Value">The value.</param>
@@ -72,7 +104,7 @@ namespace Copernicus.Core.Workflow
         /// </summary>
         /// <param name="Value">The value passed in</param>
         /// <returns>A task that will return true if the operation succeeded, false otherwise.</returns>
-        public async Task<bool> Start(dynamic Value)
+        public virtual async Task<bool> Start(dynamic Value)
         {
             return await Task.Run<bool>(() =>
             {

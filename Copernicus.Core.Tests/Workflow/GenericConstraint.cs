@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,29 +28,16 @@ using Xunit;
 
 namespace Copernicus.Core.Tests.Workflow
 {
-    public class GenericOperation
+    public class GenericConstraint
     {
         [Fact]
-        public void Execute()
+        public void Eval()
         {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => x);
-            Assert.Equal(1, TempOperation.Execute(1));
-            Assert.Equal("A", TempOperation.Execute("A"));
-        }
-
-        [Fact]
-        public void Setup()
-        {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => x);
-            Assert.Equal("Generic operation", TempOperation.Name);
-            Assert.NotNull(TempOperation.Operation);
-        }
-
-        [Fact]
-        public void StartFailedOperation()
-        {
-            Copernicus.Core.Workflow.GenericOperation<dynamic> TempOperation = new Core.Workflow.GenericOperation<dynamic>(x => { throw new ArgumentException("ASDF"); });
-            Assert.Throws<ArgumentException>(() => TempOperation.Execute(1));
+            Copernicus.Core.Workflow.GenericConstraint<int> TestObject = new Core.Workflow.GenericConstraint<int>(x => x > 5);
+            Assert.NotNull(TestObject);
+            Assert.NotNull(TestObject.InternalFunction);
+            Assert.True(TestObject.Eval(6));
+            Assert.False(TestObject.Eval(0));
         }
     }
 }
