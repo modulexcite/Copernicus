@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Core.Workflow.Interfaces;
 using Utilities.DataTypes;
 
 namespace Copernicus.Core.Workflow
@@ -33,6 +33,7 @@ namespace Copernicus.Core.Workflow
     /// Workflow node
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
+    [Serializable]
     public class WorkflowNode<T> : IWorkflowNode<T>
     {
         /// <summary>

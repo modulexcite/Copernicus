@@ -32,6 +32,7 @@ namespace Copernicus.Core.Workflow
     /// Operation invoker
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
+    [Serializable]
     public class OperationInvoker<T> : IOperationInvoker<T>
     {
         /// <summary>

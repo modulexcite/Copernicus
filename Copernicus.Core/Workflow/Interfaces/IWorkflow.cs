@@ -31,15 +31,31 @@ namespace Copernicus.Core.Workflow.Interfaces
     /// <summary>
     /// Workflow interface
     /// </summary>
-    /// <typeparam name="T">Data type expected</typeparam>
-    public interface IWorkflow<T> : IFluentInterface
+    public interface IWorkflow : IFluentInterface
     {
+        /// <summary>
+        /// Gets the type of the data expected
+        /// </summary>
+        /// <value>
+        /// The type of the data expected
+        /// </value>
+        Type DataType { get; }
+
         /// <summary>
         /// Gets the name of the workflow
         /// </summary>
-        /// <value>The name of the workflow</value>
+        /// <value>
+        /// The name of the workflow
+        /// </value>
         string Name { get; }
+    }
 
+    /// <summary>
+    /// Workflow interface
+    /// </summary>
+    /// <typeparam name="T">Data type expected</typeparam>
+    public interface IWorkflow<T> : IWorkflow
+    {
         /// <summary>
         /// Causes multiple commands to be executed concurrently
         /// </summary>

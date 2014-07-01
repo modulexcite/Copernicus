@@ -19,11 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Core.Workflow.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Copernicus.Core.Workflow.Interfaces;
 using Utilities.DataTypes;
 using Utilities.IoC.Interfaces;
 
@@ -46,6 +46,14 @@ namespace Copernicus.Core.Workflow
             this.Nodes = new List<IWorkflowNode<T>>();
             ExceptionActions = new ListMapping<Type, Action<T>>();
         }
+
+        /// <summary>
+        /// Gets the type of the data expected
+        /// </summary>
+        /// <value>
+        /// The type of the data expected
+        /// </value>
+        public Type DataType { get { return typeof(T); } }
 
         /// <summary>
         /// Gets the name.
@@ -231,9 +239,23 @@ namespace Copernicus.Core.Workflow
         /// <returns>The result from the workflow</returns>
         public T Start(T Data)
         {
-            foreach (IWorkflowNode<T> Node in Nodes)
+            try
             {
-                Data = Node.Start(Data);
+                foreach (IWorkflowNode<T> Node in Nodes)
+                {
+                    Data = Node.Start(Data);
+                }
+            }
+            catch (Exception e)
+            {
+                Type ExceptionType = e.GetType();
+                while (ExceptionType != null && !ExceptionActions.Keys.Contains(ExceptionType))
+                {
+                    ExceptionType = ExceptionType.BaseType;
+                }
+                if (ExceptionType != null)
+                    ExceptionActions[ExceptionType].ForEach(x => x(Data));
+                throw;
             }
             return Data;
         }

@@ -32,6 +32,7 @@ namespace Copernicus.Core.Workflow
     /// Generic constraint
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
+    [Serializable]
     public class GenericConstraint<T> : IConstraint<T>
     {
         /// <summary>
