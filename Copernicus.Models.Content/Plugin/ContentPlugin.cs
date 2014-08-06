@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Core.Plugins.BaseClasses;
+using Ironman.Core.Plugins.BaseClasses;
 
 namespace Copernicus.Models.Content.Plugin
 {
     /// <summary>
     /// Content plugin
     /// </summary>
-    public class ContentPlugin : ModelPluginBase
+    public class ContentPlugin : PluginBase
     {
         public override string Name
         {

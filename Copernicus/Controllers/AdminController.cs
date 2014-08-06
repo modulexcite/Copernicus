@@ -4,8 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Copernicus.Core.Plugins;
-using Copernicus.Models.Plugins;
+using Ironman.Core.Plugins;
 
 namespace Copernicus.Controllers
 {
@@ -38,7 +37,7 @@ namespace Copernicus.Controllers
             {
                 Manager.InstallPlugin(Key);
             }
-            Manager.RestartSystem();
+            PluginManager.RestartSystem();
             return View("PluginsAvailable", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginsAvailable);
         }
 
@@ -76,7 +75,7 @@ namespace Copernicus.Controllers
             {
                 Manager.UninstallPlugin(Key);
             }
-            Manager.RestartSystem();
+            PluginManager.RestartSystem();
             return View("Plugins", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginList.Plugins);
         }
 
@@ -94,7 +93,7 @@ namespace Copernicus.Controllers
             {
                 Manager.UpdatePlugin(Key);
             }
-            Manager.RestartSystem();
+            PluginManager.RestartSystem();
             return View("Plugins", Utilities.IoC.Manager.Bootstrapper.Resolve<PluginManager>().PluginList.Plugins);
         }
     }
