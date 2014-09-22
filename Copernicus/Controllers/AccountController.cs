@@ -402,6 +402,35 @@ namespace Copernicus.Controllers
 
         #region Helpers
 
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
+        /// <summary>
+        /// Manage message ID
+        /// </summary>
+        public enum ManageMessageId
+        {
+            /// <summary>
+            /// Change password success
+            /// </summary>
+            ChangePasswordSuccess,
+
+            /// <summary>
+            /// Set password success
+            /// </summary>
+            SetPasswordSuccess,
+
+            /// <summary>
+            /// Remove login success
+            /// </summary>
+            RemoveLoginSuccess,
+
+            /// <summary>
+            /// Error
+            /// </summary>
+            Error
+        }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -409,9 +438,6 @@ namespace Copernicus.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
 
         private void AddErrors(IdentityResult result)
         {
@@ -449,32 +475,6 @@ namespace Copernicus.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
-        }
-
-        /// <summary>
-        /// Manage message ID
-        /// </summary>
-        public enum ManageMessageId
-        {
-            /// <summary>
-            /// Change password success
-            /// </summary>
-            ChangePasswordSuccess,
-
-            /// <summary>
-            /// Set password success
-            /// </summary>
-            SetPasswordSuccess,
-
-            /// <summary>
-            /// Remove login success
-            /// </summary>
-            RemoveLoginSuccess,
-
-            /// <summary>
-            /// Error
-            /// </summary>
-            Error
         }
 
         private class ChallengeResult : HttpUnauthorizedResult
