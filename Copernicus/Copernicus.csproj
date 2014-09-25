@@ -393,31 +393,46 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="Content\Index.css" />
-    <Content Include="Content\Theme\Site.css" />
+    <Content Include="Content\Body.css" />
+    <Content Include="Content\Debug.css" />
+    <Content Include="Content\Footer.css" />
+    <Content Include="Content\Header.css" />
+    <Content Include="Content\Images\Account2.png" />
+    <Content Include="Content\Images\Activity2.png" />
+    <Content Include="Content\Images\asc.gif" />
+    <Content Include="Content\Images\bg.gif" />
+    <Content Include="Content\Images\Business2.png" />
+    <Content Include="Content\Images\desc.gif" />
+    <Content Include="Content\Images\Invoice2.png" />
+    <Content Include="Content\Images\Login.png" />
+    <Content Include="Content\Images\Login2.png" />
+    <Content Include="Content\Images\Message2.png" />
+    <Content Include="Content\Images\Notification.png" />
+    <Content Include="Content\Images\Notification2.png" />
+    <Content Include="Content\Images\Password.png" />
+    <Content Include="Content\Images\Password2.png" />
+    <Content Include="Content\Images\Project2.png" />
+    <Content Include="Content\Images\Search.png" />
+    <Content Include="Content\Images\Search2.png" />
+    <Content Include="Content\Images\User.png" />
+    <Content Include="Content\Images\User2.png" />
+    <Content Include="Content\Reset.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Tables.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Index.js" />
     <Content Include="Areas\API\Views\web.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\JQuery\jquery.2.1.0.min.js" />
+    <Content Include="Scripts\JQuery\jquery-2.1.1.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.min.js" />
     <Content Include="Scripts\JQuery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JQuery\moment.min.js" />
-    <Content Include="Scripts\knockout-3.2.0.debug.js" />
-    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\KnockoutJS\knockout-3.2.0.js" />
     <Content Include="Scripts\KnockoutJS\knockout.validation.js" />
-    <Content Include="Scripts\KnockoutJS\knockout.3.1.0.js" />
     <Content Include="Scripts\KnockoutJS\ko.dates.js" />
+    <Content Include="Scripts\Main\Main.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -428,10 +443,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\JQuery\jquery.2.1.0.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\JQuery\jquery-2.1.1.min.map" />
     <Content Include="Views\Admin\Plugins.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,158 @@
+﻿#body {
+    position:absolute;
+    top:110px;
+    left:30px;
+    right:30px;
+    min-height:90%;
+    background-color:rgba(255,255,255,0.5);
+    box-shadow:0px 3px 10px rgba(100, 100, 100, 0.298039);
+    padding: 10px 0;
+}
+
+ .column, .columns {
+	float: left;
+	display: inline-block; 
+}
+
+ .column .content,  .columns .content {
+    background-color:#FFF;
+    border:1px solid #D5D5D5;
+    margin:5px 10px;
+    box-shadow: #787878 0 0 1px;
+}
+
+ .one.column, .one.columns { width: 10%;  }
+ .two.columns { width: 20%; }
+ .three.columns { width: 30%; }
+ .four.columns { width: 40%; }
+ .five.columns { width: 50%; }
+ .six.columns { width: 60%; }
+ .seven.columns { width: 70%; }
+ .eight.columns { width: 80%; }
+ .nine.columns { width: 90%; }
+ .ten.columns { width:100%; }
+
+#body .title,footer .title {
+    color:#666;
+    background:#EEE;
+    border-bottom:1px solid #D5D5D5;
+    padding:10px;
+}
+
+#body p,#body li,footer p,footer li {
+    padding:10px;
+    margin:0;
+}
+
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+	
+.right{
+	float:right;
+}
+
+.left{
+	float:left;
+}
+
+.inputWrapper{
+	background:#FFF;
+	border:1px solid #D5D5D5;
+	margin:10px 20px;
+	padding:3px 5px;
+    cursor:text;
+}
+
+.inputWrapper input {
+    width:90%;
+}
+
+/* #Tablet (Portrait)
+================================================== */
+
+/* Note: Design for a width of 768px */
+
+@media only screen and (max-width: 959px) {
+     .one.column,  .one.columns,  .two.columns {
+        width: 20%;
+    }
+     .three.columns, .four.columns { width: 40%; }
+     .five.columns { width:50%; }
+     .six.columns,  .seven.columns{ width: 60%; }
+     .eight.columns,  .nine.columns {
+        width: 80%;
+    }
+     .ten.columns { width:100%; }
+}
+
+@media only screen and (max-width: 767px) {
+	#body { left:15px;right:15px; }
+     .one.column,  .one.columns,  .two.columns,  .three.columns,
+     .four.columns, .five.columns, .six.columns,  .seven.columns,
+     .eight.columns, .nine.columns { width: 50%; }
+     .ten.columns { width:100%; }
+}
+
+@media only screen and (max-width: 480px) {
+	#body { left:15px;right:15px; }
+	 .one.column,
+	 .one.columns,
+	 .two.columns,
+	 .three.columns,
+	 .four.columns,
+	 .five.columns,
+	 .six.columns,
+	 .seven.columns,
+	 .eight.columns,
+	 .nine.columns,
+	 .ten.columns { width:100%; }
+    
+    .inputWrapper .toggle {
+        display:none;
+        visibility:hidden;
+    }
+
+    footer {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+	#body { left:10px;right:10px; }
+	 .one.column,
+	 .one.columns,
+	 .two.columns,
+	 .three.columns,
+	 .four.columns,
+	 .five.columns,
+	 .six.columns,
+	 .seven.columns,
+	 .eight.columns,
+	 .nine.columns,
+	 .ten.columns  { width:100%; }
+    
+    .inputWrapper .toggle {
+        display:none;
+        visibility:hidden;
+    }
+    
+    footer {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.content-wrapper:after{
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden; 
+}

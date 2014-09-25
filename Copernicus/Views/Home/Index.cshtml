@@ -1,31 +1,57 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+@section featured {
+    <section class="content-wrapper">
+        <div class="ten columns">
+            <div class="content" id="ProjectsList">
+                <hgroup class="title">
+                    <h3>Current Projects</h3>
+                </hgroup>
+                <ol class="round" data-bind="visible: toggle, foreach: projects">
+                    <li data-bind="html: Text">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+}
+<div class="six columns">
+    <div class="content" id="newCompaniesAndPeople">
+        <hgroup class="title">
+            <h3>New Companies and Contacts</h3>
+        </hgroup>
+        <ol class="round" data-bind="visible: toggle, foreach: newCompaniesAndPeople">
+            <li data-bind="html: Text">
+            </li>
+        </ol>
+    </div>
+    <div class="content" id="recentUpdates">
+        <hgroup class="title">
+            <h3>Recent Updates</h3>
+        </hgroup>
+        <ul data-bind="visible: toggle, foreach: recentUpdates">
+            <li data-bind="html: Text">
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="four columns">
+    <div class="content" id="activities">
+        <hgroup class="title">
+            <h3>Activities</h3>
+        </hgroup>
+        <ul data-bind="visible: toggle, foreach: upcomingActivities">
+            <li data-bind="html: Text">
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@*<div class="Popup" id="newPerson">
+    <label for="prefix">Prefix</label><input id="prefix" name="prefix" /><br />
+    <label for="firstName">First Name</label><input id="firstName" name="firstName" /><br />
+    <label for="middleName">Middle Name</label><input id="middleName" name="middleName" /><br />
+    <label for="lastName">Last Name</label><input id="lastName" name="lastName" /><br />
+    <label for="suffix">Suffix</label><input id="suffix" name="suffix" /><br />
+</div>*@

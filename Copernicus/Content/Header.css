@@ -1,0 +1,143 @@
+﻿#header{
+	position:fixed;
+	height:110px;
+	right:0;
+	left:0;
+	top:0;
+	z-index:2;
+	background:#efefef;
+    border-bottom:#b3b3b3 1px solid;
+    box-shadow:0px 3px 10px rgba(100, 100, 100, 0.298039);
+}
+
+#header #top-header {
+    height: 48px;
+    background: #000c23;
+    border-bottom: #244995 1px solid;
+    color:#030303;
+}
+
+#header #top-header #menu {
+    margin:0 auto;
+}
+
+#header #top-header #menu li {
+    position: relative;
+    display: inline-block;
+    font-size: 13px;
+    list-style-type: none;
+    padding: 0 5px;
+    line-height: 48px;
+}
+
+#header #top-header #menu li a{
+	display:inline-block;
+	padding:0px 10px;
+	color:#f3f3f3;
+}
+
+#header a{
+	display:inline-block;
+	padding:4px 10px;
+	color:#333333;
+}
+
+#header a.image{
+	padding-top:4px;
+}
+
+#header a:hover{
+	text-decoration:none;
+	background:#5A93C9;
+}
+
+#header .inputWrapper {
+    max-width:1000px;
+    margin:16px auto;
+}
+
+#header .inputWrapper a {
+    padding:0;
+}
+
+#header .inputWrapper a:hover {
+    background:none;
+}
+
+.headerPopUp{
+	position:fixed;
+	top:41px;
+	z-index:2;
+	background:#FFF;
+	display:none;
+	font-weight:bold;
+	border-bottom:#D5D5D5 1px solid;
+	border-left:#D5D5D5 1px solid;
+	border-right:#D5D5D5 1px solid;
+	box-shadow:0px 3px 10px rgba(100, 100, 100, 0.298039);
+	width:300px;
+}
+
+.search{
+	position:fixed;
+	top:85px;
+    margin:16px auto;
+	z-index:2;
+	background:#FFF;
+	border-bottom:#D5D5D5 1px solid;
+	border-left:#D5D5D5 1px solid;
+	border-right:#D5D5D5 1px solid;
+	box-shadow:0px 3px 10px rgba(100, 100, 100, 0.298039);
+}
+
+.searchResults{
+	position:fixed;
+	top:85px;
+    margin:16px auto;
+	z-index:2;
+	background:#FFF;
+	border-bottom:#D5D5D5 1px solid;
+	border-left:#D5D5D5 1px solid;
+	border-right:#D5D5D5 1px solid;
+	box-shadow:0px 3px 10px rgba(100, 100, 100, 0.298039);
+}
+
+.login{
+	right:0px;
+}
+
+.headerPopUp a{
+	padding:10px 15px;
+	display:block;
+}
+
+.headerPopUp a:hover{
+	text-decoration:none;
+	background:#5A93C9;
+	color:#FFF;
+}
+
+.headerPopUp h4{
+	border-top:#D5D5D5 1px solid;
+	border-bottom:#D5D5D5 1px solid;
+	padding:10px 15px;
+	background:#EEE;
+}
+
+#search a{
+	padding:10px 15px;
+	display:block;
+}
+
+#search a:hover{
+	text-decoration:none;
+	background:#5A93C9;
+	color:#FFF;
+}
+
+#search h4{
+	border-top:#D5D5D5 1px solid;
+	border-bottom:#D5D5D5 1px solid;
+	padding:10px 20px;
+	background:#EEE;
+}
