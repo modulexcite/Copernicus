@@ -24,6 +24,23 @@ using Copernicus.Models.BaseClasses;
 namespace Copernicus.Models.General.Mappings
 {
     /// <summary>
+    /// LookUpType API mapping
+    /// </summary>
+    public class LookUpTypeAPIMapping : APIMappingBase<LookUpType>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookUpTypeAPIMapping"/> class.
+        /// </summary>
+        public LookUpTypeAPIMapping()
+            : base(1)
+        {
+            Reference(x => x.DisplayName);
+            Reference(x => x.Description);
+            MapList(x => x.LookUps);
+        }
+    }
+
+    /// <summary>
     /// Lookup type mapping
     /// </summary>
     public class LookUpTypeMapping : ModelMappingBase<LookUpType>

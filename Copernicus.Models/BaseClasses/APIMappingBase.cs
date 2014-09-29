@@ -19,44 +19,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
+using Ironman.Core.API.Manager.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes;
 
-namespace Copernicus.Models.Content.Mappings
+namespace Copernicus.Models.BaseClasses
 {
     /// <summary>
-    /// Note API mapping
+    /// API mapping base class
     /// </summary>
-    public class NoteAPIMapping : APIMappingBase<Note>
+    /// <typeparam name="ClassType">The type of the class type.</typeparam>
+    public class APIMappingBase<ClassType> : APIMappingBaseClass<ClassType, long>
+        where ClassType : ModelBase<ClassType>, new()
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NoteAPIMapping"/> class.
+        /// Initializes a new instance of the <see cref="APIMappingBase{ClassType}"/> class.
         /// </summary>
-        public NoteAPIMapping()
-            : base(1)
+        /// <param name="Versions">The versions.</param>
+        protected APIMappingBase(params int[] Versions)
+            : base(Versions)
         {
-            Map(x => x.Creator);
-            Map(x => x.Modifier);
-            Reference(x => x.Content);
-        }
-    }
-
-    /// <summary>
-    /// Note mapping
-    /// </summary>
-    public class NoteMapping : ModelMappingBase<Note>
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoteMapping" /> class.
-        /// </summary>
-        public NoteMapping()
-            : base()
-        {
-            Reference(x => x.Content).SetMaxLength(512).SetNotNull();
+            ID(x => x.ID);
+            Reference(x => x.DateCreated);
+            Reference(x => x.DateModified);
+            Reference(x => x.Active);
         }
     }
 }

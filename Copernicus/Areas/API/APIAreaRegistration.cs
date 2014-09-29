@@ -30,7 +30,7 @@ namespace Copernicus.Areas.API
         /// </param>
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            Utilities.IoC.Manager.Bootstrapper.Resolve<Ironman.Core.API.Manager.Manager>().RegisterRoutes(context.Routes);
+            Utilities.IoC.Manager.Bootstrapper.Resolve<Ironman.Core.API.Manager.Manager>().RegisterRoutes(context.Routes, "API", "API");
 
             context.MapRoute(
                 "API_default",

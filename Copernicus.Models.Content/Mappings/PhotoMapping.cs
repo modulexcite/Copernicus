@@ -19,15 +19,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.Content.Mappings
 {
+    /// <summary>
+    /// Photo API mapping
+    /// </summary>
+    public class PhotoAPIMapping : APIMappingBase<Photo>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhotoAPIMapping"/> class.
+        /// </summary>
+        public PhotoAPIMapping()
+            : base(1)
+        {
+            Map(x => x.Creator);
+            Map(x => x.Modifier);
+            Reference(x => x.Name);
+        }
+    }
+
     /// <summary>
     /// Photo mapping
     /// </summary>
