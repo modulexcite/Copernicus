@@ -5,50 +5,39 @@
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
-        <link type="text/css" href="~/Content/Reset.css" rel="stylesheet" />
-        <link type="text/css" href="~/Content/Site.css" rel="stylesheet" />
-        <link type="text/css" href="~/Content/Header.css" rel="stylesheet" />
-        <link type="text/css" href="~/Content/Body.css" rel="stylesheet" />
-        <link type="text/css" href="~/Content/Tables.css" rel="stylesheet" />
-        <link type="text/css" href="~/Content/Footer.css" rel="stylesheet" />
-        @*<link type="text/css" href="~/Content/Debug.css" rel="stylesheet" />*@
-@*        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")*@
+        @Styles.Render("~/Content/Theme/bundle/css")
     </head>
     <body>
         <header id="header">
             <div id="top-header">
                 <nav>
                     <ul id="menu">
-                        <li class="left"><a href="/" id="Home"><img src="/Content/Images/Invoice2.png" /></a></li>
-                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li class="left"><a href="/" id="Home" title="Invoices"><img src="/Content/Images/Invoice2.png" alt="Invoices" title="Invoices" /></a></li>
                         @Html.Partial("_LoginPartial")
-                        <li class="left"><a href="/CRM"><img src="/Content/Images/User2.png" /></a></li>
-                        <li class="left"><a href="/CRM"><img src="/Content/Images/Business2.png" /></a></li>
-                        <li class="left"><a href="/Project"><img src="/Content/Images/Project2.png" /></a></li>
-                        <li class="left"><a href="/CRM"><img src="/Content/Images/Activity2.png" /></a></li>
-                        <li class="left"><a href="/CRM"><img src="/Content/Images/Message2.png" /></a></li>
+                        <li class="left"><a href="/CRM" title="User Info"><img src="/Content/Images/User2.png" alt="User Info" title="User Info" /></a></li>
+                        <li class="left"><a href="/CRM" title="Business Info"><img src="/Content/Images/Business2.png" alt="Business Info" title="Business Info" /></a></li>
+                        <li class="left"><a href="/Project" title="Projects"><img src="/Content/Images/Project2.png" alt="Projects" title="Projects" /></a></li>
+                        <li class="left"><a href="/CRM" title="Activities"><img src="/Content/Images/Activity2.png" alt="Activities" title="Activities" /></a></li>
+                        <li class="left"><a href="/CRM" title="Messages"><img src="/Content/Images/Message2.png" alt="Messages" title="Messages" /></a></li>
                     </ul>
                 </nav>
             </div>
             <div id="search">
                 <div class="inputWrapper">
-                    <a href="#" class="image right searchToggle toggle" data-bind="event: { click: setRecent }"><img src="/Content/Images/asc.gif" /></a>
-                    <label for="q"><img src="/Content/Images/Search.png" width="16px" height="16px"></label>
+                    <a href="/" class="image right searchToggle toggle" data-bind="event: { click: setRecent }" title="Recent Searches"><img src="/Content/Images/asc.gif" title="Recent Searches" alt="Recent Searches" /></a>
+                    <label for="q"><img src="/Content/Images/Search.png" width="16px" height="16px" title="Search Icon" alt="Search Icon"></label>
                     <input type="text" placeholder="Search Concierge" name="q" id="q" data-bind="event: { blur: addRecent, keyup: doSearch }" />
                 </div>
                 <div class="search" data-bind="visible: showRecent">
                     <h4>Recent Searches</h4>
                     <div class="recentSearches" data-bind="foreach: recent">
-                        <a data-bind="text: text, attr: { href: href }"></a>
+                        <a data-bind="text: text, attr: { href: href, title: text }"></a>
 		            </div>
                 </div>
                 <div class="searchResults" data-bind="visible: showResults">
                     <h4>Results</h4>
                     <div class="results" data-bind="foreach: results">
-                        <a data-bind="text: Text, attr: { href: Value }"></a>
+                        <a data-bind="text: Text, attr: { href: Value, title: text }"></a>
 		            </div>
                 </div>
             </div>
@@ -63,7 +52,7 @@
             <div class="three columns" id="notifications">
                 <div class="content">
                     <hgroup class="title" data-bind="event: { click: setToggle }">
-                        <h3><img src="/Content/Images/Notification.png" class="right" />Notifications</h3>
+                        <h3><img src="/Content/Images/Notification.png" class="right" title="Notifications" alt="Notifications" />Notifications</h3>
                     </hgroup>
                     <ol class="data" data-bind="visible: toggle, foreach: notifications">
                         <li data-bind="html: Text">
@@ -74,7 +63,7 @@
             <div class="three columns" id="onlineUsers">
                 <div class="content">
                     <hgroup class="title" data-bind="event: { click: setToggle }">
-                        <h3><img src="/Content/Images/User.png" class="right" />Online Users</h3>
+                        <h3><img src="/Content/Images/User.png" class="right" title="Online Users" alt="Online Users" />Online Users</h3>
                     </hgroup>
                     <ol class="data" data-bind="visible: toggle, foreach: users">
                         <li data-bind="html: Name">
@@ -88,7 +77,6 @@
         <script src="~/Scripts/JQuery/jquery-2.1.1.min.js"></script>
         <script src="~/Scripts/KnockoutJS/knockout-3.2.0.js"></script>
         <script src="~/Scripts/Main/Main.js"></script>
-        @*@Scripts.Render("~/bundles/jquery")*@
         @RenderSection("scripts", required: false)
     </body>
 </html>

@@ -44,8 +44,8 @@ function ProjectsModel() {
     };
     self.getProjects = function () {
         $.ajax({
-            type: "POST",
-            url: '/API/Projects',
+            type: "GET",
+            url: '/API/v1/Projects',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -68,8 +68,8 @@ function UsersModel() {
     };
     self.getOnlineUsers = function () {
         $.ajax({
-            type: "POST",
-            url: '/API/OnlineUsers',
+            type: "GET",
+            url: '/API/v1/Services/OnlineUsers',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -89,8 +89,8 @@ function NotificationModel() {
     };
     self.getNotifications = function () {
         $.ajax({
-            type: "POST",
-            url: '/API/Notification',
+            type: "GET",
+            url: '/API/v1/Notifications',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -116,8 +116,8 @@ function RecentUpdatesModel() {
     };
     self.getRecentUpdates = function () {
         $.ajax({
-            type: "POST",
-            url: '/API/RecentUpdates',
+            type: "GET",
+            url: '/API/v1/Services/RecentUpdates',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -142,8 +142,8 @@ function UpcomingActivitiesModel() {
     };
     self.getUpcomingActivities = function () {
         $.ajax({
-            type: "POST",
-            url: '/API/UpcomingActivities',
+            type: "GET",
+            url: '/API/v1/Services/UpcomingActivities',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -169,9 +169,10 @@ function NewCompaniesAndPeopleModel() {
     self.getNewCompaniesAndPeople = function () {
         $.ajax({
             type: "POST",
-            url: '/API/NewCompaniesAndPeople',
+            url: '/API/v1/Services/NewCompaniesAndPeople',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
+            data: {},
             processdata: true,
             success: function (msg) {
                 if (msg == null || msg.length === 0)
@@ -200,7 +201,7 @@ function SearchModel() {
         }
         $.ajax({
             type: "POST",
-            url: '/API/Search',
+            url: '/API/v1/Services/Search',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,

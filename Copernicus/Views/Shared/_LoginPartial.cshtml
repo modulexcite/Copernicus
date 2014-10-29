@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated) {
     <li class="right">
-        <li class="right"><a href="/Account/Manage"><img src="/Content/Images/Account2.png" /></a></li>
+        <li class="right"><a href="/Account/Manage" title="Account"><img src="/Content/Images/Account2.png" title="Account" alt="Account" /></a></li>
     </li>
 } else {
-        <li class="right"><a href="/Account/Login" id="loginLink"><img src="/Content/Images/Login2.png" /></a></li>
+        <li class="right"><a href="/Account/Login" id="loginLink" title="Login"><img src="/Content/Images/Login2.png" title="Login" alt="Login" /></a></li>
 }

@@ -1,42 +1,47 @@
 ﻿footer {
-    position:fixed;
-    bottom:0;
-    right:0;
-    left:0;
-    height:42px;
-    background:#EEE;
-    border-top:#b3b3b3 1px solid;
-    z-index:10;
-    box-shadow:0px -3px 10px rgba(100, 100, 100, 0.298039);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 42px;
+    background: #EEE;
+    border-top: #b3b3b3 1px solid;
+    z-index: 10;
+    box-shadow: 0px -3px 10px rgba(100, 100, 100, 0.298039);
 }
 
-footer .column .content, footer .columns .content {
-    background-color: #FFF;
-    border: #b3b3b3 1px solid;
-    border-bottom:none;
-    margin: 0;
-}
+    footer .column .content, footer .columns .content {
+        background-color: #FFF;
+        border: #b3b3b3 1px solid;
+        border-bottom: none;
+        margin: 0;
+    }
 
-#notifications,#onlineUsers{
-    position:fixed;
-    bottom:0;
+#notifications, #onlineUsers {
+    position: fixed;
+    bottom: 0;
 }
 
 #notifications {
-    left:0;
-    border-left:none;
+    left: 0;
+    border-left: none;
 }
+
 #onlineUsers {
-    right:0;
-    border-right:none;
+    right: 0;
+    border-right: none;
 }
 
 footer .data {
-    max-height:300px;
-    overflow-y:scroll;
+    max-height: 300px;
+    overflow-y: scroll;
 }
 
 footer .title {
     cursor: pointer;
-    border-top:#b3b3b3 1px solid;
+    border-top: #b3b3b3 1px solid;
+}
+
+.glimpse-nowrap {
+    z-index: 100;
 }
