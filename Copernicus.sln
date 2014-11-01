@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Models.CRM", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Models.Content", "Copernicus.Models.Content\Copernicus.Models.Content.csproj", "{0932B0B5-0B10-454C-BB68-4249FC439D2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Models.Project", "Copernicus.Models.Project\Copernicus.Models.Project.csproj", "{F864FBB1-9DF5-45EF-931F-1209E5B31961}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{0932B0B5-0B10-454C-BB68-4249FC439D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0932B0B5-0B10-454C-BB68-4249FC439D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0932B0B5-0B10-454C-BB68-4249FC439D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F864FBB1-9DF5-45EF-931F-1209E5B31961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F864FBB1-9DF5-45EF-931F-1209E5B31961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F864FBB1-9DF5-45EF-931F-1209E5B31961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F864FBB1-9DF5-45EF-931F-1209E5B31961}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +81,6 @@ Global
 		{E6491379-79B8-436C-8D71-3508B03E47EC} = {10C2F380-1D65-4756-98A0-77F7E9F3A26A}
 		{CD847F4E-DB39-4A2A-AB4F-84F9F5D4F3D4} = {D253C6D2-9600-45DD-A659-B63ACF9856DB}
 		{0932B0B5-0B10-454C-BB68-4249FC439D2A} = {D253C6D2-9600-45DD-A659-B63ACF9856DB}
+		{F864FBB1-9DF5-45EF-931F-1209E5B31961} = {D253C6D2-9600-45DD-A659-B63ACF9856DB}
 	EndGlobalSection
 EndGlobal

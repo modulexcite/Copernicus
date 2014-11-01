@@ -19,7 +19,7 @@
     var newCompaniesAndPeople = new NewCompaniesAndPeopleModel();
     var projects = new ProjectsModel();
     $('#Home').click(function () {
-        if ($('#recentUpdates').length == 0)
+        if ($('#recentUpdates').length === 0)
             return true;
         recentUpdates.setToggle(true);
         upcomingActivities.setToggle(true);
@@ -50,7 +50,7 @@ function ProjectsModel() {
             dataType: 'json',
             processdata: true,
             success: function (msg) {
-                if (msg == null || msg.length === 0)
+                if (msg === null || msg.length === 0)
                     return;
                 self.projects(msg);
             }
@@ -69,7 +69,7 @@ function UsersModel() {
     self.getOnlineUsers = function () {
         $.ajax({
             type: "GET",
-            url: '/API/v1/Services/OnlineUsers',
+            url: '/API/v1/User',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -95,7 +95,7 @@ function NotificationModel() {
             dataType: 'json',
             processdata: true,
             success: function (msg) {
-                if (msg == null || msg.length === 0)
+                if (msg === null || msg.length === 0)
                     return;
                 self.notifications(msg);
             }
@@ -122,7 +122,7 @@ function RecentUpdatesModel() {
             dataType: 'json',
             processdata: true,
             success: function (msg) {
-                if (msg == null || msg.length === 0)
+                if (msg === null || msg.length === 0)
                     return;
                 self.recentUpdates(msg);
             }
@@ -148,7 +148,7 @@ function UpcomingActivitiesModel() {
             dataType: 'json',
             processdata: true,
             success: function (msg) {
-                if (msg == null || msg.length === 0)
+                if (msg === null || msg.length === 0)
                     return;
                 self.upcomingActivities(msg);
             }
@@ -175,7 +175,7 @@ function NewCompaniesAndPeopleModel() {
             data: {},
             processdata: true,
             success: function (msg) {
-                if (msg == null || msg.length === 0)
+                if (msg === null || msg.length === 0)
                     return;
                 self.newCompaniesAndPeople(msg);
             }
@@ -207,15 +207,15 @@ function SearchModel() {
             processdata: true,
             data: JSON.stringify({ "Value": value, "SearchCount": ++self.searchCount }),
             success: function (msg) {
-                if (msg.Count != self.searchCount)
+                if (msg.Count !== self.searchCount)
                     return;
                 self.results(msg.Results);
                 self.showResults(msg.Results.length > 0);
                 self.showRecent(false);
                 $('.searchResults').css('left', $('#header>#search>.inputWrapper').offset().left);
-                $('.searchResults').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', '')) + 10 + 'px');
+                $('.searchResults').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', ''), 10) + 10 + 'px');
                 $('.search').css('left', $('#header>#search>.inputWrapper').offset().left);
-                $('.search').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', '')) + 10 + 'px');
+                $('.search').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', ''), 10) + 10 + 'px');
             }
         });
     };
@@ -224,15 +224,15 @@ function SearchModel() {
         self.showResults(self.showRecent() && self.results().length > 0);
         self.showRecent(!self.showRecent());
         $('.searchResults').css('left', $('#header>#search>.inputWrapper').offset().left);
-        $('.searchResults').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', '')) + 10 + 'px');
+        $('.searchResults').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', ''), 10) + 10 + 'px');
         $('.search').css('left', $('#header>#search>.inputWrapper').offset().left);
-        $('.search').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', '')) + 10 + 'px');
+        $('.search').css('width', parseInt($('#header>#search>.inputWrapper').css('width').replace('px', ''), 10) + 10 + 'px');
         return false;
     };
 
     self.addRecent = function () {
         var value = $('#q').val();
-        if (value != '') {
+        if (value !== '') {
             if (self.recent().length > 6)
                 self.recent.pop();
             var Found = false;

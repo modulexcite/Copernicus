@@ -26,28 +26,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Models.CRM
+namespace Copernicus.Models.Project.Mappings
 {
     /// <summary>
-    /// Company mapping
+    /// Project API mapping
     /// </summary>
-    public class CompanyMapping : ModelMappingBase<Company>
+    public class ProjectAPIMapping : APIMappingBase<Project>
     {
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="ProjectAPIMapping" /> class.
         /// </summary>
-        public CompanyMapping()
+        public ProjectAPIMapping()
+            : base(1)
+        {
+            Map(x => x.Creator);
+            Map(x => x.Modifier);
+            Reference(x => x.Name);
+            Reference(x => x.Description);
+            MapList(x => x.Lists);
+            MapList(x => x.Activities);
+            MapList(x => x.Members);
+        }
+    }
+
+    /// <summary>
+    /// Project mapping
+    /// </summary>
+    public class ProjectMapping : ModelMappingBase<Project>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectMapping" /> class.
+        /// </summary>
+        public ProjectMapping()
             : base()
         {
-            ManyToOne(x => x.Addresses).SetCascade();
-            ManyToMany(x => x.Employees);
-            ManyToOne(x => x.Images).SetCascade();
-            Reference(x => x.Name).SetMaxLength(64).SetNotNull();
-            ManyToOne(x => x.Notes).SetCascade();
-            Map(x => x.Status);
-            Map(x => x.Type);
-            ManyToOne(x => x.Subsidiaries);
-            ManyToOne(x => x.ParentCompany);
+            Reference(x => x.Name).SetMaxLength(128).SetNotNull();
+            Reference(x => x.Description).SetMaxLength(512);
+            ManyToOne(x => x.Lists);
         }
     }
 }

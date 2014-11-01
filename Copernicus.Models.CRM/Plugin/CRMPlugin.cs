@@ -19,35 +19,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.BaseClasses;
+using Ironman.Core.Plugins.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Models.CRM
+namespace Copernicus.Models.CRM.Plugin
 {
     /// <summary>
-    /// Company mapping
+    /// CRM plugin
     /// </summary>
-    public class CompanyMapping : ModelMappingBase<Company>
+    public class CRMPlugin : PluginBase
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public CompanyMapping()
-            : base()
+        public override string Name
         {
-            ManyToOne(x => x.Addresses).SetCascade();
-            ManyToMany(x => x.Employees);
-            ManyToOne(x => x.Images).SetCascade();
-            Reference(x => x.Name).SetMaxLength(64).SetNotNull();
-            ManyToOne(x => x.Notes).SetCascade();
-            Map(x => x.Status);
-            Map(x => x.Type);
-            ManyToOne(x => x.Subsidiaries);
-            ManyToOne(x => x.ParentCompany);
+            get { return "CRM Models"; }
         }
     }
 }
