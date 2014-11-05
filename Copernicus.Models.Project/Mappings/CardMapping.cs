@@ -19,47 +19,58 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Copernicus.Models.Authentication;
 using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.Validation;
 
-namespace Copernicus.Models.Project
+namespace Copernicus.Models.Project.Mappings
 {
     /// <summary>
-    /// Project list class
+    /// Card API mapping
     /// </summary>
-    public class ProjectList : ModelBase<ProjectList>
+    public class CardAPIMapping : APIMappingBase<Card>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectList" /> class.
+        /// Initializes a new instance of the <see cref="CardAPIMapping" /> class.
         /// </summary>
-        public ProjectList()
+        public CardAPIMapping()
+            : base(1)
+        {
+            Map(x => x.Creator);
+            Map(x => x.Modifier);
+            Reference(x => x.Description);
+            MapList(x => x.CheckLists);
+            MapList(x => x.Documents);
+            Reference(x => x.DueDate);
+            MapList(x => x.Labels);
+            MapList(x => x.Members);
+            Reference(x => x.Name);
+            MapList(x => x.Notes);
+        }
+    }
+
+    /// <summary>
+    /// Card mapping
+    /// </summary>
+    public class CardMapping : ModelMappingBase<Card>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CardMapping" /> class.
+        /// </summary>
+        public CardMapping()
             : base()
         {
-            Cards = new List<Card>();
+            Reference(x => x.Description).SetMaxLength(5012);
+            ManyToOne(x => x.CheckLists).SetCascade();
+            ManyToOne(x => x.Documents).SetCascade();
+            Reference(x => x.DueDate);
+            ManyToMany(x => x.Labels);
+            ManyToMany(x => x.Members);
+            Reference(x => x.Name).SetMaxLength(128).SetNotNull();
+            ManyToOne(x => x.Notes).SetCascade();
         }
-
-        /// <summary>
-        /// Gets or sets the cards.
-        /// </summary>
-        /// <value>
-        /// The cards.
-        /// </value>
-        public virtual List<Card> Cards { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        [System.ComponentModel.DataAnnotations.MaxLength(64)]
-        public string Name { get; set; }
     }
 }

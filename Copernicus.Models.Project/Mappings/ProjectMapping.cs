@@ -44,7 +44,7 @@ namespace Copernicus.Models.Project.Mappings
             Reference(x => x.Name);
             Reference(x => x.Description);
             MapList(x => x.Lists);
-            MapList(x => x.Activities);
+            MapList(x => x.Notes);
             MapList(x => x.Members);
         }
     }
@@ -62,7 +62,9 @@ namespace Copernicus.Models.Project.Mappings
         {
             Reference(x => x.Name).SetMaxLength(128).SetNotNull();
             Reference(x => x.Description).SetMaxLength(512);
-            ManyToOne(x => x.Lists);
+            ManyToOne(x => x.Lists).SetCascade();
+            ManyToOne(x => x.Notes).SetCascade();
+            ManyToOne(x => x.Members);
         }
     }
 }

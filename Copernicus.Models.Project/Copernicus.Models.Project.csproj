@@ -128,7 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="CheckList.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="Mappings\CardMapping.cs" />
+    <Compile Include="Mappings\ProjectListMapping.cs" />
     <Compile Include="Mappings\ProjectMapping.cs" />
     <Compile Include="Plugin\ProjectPlugin.cs" />
     <Compile Include="Project.cs" />
@@ -141,6 +145,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Copernicus.Models.Content\Copernicus.Models.Content.csproj">
+      <Project>{0932b0b5-0b10-454c-bb68-4249fc439d2a}</Project>
+      <Name>Copernicus.Models.Content</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Copernicus.Models\Copernicus.Models.csproj">
       <Project>{451a3def-9f69-422a-aeab-1a703d10894f}</Project>
       <Name>Copernicus.Models</Name>

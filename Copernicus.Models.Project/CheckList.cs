@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Copernicus.Models.Project
 {
-    public class Activity
+    public class CheckList
     {
     }
 }

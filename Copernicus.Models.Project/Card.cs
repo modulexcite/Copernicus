@@ -33,35 +33,64 @@ using Utilities.Validation;
 namespace Copernicus.Models.Project
 {
     /// <summary>
-    /// Project class
+    /// Project list class
     /// </summary>
-    public class Project : ModelBase<Project>
+    public class Card : ModelBase<Card>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Project" /> class.
+        /// Initializes a new instance of the <see cref="Card" /> class.
         /// </summary>
-        public Project()
+        public Card()
             : base()
         {
-            Lists = new List<ProjectList>();
-            Notes = new List<Note>();
             Members = new List<User>();
+            Labels = new List<Label>();
+            CheckLists = new List<CheckList>();
+            Documents = new List<Document>();
+            Notes = new List<Note>();
         }
 
         /// <summary>
-        /// Description
+        /// Gets or sets the check lists.
         /// </summary>
-        /// <value>The description.</value>
-        [System.ComponentModel.DataAnnotations.MaxLength(512)]
+        /// <value>
+        /// The check lists.
+        /// </value>
+        public virtual List<CheckList> CheckLists { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [System.ComponentModel.DataAnnotations.MaxLength(5012)]
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the lists.
+        /// Gets or sets the documents.
         /// </summary>
         /// <value>
-        /// The lists.
+        /// The documents.
         /// </value>
-        public virtual List<ProjectList> Lists { get; set; }
+        public virtual List<Document> Documents { get; set; }
+
+        /// <summary>
+        /// Gets or sets the due date.
+        /// </summary>
+        /// <value>
+        /// The due date.
+        /// </value>
+        [Utilities.Validation.Between("1/1/2000", "1/1/2100")]
+        public DateTime DueDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the labels.
+        /// </summary>
+        /// <value>
+        /// The labels.
+        /// </value>
+        public virtual List<Label> Labels { get; set; }
 
         /// <summary>
         /// Gets or sets the members.
@@ -81,10 +110,10 @@ namespace Copernicus.Models.Project
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the Notes.
+        /// Gets or sets the notes.
         /// </summary>
         /// <value>
-        /// The Notes.
+        /// The notes.
         /// </value>
         public virtual List<Note> Notes { get; set; }
     }
