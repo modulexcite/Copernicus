@@ -39,10 +39,8 @@ namespace Copernicus.Models.Project.Mappings
         public ProjectListAPIMapping()
             : base(1)
         {
-            Map(x => x.Creator);
-            Map(x => x.Modifier);
             Reference(x => x.Name);
-            MapList(x => x.Cards);
+            MapList(x => x.Actions);
         }
     }
 
@@ -58,7 +56,7 @@ namespace Copernicus.Models.Project.Mappings
             : base()
         {
             Reference(x => x.Name).SetMaxLength(128).SetNotNull();
-            ManyToOne(x => x.Cards).SetCascade();
+            ManyToOne(x => x.Actions).SetCascade();
         }
     }
 }

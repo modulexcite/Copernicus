@@ -42,16 +42,16 @@ namespace Copernicus.Models.Project
         public ProjectList()
             : base()
         {
-            Cards = new List<Card>();
+            Actions = new List<Action>();
         }
 
         /// <summary>
-        /// Gets or sets the cards.
+        /// Gets or sets the actions.
         /// </summary>
         /// <value>
-        /// The cards.
+        /// The actions.
         /// </value>
-        public virtual List<Card> Cards { get; set; }
+        public virtual List<Action> Actions { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

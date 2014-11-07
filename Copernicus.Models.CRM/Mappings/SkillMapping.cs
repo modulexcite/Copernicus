@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-/*
+﻿/*
 Copyright (c) 2014 <a href="http://www.gutgames.com">James Craig</a>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,9 +20,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 using Copernicus.Models.BaseClasses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Copernicus.Models.CRM
 {
+    /// <summary>
+    /// Skill API mapping
+    /// </summary>
+    public class SkillAPIMapping : APIMappingBase<Skill>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SkillAPIMapping"/> class.
+        /// </summary>
+        public SkillAPIMapping()
+            : base(1)
+        {
+            Reference(x => x.Name);
+        }
+    }
+
     /// <summary>
     /// Important dates mapping
     /// </summary>

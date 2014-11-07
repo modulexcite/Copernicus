@@ -29,20 +29,18 @@ using System.Threading.Tasks;
 namespace Copernicus.Models.Project.Mappings
 {
     /// <summary>
-    /// Card API mapping
+    /// Action API mapping
     /// </summary>
-    public class CardAPIMapping : APIMappingBase<Card>
+    public class ActionAPIMapping : APIMappingBase<Action>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CardAPIMapping" /> class.
+        /// Initializes a new instance of the <see cref="ActionAPIMapping" /> class.
         /// </summary>
-        public CardAPIMapping()
+        public ActionAPIMapping()
             : base(1)
         {
-            Map(x => x.Creator);
-            Map(x => x.Modifier);
             Reference(x => x.Description);
-            MapList(x => x.CheckLists);
+            MapList(x => x.SubActions);
             MapList(x => x.Documents);
             Reference(x => x.DueDate);
             MapList(x => x.Labels);
@@ -53,20 +51,20 @@ namespace Copernicus.Models.Project.Mappings
     }
 
     /// <summary>
-    /// Card mapping
+    /// Action mapping
     /// </summary>
-    public class CardMapping : ModelMappingBase<Card>
+    public class ActionMapping : ModelMappingBase<Action>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CardMapping" /> class.
+        /// Initializes a new instance of the <see cref="ActionMapping" /> class.
         /// </summary>
-        public CardMapping()
+        public ActionMapping()
             : base()
         {
             Reference(x => x.Description).SetMaxLength(5012);
-            ManyToOne(x => x.CheckLists).SetCascade();
+            ManyToOne(x => x.SubActions).SetCascade();
             ManyToOne(x => x.Documents).SetCascade();
-            Reference(x => x.DueDate);
+            Reference(x => x.DueDate).SetDefaultValue(() => new DateTime(2100, 1, 1));
             ManyToMany(x => x.Labels);
             ManyToMany(x => x.Members);
             Reference(x => x.Name).SetMaxLength(128).SetNotNull();

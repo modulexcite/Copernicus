@@ -22,6 +22,7 @@ THE SOFTWARE.*/
 using Copernicus.Models.Authentication;
 using Copernicus.Models.BaseClasses;
 using Copernicus.Models.Content;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,30 +34,22 @@ using Utilities.Validation;
 namespace Copernicus.Models.Project
 {
     /// <summary>
-    /// Project list class
+    /// Action list class
     /// </summary>
-    public class Card : ModelBase<Card>
+    public class Action : ModelBase<Action>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Card" /> class.
+        /// Initializes a new instance of the <see cref="Action" /> class.
         /// </summary>
-        public Card()
+        public Action()
             : base()
         {
             Members = new List<User>();
-            Labels = new List<Label>();
-            CheckLists = new List<CheckList>();
+            Labels = new List<LookUp>();
+            SubActions = new List<Action>();
             Documents = new List<Document>();
             Notes = new List<Note>();
         }
-
-        /// <summary>
-        /// Gets or sets the check lists.
-        /// </summary>
-        /// <value>
-        /// The check lists.
-        /// </value>
-        public virtual List<CheckList> CheckLists { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -90,7 +83,7 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The labels.
         /// </value>
-        public virtual List<Label> Labels { get; set; }
+        public virtual List<LookUp> Labels { get; set; }
 
         /// <summary>
         /// Gets or sets the members.
@@ -116,5 +109,7 @@ namespace Copernicus.Models.Project
         /// The notes.
         /// </value>
         public virtual List<Note> Notes { get; set; }
+
+        public virtual List<Action> SubActions { get; set; }
     }
 }

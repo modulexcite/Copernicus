@@ -19,17 +19,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.CRM
 {
     /// <summary>
-    /// Important dates mapping
+    /// WorkExperience API mapping
+    /// </summary>
+    public class WorkExperienceAPIMapping : APIMappingBase<WorkExperience>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkExperienceAPIMapping"/> class.
+        /// </summary>
+        public WorkExperienceAPIMapping()
+            : base(1)
+        {
+            Map(x => x.Company);
+            Reference(x => x.Description);
+            Reference(x => x.End);
+            Reference(x => x.Start);
+        }
+    }
+
+    /// <summary>
+    /// Work experience mapping
     /// </summary>
     public class WorkExperienceMapping : ModelMappingBase<WorkExperience>
     {

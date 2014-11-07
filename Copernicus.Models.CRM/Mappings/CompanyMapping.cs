@@ -29,6 +29,29 @@ using System.Threading.Tasks;
 namespace Copernicus.Models.CRM
 {
     /// <summary>
+    /// Company API mapping
+    /// </summary>
+    public class CompanyAPIMapping : APIMappingBase<Company>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompanyAPIMapping"/> class.
+        /// </summary>
+        public CompanyAPIMapping()
+            : base(1)
+        {
+            MapList(x => x.Addresses);
+            MapList(x => x.Employees);
+            MapList(x => x.Images);
+            Reference(x => x.Name);
+            MapList(x => x.Notes);
+            Map(x => x.Status);
+            Map(x => x.Type);
+            MapList(x => x.Subsidiaries);
+            Map(x => x.ParentCompany);
+        }
+    }
+
+    /// <summary>
     /// Company mapping
     /// </summary>
     public class CompanyMapping : ModelMappingBase<Company>

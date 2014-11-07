@@ -19,15 +19,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 
 namespace Copernicus.Models.CRM
 {
+    /// <summary>
+    /// Address API mapping
+    /// </summary>
+    public class AddressAPIMapping : APIMappingBase<Address>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddressAPIMapping"/> class.
+        /// </summary>
+        public AddressAPIMapping()
+            : base(1)
+        {
+            Map(x => x.AddressType);
+            Reference(x => x.City);
+            Map(x => x.Country);
+            Reference(x => x.PostalCode);
+            Map(x => x.State);
+            Reference(x => x.StreetAddress1);
+            Reference(x => x.StreetAddress2);
+            Reference(x => x.StreetAddress3);
+        }
+    }
+
     /// <summary>
     /// Address mapping
     /// </summary>
