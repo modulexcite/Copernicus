@@ -33,6 +33,11 @@ namespace Copernicus.Models.Project.Plugin
     /// </summary>
     public class ProjectPlugin : PluginBase
     {
+        public override string ID
+        {
+            get { return "Copernicus.Models.Project"; }
+        }
+
         public override string Name
         {
             get { return "Project Models"; }

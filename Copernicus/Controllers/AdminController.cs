@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Ironman.Core.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Ironman.Core.Plugins;
 
 namespace Copernicus.Controllers
 {

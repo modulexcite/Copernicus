@@ -128,19 +128,19 @@
     </Reference>
     <Reference Include="CUL.Bender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.Bender.4.0.209-beta\lib\net40\CUL.Bender.dll</HintPath>
+      <HintPath>..\packages\CUL.Bender.4.0.211-beta\lib\net40\CUL.Bender.dll</HintPath>
     </Reference>
     <Reference Include="CUL.fastJSON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8992ab102d78ce90, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.fastJSON.4.0.209-beta\lib\net40\CUL.fastJSON.dll</HintPath>
+      <HintPath>..\packages\CUL.fastJSON.4.0.211-beta\lib\net40\CUL.fastJSON.dll</HintPath>
     </Reference>
     <Reference Include="CUL.MiniProfiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46ee578cb5d73850, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.MiniProfiler.4.0.209-beta\lib\net40\CUL.MiniProfiler.dll</HintPath>
+      <HintPath>..\packages\CUL.MiniProfiler.4.0.211-beta\lib\net40\CUL.MiniProfiler.dll</HintPath>
     </Reference>
     <Reference Include="CUL.NLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7698a21ffc0a39e9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CUL.NLog.4.0.209-beta\lib\net40\CUL.NLog.dll</HintPath>
+      <HintPath>..\packages\CUL.NLog.4.0.211-beta\lib\net40\CUL.NLog.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core, Version=1.4.1.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -180,7 +180,7 @@
     </Reference>
     <Reference Include="Glimpse.CUL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.CUL.4.0.209-beta\lib\net40\Glimpse.CUL.dll</HintPath>
+      <HintPath>..\packages\Glimpse.CUL.4.0.211-beta\lib\net40\Glimpse.CUL.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.Elmah, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -200,15 +200,15 @@
     </Reference>
     <Reference Include="Ironman.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a2c78b2a5ccc5f05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.1.0.209-beta\lib\net40\Ironman.Core.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.1.0.211-beta\lib\net40\Ironman.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ironman.Core.Assets.Less, Version=1.0.0.0, Culture=neutral, PublicKeyToken=84b58d3a79b1b8d7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.Assets.Less.1.0.209-beta\lib\net40\Ironman.Core.Assets.Less.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.Assets.Less.1.0.211-beta\lib\net40\Ironman.Core.Assets.Less.dll</HintPath>
     </Reference>
     <Reference Include="Ironman.Core.Assets.Yui, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.Assets.Yui.1.0.209-beta\lib\net40\Ironman.Core.Assets.Yui.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.Assets.Yui.1.0.211-beta\lib\net40\Ironman.Core.Assets.Yui.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -365,7 +365,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0f7489d08ad0bf67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CraigsUtilityLibrary.4.0.209-beta\lib\net40\Utilities.dll</HintPath>
+      <HintPath>..\packages\CraigsUtilityLibrary.4.0.211-beta\lib\net40\Utilities.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

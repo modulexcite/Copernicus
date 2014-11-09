@@ -33,6 +33,11 @@ namespace Copernicus.Models.CRM.Plugin
     /// </summary>
     public class CRMPlugin : PluginBase
     {
+        public override string ID
+        {
+            get { return "Copernicus.Models.CRM"; }
+        }
+
         public override string Name
         {
             get { return "CRM Models"; }

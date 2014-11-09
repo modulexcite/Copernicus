@@ -19,12 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Ironman.Core.Plugins.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ironman.Core.Plugins.BaseClasses;
 
 namespace Copernicus.Models.Content.Plugin
 {
@@ -33,6 +33,11 @@ namespace Copernicus.Models.Content.Plugin
     /// </summary>
     public class ContentPlugin : PluginBase
     {
+        public override string ID
+        {
+            get { return "Copernicus.Models.Content"; }
+        }
+
         public override string Name
         {
             get { return "Content Models"; }
