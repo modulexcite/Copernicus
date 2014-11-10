@@ -19,14 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
-using Copernicus.Models.General;
 using Utilities.Validation;
 
 namespace Copernicus.Models.CRM
@@ -51,7 +51,7 @@ namespace Copernicus.Models.CRM
         /// <value>The date.</value>
         [Required]
         [Between("1/1/1900", "1/1/2100")]
-        public virtual DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the type.

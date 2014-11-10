@@ -51,6 +51,7 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The actions.
         /// </value>
+        [Cascade]
         public virtual List<Action> Actions { get; set; }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The name.
         /// </value>
+        [Required]
         [System.ComponentModel.DataAnnotations.MaxLength(64)]
         public string Name { get; set; }
     }

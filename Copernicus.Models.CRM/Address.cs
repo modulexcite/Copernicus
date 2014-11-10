@@ -19,14 +19,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
-using Copernicus.Models.General;
 
 namespace Copernicus.Models.CRM
 {
@@ -47,7 +47,7 @@ namespace Copernicus.Models.CRM
         /// Address type
         /// </summary>
         [Required]
-        public LookUp AddressType { get; set; }
+        public virtual LookUp AddressType { get; set; }
 
         /// <summary>
         /// City
@@ -59,7 +59,7 @@ namespace Copernicus.Models.CRM
         /// Country
         /// </summary>
         [Required]
-        public Country Country { get; set; }
+        public virtual Country Country { get; set; }
 
         /// <summary>
         /// Postal code

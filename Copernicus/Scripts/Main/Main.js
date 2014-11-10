@@ -45,7 +45,7 @@ function ProjectsModel() {
     self.getProjects = function () {
         $.ajax({
             type: "GET",
-            url: '/API/v1/Projects',
+            url: '/API/v1/Project',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -90,7 +90,7 @@ function NotificationModel() {
     self.getNotifications = function () {
         $.ajax({
             type: "GET",
-            url: '/API/v1/Notifications',
+            url: '/API/v1/Notification',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,

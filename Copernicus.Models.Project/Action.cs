@@ -66,6 +66,7 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The documents.
         /// </value>
+        [Cascade]
         public virtual List<Document> Documents { get; set; }
 
         /// <summary>
@@ -74,7 +75,8 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The due date.
         /// </value>
-        [Utilities.Validation.Between("1/1/2000", "1/1/2100")]
+        [Required]
+        [Between("1/1/2000", "1/1/2100")]
         public DateTime DueDate { get; set; }
 
         /// <summary>
@@ -99,6 +101,7 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The name.
         /// </value>
+        [Required]
         [System.ComponentModel.DataAnnotations.MaxLength(128)]
         public string Name { get; set; }
 
@@ -108,8 +111,16 @@ namespace Copernicus.Models.Project
         /// <value>
         /// The notes.
         /// </value>
+        [Cascade]
         public virtual List<Note> Notes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sub actions.
+        /// </summary>
+        /// <value>
+        /// The sub actions.
+        /// </value>
+        [Cascade]
         public virtual List<Action> SubActions { get; set; }
     }
 }

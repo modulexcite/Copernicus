@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 using Copernicus.Models.BaseClasses;
-using Copernicus.Models.Content;
 using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
@@ -33,83 +32,78 @@ using Utilities.Validation;
 namespace Copernicus.Models.CRM
 {
     /// <summary>
-    /// Company info
+    /// Activity information
     /// </summary>
-    public class Company : ModelBase<Company>
+    public class Activity : ModelBase<Activity>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Company" /> class.
+        /// Initializes a new instance of the <see cref="Activity" /> class.
         /// </summary>
-        public Company()
+        public Activity()
             : base()
         {
-            this.Addresses = new List<Address>();
-            this.Employees = new List<WorkExperience>();
-            this.Images = new List<Photo>();
-            this.Notes = new List<Note>();
-            this.Subsidiaries = new List<Company>();
         }
 
         /// <summary>
-        /// Gets or sets the addresses.
+        /// Activity type
         /// </summary>
-        /// <value>The addresses.</value>
-        [Cascade]
-        public virtual List<Address> Addresses { get; set; }
-
-        /// <summary>
-        /// Gets or sets the employees.
-        /// </summary>
-        /// <value>The employees.</value>
-        public virtual List<WorkExperience> Employees { get; set; }
-
-        /// <summary>
-        /// Gets or sets the images.
-        /// </summary>
-        /// <value>The images.</value>
-        [Cascade]
-        public virtual List<Photo> Images { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
         [Required]
-        [System.ComponentModel.DataAnnotations.MaxLength(64)]
-        public string Name { get; set; }
+        public virtual LookUp ActivityType { get; set; }
 
         /// <summary>
-        /// Gets or sets the notes.
+        /// Gets or sets the description.
         /// </summary>
-        /// <value>The notes.</value>
-        [Cascade]
-        public virtual List<Note> Notes { get; set; }
+        /// <value>
+        /// The description.
+        /// </value>
+        [System.ComponentModel.DataAnnotations.MaxLength(5012)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent company.
+        /// Gets or sets the end date.
         /// </summary>
-        /// <value>The parent company.</value>
-        public virtual Company ParentCompany { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status.
-        /// </summary>
-        /// <value>The status.</value>
+        /// <value>
+        /// The end date.
+        /// </value>
         [Required]
-        public virtual LookUp Status { get; set; }
+        [Between("1/1/1900", "1/1/2100")]
+        [Utilities.Validation.CompareTo("StartDate", ComparisonType.GreaterThanOrEqual, "End date must be the same time or after start date")]
+        public DateTime EndDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the subsidiaries.
+        /// Gets or sets the location.
         /// </summary>
-        /// <value>The subsidiaries.</value>
-        [Cascade]
-        public virtual List<Company> Subsidiaries { get; set; }
+        /// <value>
+        /// The location.
+        /// </value>
+        public virtual Address Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the type.
+        /// Gets or sets the participants.
         /// </summary>
-        /// <value>The type.</value>
+        /// <value>
+        /// The participants.
+        /// </value>
+        public virtual List<Person> Participants { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start date.
+        /// </summary>
+        /// <value>
+        /// The start date.
+        /// </value>
         [Required]
-        public virtual LookUp Type { get; set; }
+        [Between("1/1/1900", "1/1/2100")]
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        [Required]
+        [System.ComponentModel.DataAnnotations.MaxLength(100)]
+        public string Title { get; set; }
     }
 }

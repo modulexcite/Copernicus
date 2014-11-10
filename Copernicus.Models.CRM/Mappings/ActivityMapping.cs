@@ -22,42 +22,51 @@ THE SOFTWARE.*/
 using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Models.Content
+namespace Copernicus.Models.CRM
 {
     /// <summary>
-    /// Note class
+    /// Activity API mapping
     /// </summary>
-    public class Note : ModelBase<Note>
+    public class ActivityAPIMapping : APIMappingBase<Activity>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Note" /> class.
+        /// Initializes a new instance of the <see cref="ActivityAPIMapping"/> class.
         /// </summary>
-        public Note()
+        public ActivityAPIMapping()
+            : base(1)
+        {
+            Map(x => x.ActivityType);
+            Reference(x => x.Description);
+            Reference(x => x.EndDate);
+            Map(x => x.Location);
+            MapList(x => x.Participants);
+            Reference(x => x.StartDate);
+            Reference(x => x.Title);
+        }
+    }
+
+    /// <summary>
+    /// Activity mapping
+    /// </summary>
+    public class ActivityMapping : ModelMappingBase<Activity>
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ActivityMapping()
             : base()
         {
+            Map(x => x.ActivityType);
+            Reference(x => x.Description).SetMaxLength(5012);
+            Reference(x => x.EndDate).SetDefaultValue(() => new DateTime(2100, 1, 1));
+            Map(x => x.Location);
+            ManyToMany(x => x.Participants);
+            Reference(x => x.StartDate).SetDefaultValue(() => new DateTime(2100, 1, 1));
+            Reference(x => x.Title).SetMaxLength(100).SetNotNull();
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Note" /> class.
-        /// </summary>
-        /// <param name="Content">The content.</param>
-        public Note(string Content)
-            : this()
-        {
-            this.Content = Content;
-        }
-
-        /// <summary>
-        /// Content
-        /// </summary>
-        /// <value>The content.</value>
-        [Required]
-        [System.ComponentModel.DataAnnotations.MaxLength(512)]
-        public string Content { get; set; }
     }
 }

@@ -19,13 +19,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Copernicus.Models.BaseClasses;
 using Utilities.Validation;
 
 namespace Copernicus.Models.CRM
@@ -50,14 +50,14 @@ namespace Copernicus.Models.CRM
         /// </summary>
         /// <value>The degree.</value>
         [System.ComponentModel.DataAnnotations.MaxLength(64)]
-        public virtual string Degree { get; set; }
+        public string Degree { get; set; }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         /// <value>The end.</value>
         [Between("1/1/1900", "1/1/2100")]
-        public virtual DateTime End { get; set; }
+        public DateTime End { get; set; }
 
         /// <summary>
         /// Gets or sets the person.
@@ -78,6 +78,6 @@ namespace Copernicus.Models.CRM
         /// </summary>
         /// <value>The start.</value>
         [Between("1/1/1900", "1/1/2100")]
-        public virtual DateTime Start { get; set; }
+        public DateTime Start { get; set; }
     }
 }

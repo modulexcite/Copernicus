@@ -157,12 +157,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="ContactInfo.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Education.cs" />
     <Compile Include="ImportantDate.cs" />
+    <Compile Include="Mappings\ActivityMapping.cs" />
     <Compile Include="Mappings\AddressMapping.cs" />
     <Compile Include="Mappings\CompanyMapping.cs" />
     <Compile Include="Mappings\ContactInfoMapping.cs" />
