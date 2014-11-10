@@ -132,8 +132,10 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Mappings\ActionMapping.cs" />
+    <Compile Include="Mappings\NotificationMapping.cs" />
     <Compile Include="Mappings\ProjectListMapping.cs" />
     <Compile Include="Mappings\ProjectMapping.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Plugin\ProjectPlugin.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectList.cs" />

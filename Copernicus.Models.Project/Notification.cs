@@ -19,54 +19,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.Authentication;
 using Copernicus.Models.BaseClasses;
+using Copernicus.Models.Content;
+using Copernicus.Models.General;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.Validation;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.Models.Project
 {
     /// <summary>
-    /// User API mapping
+    /// Notification list class
     /// </summary>
-    public class UserAPIMapping : APIMappingBase<User>
+    public class Notification : ModelBase<Notification>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserAPIMapping" /> class.
+        /// Initializes a new instance of the <see cref="Notification" /> class.
         /// </summary>
-        public UserAPIMapping()
-            : base(1)
-        {
-            Reference(x => x.UserName);
-            Reference(x => x.Email);
-            this.SetCanDelete(x => false);
-            this.SetCanSave(x => false);
-        }
-    }
-
-    /// <summary>
-    /// User mapping
-    /// </summary>
-    public class UserMapping : ModelMappingBase<User>
-    {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public UserMapping()
+        public Notification()
             : base()
         {
-            ManyToMany(x => x.Claims).SetCascade();
-            Reference(x => x.Email).SetMaxLength(256);
-            Reference(x => x.EmailConfirmed);
-            ManyToOne(x => x.ExternalLogins).SetCascade();
-            Reference(x => x.PasswordHash).SetMaxLength(5000);
-            Reference(x => x.PhoneConfirmed);
-            Reference(x => x.PhoneNumber).SetMaxLength(40);
-            Reference(x => x.SecurityStamp).SetMaxLength(5000);
-            Reference(x => x.TwoFactorEnabled);
-            Reference(x => x.UserName).SetMaxLength(256);
         }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [System.ComponentModel.DataAnnotations.MaxLength(128)]
+        public string Description { get; set; }
     }
 }

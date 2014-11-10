@@ -26,47 +26,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Copernicus.Models.Authentication.Mappings
+namespace Copernicus.Models.Project.Mappings
 {
     /// <summary>
-    /// User API mapping
+    /// Notification API mapping
     /// </summary>
-    public class UserAPIMapping : APIMappingBase<User>
+    public class NotificationAPIMapping : APIMappingBase<Notification>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserAPIMapping" /> class.
+        /// Initializes a new instance of the <see cref="NotificationAPIMapping" /> class.
         /// </summary>
-        public UserAPIMapping()
+        public NotificationAPIMapping()
             : base(1)
         {
-            Reference(x => x.UserName);
-            Reference(x => x.Email);
-            this.SetCanDelete(x => false);
-            this.SetCanSave(x => false);
+            Reference(x => x.Description);
+            Map(x => x.Creator);
         }
     }
 
     /// <summary>
-    /// User mapping
+    /// Notification mapping
     /// </summary>
-    public class UserMapping : ModelMappingBase<User>
+    public class NotificationMapping : ModelMappingBase<Notification>
     {
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="NotificationMapping" /> class.
         /// </summary>
-        public UserMapping()
+        public NotificationMapping()
             : base()
         {
-            ManyToMany(x => x.Claims).SetCascade();
-            Reference(x => x.Email).SetMaxLength(256);
-            Reference(x => x.EmailConfirmed);
-            ManyToOne(x => x.ExternalLogins).SetCascade();
-            Reference(x => x.PasswordHash).SetMaxLength(5000);
-            Reference(x => x.PhoneConfirmed);
-            Reference(x => x.PhoneNumber).SetMaxLength(40);
-            Reference(x => x.SecurityStamp).SetMaxLength(5000);
-            Reference(x => x.TwoFactorEnabled);
-            Reference(x => x.UserName).SetMaxLength(256);
+            Reference(x => x.Description).SetMaxLength(128);
         }
     }
 }
