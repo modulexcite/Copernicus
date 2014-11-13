@@ -117,7 +117,7 @@ function RecentUpdatesModel() {
     self.getRecentUpdates = function () {
         $.ajax({
             type: "GET",
-            url: '/API/v1/Services/RecentUpdates',
+            url: '/API/v1/Action',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,
@@ -143,7 +143,7 @@ function UpcomingActivitiesModel() {
     self.getUpcomingActivities = function () {
         $.ajax({
             type: "GET",
-            url: '/API/v1/Services/UpcomingActivities',
+            url: '/API/v1/Activity',
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             processdata: true,

@@ -19,33 +19,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-using Ironman.Core.Plugins.BaseClasses;
+using Ironman.Core.API.Manager.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.DataTypes;
 
-namespace Copernicus.Models.CRM.Plugin
+namespace Copernicus.Models.CRM
 {
     /// <summary>
-    /// CRM plugin
+    /// New companies and people service
     /// </summary>
-    public class CRMPlugin : PluginBase
+    public class NewCompaniesAndPeople : IService
     {
-        public CRMPlugin()
-            : base()
+        public string Name
         {
+            get { return "NewCompaniesAndPeople"; }
         }
 
-        public override string ID
+        public IEnumerable<int> Versions
         {
-            get { return "Copernicus.Models.CRM"; }
+            get { return new int[] { 1 }; }
         }
 
-        public override string Name
+        public Utilities.DataTypes.Dynamo Process(Utilities.DataTypes.Dynamo Value)
         {
-            get { return "CRM Models"; }
+            return Value;
+            //Copernicus.Models.CRM.Person.All("SELECT * FROM Person_ WHERE 
         }
     }
 }
