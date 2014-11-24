@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>Copernicus.Services.Search</id>
+		<version>1.0.1</version>
+		<title>Copernicus Search Service</title>
+		<authors>James Craig</authors>
+		<owners>James Craig</owners>
+		<licenseUrl>https://github.com/JaCraig/Craig-s-Utility-Library/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/JaCraig/Craig-s-Utility-Library</projectUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>Contains the services needed to add search to the project.</description>
+		<summary>Contains the services needed to add search to the project.</summary>
+		<releaseNotes>Initial release</releaseNotes>
+		<copyright>Copyright 2014</copyright>
+		<tags>search,services</tags>
+		<dependencies>
+            <dependency id="Lucene.Net" version="3.0.3" />
+        </dependencies>
+		<references>
+			<reference file="Copernicus.Services.Search.dll" />
+		</references>
+	</metadata>
+	<files>
+		<file src="bin\Release\Copernicus.Services.Search.dll" target="lib\net40" />
+	</files>
+</package>
