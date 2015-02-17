@@ -56,7 +56,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.AddClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait());
+            Store.AddClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait();
             Assert.Equal(1, TempUser.Claims.Count);
             Assert.Equal("Windows", TempUser.Claims[0].Value);
             Assert.Equal(ClaimTypes.AuthenticationMethod, TempUser.Claims[0].Type);
@@ -69,7 +69,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.AddLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait());
+            Store.AddLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait();
             Assert.Equal(1, TempUser.ExternalLogins.Count);
             Assert.Equal("Something", TempUser.ExternalLogins[0].LoginProvider);
             Assert.Equal("A Key", TempUser.ExternalLogins[0].ProviderKey);
@@ -81,7 +81,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         public void CreateAsync()
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
-            Assert.DoesNotThrow(() => Store.CreateAsync(TempUser).Wait());
+            Store.CreateAsync(TempUser).Wait();
             Assert.Equal(1, User.All().Count());
             Assert.Throws<ArgumentNullException>(() => Store.CreateAsync(null).Wait());
         }
@@ -91,7 +91,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.DeleteAsync(TempUser).Wait());
+            Store.DeleteAsync(TempUser).Wait();
             Assert.Equal(0, User.All().Count());
             Assert.Throws<ArgumentNullException>(() => Store.DeleteAsync(null).Wait());
         }
@@ -103,7 +103,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             TempUser.ExternalLogins.Add(new ExternalLogin() { LoginProvider = "TestProvider", ProviderKey = "TestKey", User = TempUser });
             TempUser.Save();
             User TempUser2 = null;
-            Assert.DoesNotThrow(() => { TempUser2 = Store.FindAsync(new Microsoft.AspNet.Identity.UserLoginInfo("TestProvider", "TestKey")).Result; });
+            { TempUser2 = Store.FindAsync(new Microsoft.AspNet.Identity.UserLoginInfo("TestProvider", "TestKey")).Result; };
             Assert.Equal("TestUser", TempUser2.UserName);
             Assert.Equal(TempUser.PasswordHash, TempUser2.PasswordHash);
             Assert.Equal(TempUser.ExternalLogins[0].ID, TempUser2.ExternalLogins[0].ID);
@@ -116,7 +116,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             User TempUser2 = null;
-            Assert.DoesNotThrow(() => TempUser2 = Store.FindByEmailAsync("something@somewhere.com").Result);
+            TempUser2 = Store.FindByEmailAsync("something@somewhere.com").Result;
             Assert.Equal(TempUser.ID, TempUser2.ID);
             Assert.Equal(TempUser.UserName, TempUser2.UserName);
             Assert.Throws<ArgumentNullException>(() => TempUser2 = Store.FindByEmailAsync(null).Result);
@@ -128,7 +128,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             User TempUser2 = null;
-            Assert.DoesNotThrow(() => TempUser2 = Store.FindByIdAsync(TempUser.ID).Result);
+            TempUser2 = Store.FindByIdAsync(TempUser.ID).Result;
             Assert.Equal(TempUser.ID, TempUser2.ID);
             Assert.Equal(TempUser.UserName, TempUser2.UserName);
         }
@@ -139,7 +139,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             User TempUser2 = null;
-            Assert.DoesNotThrow(() => TempUser2 = Store.FindByNameAsync(TempUser.UserName).Result);
+            TempUser2 = Store.FindByNameAsync(TempUser.UserName).Result;
             Assert.Equal(TempUser.ID, TempUser2.ID);
             Assert.Equal(TempUser.UserName, TempUser2.UserName);
             Assert.Throws<ArgumentNullException>(() => TempUser2 = Store.FindByNameAsync(null).Result);
@@ -153,7 +153,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             TempUser.Save();
             TempUser = User.Load(TempUser.ID);
             IList<Claim> Claims = null;
-            Assert.DoesNotThrow(() => Claims = Store.GetClaimsAsync(TempUser).Result);
+            Claims = Store.GetClaimsAsync(TempUser).Result;
             Assert.Equal(1, Claims.Count);
             Assert.Equal("Something", Claims[0].Type);
             Assert.Equal("SomethingAlso", Claims[0].Value);
@@ -166,7 +166,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             string Email = "";
-            Assert.DoesNotThrow(() => Email = Store.GetEmailAsync(TempUser).Result);
+            Email = Store.GetEmailAsync(TempUser).Result;
             Assert.Equal("something@somewhere.com", Email);
             Assert.Throws<ArgumentNullException>(() => Email = Store.GetEmailAsync(null).Result);
         }
@@ -177,7 +177,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             bool EmailConfirmed = false;
-            Assert.DoesNotThrow(() => EmailConfirmed = Store.GetEmailConfirmedAsync(TempUser).Result);
+            EmailConfirmed = Store.GetEmailConfirmedAsync(TempUser).Result;
             Assert.False(EmailConfirmed);
             Assert.Throws<ArgumentNullException>(() => EmailConfirmed = Store.GetEmailConfirmedAsync(null).Result);
         }
@@ -189,7 +189,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             TempUser.ExternalLogins.Add(new ExternalLogin() { LoginProvider = "APlace", ProviderKey = "ProviderKey" });
             TempUser.Save();
             IList<Microsoft.AspNet.Identity.UserLoginInfo> Logins = null;
-            Assert.DoesNotThrow(() => Logins = Store.GetLoginsAsync(TempUser).Result);
+            Logins = Store.GetLoginsAsync(TempUser).Result;
             Assert.Equal(1, Logins.Count);
             Assert.Equal("APlace", Logins[0].LoginProvider);
             Assert.Equal("ProviderKey", Logins[0].ProviderKey);
@@ -202,7 +202,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com" };
             TempUser.Save();
             string Password = "";
-            Assert.DoesNotThrow(() => Password = Store.GetPasswordHashAsync(TempUser).Result);
+            Password = Store.GetPasswordHashAsync(TempUser).Result;
             Assert.Equal(TempUser.PasswordHash, Password);
             Assert.Throws<ArgumentNullException>(() => Password = Store.GetPasswordHashAsync(null).Result);
         }
@@ -213,7 +213,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555" };
             TempUser.Save();
             string PhoneNumber = "";
-            Assert.DoesNotThrow(() => PhoneNumber = Store.GetPhoneNumberAsync(TempUser).Result);
+            PhoneNumber = Store.GetPhoneNumberAsync(TempUser).Result;
             Assert.Equal(TempUser.PhoneNumber, PhoneNumber);
             Assert.Throws<ArgumentNullException>(() => PhoneNumber = Store.GetPhoneNumberAsync(null).Result);
         }
@@ -224,7 +224,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555" };
             TempUser.Save();
             bool PhoneNumberConfirmed = false;
-            Assert.DoesNotThrow(() => PhoneNumberConfirmed = Store.GetPhoneNumberConfirmedAsync(TempUser).Result);
+            PhoneNumberConfirmed = Store.GetPhoneNumberConfirmedAsync(TempUser).Result;
             Assert.Equal(TempUser.PhoneConfirmed, PhoneNumberConfirmed);
             Assert.Throws<ArgumentNullException>(() => PhoneNumberConfirmed = Store.GetPhoneNumberConfirmedAsync(null).Result);
         }
@@ -235,7 +235,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
             string SecurityStamp = "";
-            Assert.DoesNotThrow(() => SecurityStamp = Store.GetSecurityStampAsync(TempUser).Result);
+            SecurityStamp = Store.GetSecurityStampAsync(TempUser).Result;
             Assert.Equal(TempUser.SecurityStamp, SecurityStamp);
             Assert.Throws<ArgumentNullException>(() => SecurityStamp = Store.GetSecurityStampAsync(null).Result);
         }
@@ -246,7 +246,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
             bool TwoFactorEnabled = false;
-            Assert.DoesNotThrow(() => TwoFactorEnabled = Store.GetTwoFactorEnabledAsync(TempUser).Result);
+            TwoFactorEnabled = Store.GetTwoFactorEnabledAsync(TempUser).Result;
             Assert.Equal(TempUser.TwoFactorEnabled, TwoFactorEnabled);
             Assert.Throws<ArgumentNullException>(() => TwoFactorEnabled = Store.GetTwoFactorEnabledAsync(null).Result);
         }
@@ -265,11 +265,11 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.AddClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait());
+            Store.AddClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait();
             Assert.Equal(1, TempUser.Claims.Count);
             Assert.Equal("Windows", TempUser.Claims[0].Value);
             Assert.Equal(ClaimTypes.AuthenticationMethod, TempUser.Claims[0].Type);
-            Assert.DoesNotThrow(() => Store.RemoveClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait());
+            Store.RemoveClaimAsync(TempUser, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait();
             Assert.Equal(0, TempUser.Claims.Count);
             Assert.Throws<ArgumentNullException>(() => Store.RemoveClaimAsync(TempUser, null).Wait());
             Assert.Throws<ArgumentNullException>(() => Store.RemoveClaimAsync(null, new Claim(ClaimTypes.AuthenticationMethod, "Windows")).Wait());
@@ -281,11 +281,11 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.AddLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait());
+            Store.AddLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait();
             Assert.Equal(1, TempUser.ExternalLogins.Count);
             Assert.Equal("Something", TempUser.ExternalLogins[0].LoginProvider);
             Assert.Equal("A Key", TempUser.ExternalLogins[0].ProviderKey);
-            Assert.DoesNotThrow(() => Store.RemoveLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait());
+            Store.RemoveLoginAsync(TempUser, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait();
             Assert.Equal(0, TempUser.ExternalLogins.Count);
             Assert.Throws<ArgumentNullException>(() => Store.RemoveLoginAsync(null, new Microsoft.AspNet.Identity.UserLoginInfo("Something", "A Key")).Wait());
             Assert.Throws<ArgumentNullException>(() => Store.RemoveLoginAsync(TempUser, null).Wait());
@@ -297,7 +297,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetEmailAsync(TempUser, "something2@somewhere.com").Wait());
+            Store.SetEmailAsync(TempUser, "something2@somewhere.com").Wait();
             Assert.Equal("something2@somewhere.com", TempUser.Email);
             Assert.Throws<ArgumentNullException>(() => Store.SetEmailAsync(null, "something2@somewhere.com").Wait());
             Assert.Throws<ArgumentNullException>(() => Store.SetEmailAsync(TempUser, null).Wait());
@@ -308,7 +308,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetEmailConfirmedAsync(TempUser, true).Wait());
+            Store.SetEmailConfirmedAsync(TempUser, true).Wait();
             Assert.True(TempUser.EmailConfirmed);
             Assert.Throws<ArgumentNullException>(() => Store.SetEmailConfirmedAsync(null, true).Wait());
         }
@@ -318,7 +318,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetPasswordHashAsync(TempUser, "ASDFGHIJKL").Wait());
+            Store.SetPasswordHashAsync(TempUser, "ASDFGHIJKL").Wait();
             Assert.Equal("ASDFGHIJKL", TempUser.PasswordHash);
             Assert.Throws<ArgumentNullException>(() => Store.SetPasswordHashAsync(null, "ASDFGHIJKL").Wait());
             Assert.Throws<ArgumentNullException>(() => Store.SetPasswordHashAsync(TempUser, null).Wait());
@@ -329,7 +329,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetPhoneNumberAsync(TempUser, "(555)555-1111").Wait());
+            Store.SetPhoneNumberAsync(TempUser, "(555)555-1111").Wait();
             Assert.Equal("(555)555-1111", TempUser.PhoneNumber);
             Assert.Throws<ArgumentNullException>(() => Store.SetPhoneNumberAsync(null, "(555)555-1111").Wait());
             Assert.Throws<ArgumentNullException>(() => Store.SetPhoneNumberAsync(TempUser, null).Wait());
@@ -340,7 +340,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetPhoneNumberConfirmedAsync(TempUser, true).Wait());
+            Store.SetPhoneNumberConfirmedAsync(TempUser, true).Wait();
             Assert.True(TempUser.PhoneConfirmed);
             Assert.Throws<ArgumentNullException>(() => Store.SetPhoneNumberConfirmedAsync(null, true).Wait());
         }
@@ -350,7 +350,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetSecurityStampAsync(TempUser, "ASDFGHIJKL").Wait());
+            Store.SetSecurityStampAsync(TempUser, "ASDFGHIJKL").Wait();
             Assert.Equal("ASDFGHIJKL", TempUser.SecurityStamp);
             Assert.Throws<ArgumentNullException>(() => Store.SetSecurityStampAsync(null, "ASDFGHIJKL").Wait());
             Assert.Throws<ArgumentNullException>(() => Store.SetSecurityStampAsync(TempUser, null).Wait());
@@ -361,7 +361,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
         {
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
-            Assert.DoesNotThrow(() => Store.SetTwoFactorEnabledAsync(TempUser, true).Wait());
+            Store.SetTwoFactorEnabledAsync(TempUser, true).Wait();
             Assert.True(TempUser.TwoFactorEnabled);
             Assert.Throws<ArgumentNullException>(() => Store.SetTwoFactorEnabledAsync(null, true).Wait());
         }
@@ -372,7 +372,7 @@ namespace Copernicus.Models.Tests.Authentication.Stores
             User TempUser = new User() { UserName = "TestUser", PasswordHash = Guid.NewGuid().ToString().Hash(), Email = "something@somewhere.com", PhoneNumber = "(555)555-5555", SecurityStamp = Guid.NewGuid().ToString().Hash() };
             TempUser.Save();
             TempUser.Email = "MyNewEmail@somewhere.com";
-            Assert.DoesNotThrow(() => Store.UpdateAsync(TempUser).Wait());
+            Store.UpdateAsync(TempUser).Wait();
             TempUser = User.Load(TempUser.ID);
             Assert.Equal("MyNewEmail@somewhere.com", TempUser.Email);
             Assert.Equal("TestUser", TempUser.UserName);

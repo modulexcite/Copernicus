@@ -35,7 +35,7 @@ namespace Copernicus.Core.Tests.Providers
         public void Creation()
         {
             var Context = new Dictionary<string, object>();
-            Assert.DoesNotThrow(() => { Copernicus.Core.Providers.WindowsPrincipalHandler Handlers = new Core.Providers.WindowsPrincipalHandler(x => Task.Run(() => { })); });
+            Copernicus.Core.Providers.WindowsPrincipalHandler Handlers = new Core.Providers.WindowsPrincipalHandler(x => Task.Run(() => { }));
         }
 
         [Fact]
