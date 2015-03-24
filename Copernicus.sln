@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus", "Copernicus\Copernicus.csproj", "{4C168E72-D5B2-4CCF-8B64-3338C8E01126}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8FAB730D-1BB5-4FF8-889C-E7297E85C99D}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Models", "Copernicus.Models\Copernicus.Models.csproj", "{451A3DEF-9F69-422A-AEAB-1A703D10894F}"
 EndProject

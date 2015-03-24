@@ -115,12 +115,13 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Ironman.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a2c78b2a5ccc5f05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ironman.Core.1.0.241-beta\lib\net40\Ironman.Core.dll</HintPath>
+      <HintPath>..\packages\Ironman.Core.1.0.243-beta\lib\net40\Ironman.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -170,8 +171,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Core, Version=2.8.50926.602, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -233,7 +235,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0f7489d08ad0bf67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CraigsUtilityLibrary.4.0.241-beta\lib\net40\Utilities.dll</HintPath>
+      <HintPath>..\packages\CraigsUtilityLibrary.4.0.243-beta\lib\net40\Utilities.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
