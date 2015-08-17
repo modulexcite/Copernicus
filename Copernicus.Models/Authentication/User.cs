@@ -19,15 +19,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+using Copernicus.Models.BaseClasses;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using Copernicus.Models.BaseClasses;
-using Microsoft.AspNet.Identity;
 using Utilities.ORM.Parameters;
 
 namespace Copernicus.Models.Authentication
@@ -70,6 +67,7 @@ namespace Copernicus.Models.Authentication
         /// <summary>
         /// ID
         /// </summary>
+        [CLSCompliant(false)]
         public virtual long Id { get { return this.ID; } }
 
         /// <summary>
